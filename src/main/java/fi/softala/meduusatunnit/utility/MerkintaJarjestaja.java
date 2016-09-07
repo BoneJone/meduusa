@@ -8,13 +8,14 @@ public class MerkintaJarjestaja implements Comparator<Merkinta> {
 
 	@Override
 	public int compare(Merkinta m1, Merkinta m2) {
-		int i = m1.getPaivamaara().compareTo(m2.getPaivamaara());
-		if (i == 0) {
-			i = -1;
+		if (m1.getPaivamaara().before(m2.getPaivamaara())) {
+			return 1;
 		}
-		else if (i == -1) {
-			i = 0;
+		else if (m1.getPaivamaara().after(m2.getPaivamaara())) {
+			return -1;
 		}
-		return i;
+		else {
+			return 0;
+		}
 	}
 }
