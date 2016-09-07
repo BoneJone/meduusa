@@ -1,0 +1,32 @@
+.center {
+	text-align: center;
+}
+
+.toppi {
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+
+.center {
+	text-align: center;
+}
+
+.left {
+	float: left;
+}
+
+.right {
+	float: right;
+}
+
+textarea {
+	resize: none;
+}
+
+a {
+	text-decoration: none;
+}
+
+table tr:last-child td {
+	border: none;
+}

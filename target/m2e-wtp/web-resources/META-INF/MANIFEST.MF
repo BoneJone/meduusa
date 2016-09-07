@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Implementation-Title: Meduusa tuntikirjaus
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: nicou
+Implementation-Vendor-Id: fi.softala.meduusatunnit
+Build-Jdk: 1.8.0_101
+Implementation-URL: http://projects.spring.io/spring-boot/meduusatunni
+ t/
+Created-By: Maven Integration for Eclipse
+Implementation-Vendor: Pivotal Software, Inc.
+
