@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Implementation-Title: Meduusa tuntikirjaus
 Implementation-Version: 0.0.1-SNAPSHOT
-Built-By: a1500955
+Built-By: a1500848
 Implementation-Vendor-Id: fi.softala.meduusatunnit
 Build-Jdk: 1.8.0_77
 Implementation-URL: http://projects.spring.io/spring-boot/meduusatunni

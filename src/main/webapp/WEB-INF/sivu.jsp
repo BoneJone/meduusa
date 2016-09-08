@@ -138,7 +138,7 @@ Mahdollisia syitä:<br>
 <h3>Tiimin kirjaamat tunnit</h3>
 <table class="u-full-width">
 <thead>
-<tr><th>Henkilö</th><th>Päivä</th><th>Tunnit</th><th>Kuvaus</th></tr>
+<tr><th>Henkilö</th><th>Päivä</th><th>Tunnit</th><th>Kuvaus</th><th>Poista</th></tr>
 </thead>
 <tbody>
 <c:forEach items="${merkinnat }" var="merkinta">
@@ -147,6 +147,7 @@ Mahdollisia syitä:<br>
 <td><fmt:formatDate value="${merkinta.paivamaara }" pattern="dd.MM.yyyy"/></td>
 <td><fmt:formatNumber type="number" maxFractionDigits="2" value="${merkinta.tunnit }"></fmt:formatNumber>h</td>
 <td><c:out value="${merkinta.kuvaus }"></c:out></td>
+<td><button type="submit">Poista tunnit</button></td>
 </tr>
 </c:forEach>
 <tr>
