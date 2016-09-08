@@ -39,7 +39,7 @@
 <!-- Div tittelille -->
 <div class="row toppi">
 <div class="twelve columns center">
-<h1>Meduusa tuntikirjausjärjestelmä</h1>
+<h1 lang="fi">Meduusa tuntikirjausjärjestelmä</h1>
 </div>
 </div>
 

@@ -30,3 +30,7 @@ a {
 table tr:last-child td {
 	border: none;
 }
+
+h1 {
+	hyphens: auto;
+}
