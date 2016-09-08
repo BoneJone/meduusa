@@ -87,71 +87,35 @@ public class Dao {
 		return kayttajat;
 	}
 	
-	public Kayttaja haeKayttaja(String id) {
-		Kayttaja kayttaja = null;
-
+	// Merkinnän poistaminen
+	public HashMap<String, String> poistaMerkinta(String id) {
+		HashMap<String, String> vastaus = new HashMap<>();
 		Yhteys yhteys = new Yhteys();
 		if (yhteys.getYhteys() == null) {
-			return kayttaja;
+			String virhe = "Tietokantayhteyttä ei saatu avattua";
+			vastaus.put("virhe", virhe);
+			return vastaus;
 		}
-		
-		Kysely kysely = new Kysely(yhteys.getYhteys());
-		
-		String sql = "SELECT Kayttaja.id AS kayttaja_id, Merkinta.id AS merkinta_id, sahkoposti, etunimi, sukunimi, paivamaara, tunnit, kuvaus FROM Merkinta JOIN Kayttaja ON Merkinta.kayttaja_id = Kayttaja.id WHERE Kayttaja.id = ? ORDER BY Merkinta.paivamaara DESC";
-		ArrayList<String> parametrit = new ArrayList<>();
+		Paivitys paivitys = new Paivitys(yhteys.getYhteys());
+
+		ArrayList<String> parametrit = new ArrayList<String>();
 		parametrit.add(id);
 		
-		kysely.suoritaYksiKyselyParam(sql, parametrit);
+		String sql = "DELETE FROM Merkinta WHERE id = ?";
 		
-		kysely.getTulokset();
-		Iterator iteraattori = kysely.getTulokset().iterator();
+		int onnistui = paivitys.suoritaSqlLauseParametreilla(sql, parametrit);
 
-		while (iteraattori.hasNext()) {
-			HashMap mappi = (HashMap) iteraattori.next();
-			
-			String kayttajaIdStr = (String) mappi.get("kayttaja_id");
-			String sahkoposti = (String) mappi.get("sahkoposti");
-			String etunimi = (String) mappi.get("etunimi");
-			String sukunimi = (String) mappi.get("sukunimi");
-			
-			String merkintaIdStr = (String) mappi.get("merkinta_id");
-			String paivaStr = (String) mappi.get("paivamaara");
-			String tunnitStr = (String) mappi.get("tunnit");
-			String kuvaus = (String) mappi.get("kuvaus");
-
-			double tunnit;
-			int kayttajaId;
-			int merkintaId;
-			String kokonimi = etunimi + " " + sukunimi;
-
-			try {;
-				tunnit = Double.valueOf(tunnitStr);
-				kayttajaId = Integer.valueOf(kayttajaIdStr);
-				merkintaId = Integer.valueOf(merkintaIdStr);
-				Date paivamaara = new Date(Timestamp.valueOf(paivaStr).getTime());
-				
-				Merkinta merkinta = new Merkinta(merkintaId, kokonimi, paivamaara, tunnit, kuvaus);
-				
-				if (kayttaja != null) {
-						kayttaja.getMerkinnat().add(merkinta);
-						kayttaja.setTunnitYhteensa(kayttaja.getTunnitYhteensa() + merkinta.getTunnit());
-					}
-				else {
-					ArrayList<Merkinta> kayttajanMerkinnat = new ArrayList<Merkinta>();
-					kayttajanMerkinnat.add(merkinta);
-					kayttaja = new Kayttaja(kayttajaId, sahkoposti, etunimi, sukunimi, kayttajanMerkinnat, merkinta.getTunnit());
-				}
-				
-			} catch (Exception ex) {
-				System.out.println("Virhe tietokantahakua parsiessa!");
-				return kayttaja;
-			}
+		if (onnistui > 0) {
+			String success = "Merkintä poistettu tietokannasta!";
+			vastaus.put("success", success);
+			yhteys.suljeYhteys();
+			return vastaus;
+		} else {
+			String virhe = "Merkinnän poistossa tapahtui virhe!";
+			vastaus.put("virhe", virhe);
+			yhteys.suljeYhteys();
+			return vastaus;
 		}
-
-		// Yhteyden sulkeminen
-		yhteys.suljeYhteys();
-		
-		return kayttaja;
 	}
 	
 	public HashMap<String, String> lisaaMerkinta(String kayttaja, double tunnit, String kuvaus) {

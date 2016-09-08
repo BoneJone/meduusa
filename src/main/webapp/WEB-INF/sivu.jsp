@@ -28,14 +28,18 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <title>Meduusa tuntikirjausjärjestelmä</title>
 <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="css/normalize.css">
-<link rel="stylesheet" href="css/skeleton.css">
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" type="text/css" href="css/normalize.css">
+<link rel="stylesheet" type="text/css" href="css/skeleton.css">
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+<script type="text/javascript" src="js/jquery.leanModal.min.js"></script>
 </head>
 <body>
 
 <!-- Container alkaa -->
 <div class="container">
+
 <!-- Div tittelille -->
 <div class="row toppi">
 <div class="twelve columns center">
@@ -138,7 +142,7 @@ Mahdollisia syitä:<br>
 <h3>Tiimin kirjaamat tunnit</h3>
 <table class="u-full-width">
 <thead>
-<tr><th>Henkilö</th><th>Päivä</th><th>Tunnit</th><th>Kuvaus</th><th>Poista</th></tr>
+<tr><th>Henkilö</th><th>Päivä</th><th>Tunnit</th><th>Kuvaus</th></tr>
 </thead>
 <tbody>
 <c:forEach items="${merkinnat }" var="merkinta">
@@ -147,7 +151,6 @@ Mahdollisia syitä:<br>
 <td><fmt:formatDate value="${merkinta.paivamaara }" pattern="dd.MM.yyyy"/></td>
 <td><fmt:formatNumber type="number" maxFractionDigits="2" value="${merkinta.tunnit }"></fmt:formatNumber>h</td>
 <td><c:out value="${merkinta.kuvaus }"></c:out></td>
-<td><button type="submit">Poista tunnit</button></td>
 </tr>
 </c:forEach>
 <tr>
@@ -162,7 +165,7 @@ Mahdollisia syitä:<br>
 <h3>Henkilön <strong><c:out value="${kayttaja.etunimi }"></c:out>&nbsp;<c:out value="${kayttaja.sukunimi }"></c:out></strong> merkinnät</h3>
 <table class="u-full-width">
 <thead>
-<tr><th>Päivä</th><th>Tunnit</th><th>Kuvaus</th></tr>
+<tr><th>Päivä</th><th>Tunnit</th><th>Kuvaus</th><th></th></tr>
 </thead>
 <tbody>
 <c:forEach items="${kayttaja.merkinnat }" var="merkinta">
@@ -170,6 +173,9 @@ Mahdollisia syitä:<br>
 <td><fmt:formatDate value="${merkinta.paivamaara }" pattern="dd.MM.yyyy"/></td>
 <td><fmt:formatNumber type="number" maxFractionDigits="2" value="${merkinta.tunnit }"></fmt:formatNumber>h</td>
 <td><c:out value="${merkinta.kuvaus }"></c:out></td>
+<td class="right-align">
+<a class="button poisto" href="#modali" onClick="poisto(<c:out value="${merkinta.id }"></c:out>)">Poista</a>
+</td>
 </tr>
 </c:forEach>
 <tr>
@@ -178,6 +184,25 @@ Mahdollisia syitä:<br>
 </tr>
 </tbody>
 </table>
+
+<!-- Modal poistojen vahvistukselle -->
+<div id="modali" class="center">
+<h4>Poistetaanko merkintä?</h4>
+Merkintä poistetaan tietokannasta lopullisesti.
+<br><br>
+<button onClick="suljeModal()" class="button left">Säilytä</button> <a id="poistonappi" href="" class="button button-primary right">Poista</a>
+</div>
+
+<script type="text/javascript">
+  $(".poisto").leanModal();
+  var poisto = function(id) {
+	  $("#poistonappi").attr("href", "kontrolleri?poista=" + id);
+  }
+  var suljeModal = function() {
+	  $("#lean_overlay").trigger("click");
+  }
+</script>
+
 </c:when>
 </c:choose>
 </div>
@@ -185,6 +210,5 @@ Mahdollisia syitä:<br>
 </div>
 <!-- Container loppuu -->
 </div>
-
 </body>
 </html>
