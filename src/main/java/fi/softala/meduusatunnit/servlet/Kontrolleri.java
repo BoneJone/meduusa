@@ -170,10 +170,10 @@ public class Kontrolleri extends HttpServlet {
 			int minuutitInt = Integer.parseInt(minuutit);
 			
 			// Tehdään pienimuotoinen validointi
-			if (tunnitInt > 0 && tunnitInt < 13 && minuutitInt >= 0 && minuutitInt < 60) {
+			if ((tunnitInt >= 0 && tunnitInt < 13 && minuutitInt >= 0 && minuutitInt < 60) && tunnitInt + minuutitInt > 0) {
 				// Lasketaan tuntimäärä tunneista ja minuuteista doubleksi
 				double tunnitYht = Double.valueOf(tunnitInt) + (Double.valueOf(minuutitInt) / 60);
-				
+
 				// Lähetetään pyyntö DAO-luokkaan
 				Dao dao = new Dao();
 				HashMap<String, String> vastaus = dao.lisaaMerkinta(nimi, tunnitYht, kuvaus);
@@ -194,6 +194,7 @@ public class Kontrolleri extends HttpServlet {
 					}
 					
 					naytaSivu(request, response, vastaus.get("success"), null);
+				
 				} else if (vastaus.containsKey("virhe")) {
 					System.out.println("Ei onnistunut - " + vastaus.get("virhe"));
 					naytaSivu(request, response, vastaus.get("virhe"), null);

@@ -27,13 +27,35 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <title>Meduusa tuntikirjausjärjestelmä</title>
-<link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+<!-- Fontit ja stylesheetit -->
+<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Raleway:400,300,600">
 <link rel="stylesheet" type="text/css" href="css/normalize.css">
 <link rel="stylesheet" type="text/css" href="css/skeleton.css">
 <link rel="stylesheet" type="text/css" href="css/style.css">
+<link rel="stylesheet" type="text/css" href="css/jquery.toast.min.css">
+<!-- jQuery, leanModal-kirjasto ja jQuery toast plugin -->
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
 <script type="text/javascript" src="js/jquery.leanModal.min.js"></script>
+<script type="text/javascript" src="js/jquery.toast.min.js"></script>
+<!-- jQuery toast pluginin konfiguraatio -->
+<script type="text/javascript">
+var ilmoitus = function(viesti, tyyppi) {
+	$.toast({
+		text: viesti,
+		heading: '<strong>Ilmoitus</strong>',
+		showHideTransition: 'fade',
+		allowToastClose: true,
+		hideAfter: 3000,
+		stack: 5,
+		position: 'top-right',
+		bgColor: '#1EAEDB',
+		textColor: '#FFF',
+		textAlign: 'left',
+		loader: false,
+		});
+	}
+</script>
 </head>
 <body>
 
@@ -77,7 +99,7 @@
 </tbody>
 </table>
 
-<c:if test="${not empty kayttaja }"><a class="button" href="<c:url value="/kontrolleri"/>">Näytä kaikki</a></c:if>
+<c:if test="${not empty kayttaja }"><a class="button" href="<c:url value="/kontrolleri"/>">Näytä kaikki</a><br><br></c:if>
 
 </div>
 <!-- Div tuntien lisäys formille -->
@@ -90,7 +112,8 @@
 <div class="six columns">
 <label for="tunnit">Käytetty aika</label>
 <select name="tunnit" id="tunnit" class="u-full-width">
-<option value="1">1 tunti</option>
+<option value="0">0 tuntia</option>
+<option value="1" selected="selected">1 tunti</option>
 <option value="2">2 tuntia</option>
 <option value="3">3 tuntia</option>
 <option value="4">4 tuntia</option>
@@ -210,5 +233,30 @@ Merkintä poistetaan tietokannasta lopullisesti.
 </div>
 <!-- Container loppuu -->
 </div>
+
+<c:if test="${not empty viesti }">
+<!-- Ghetto kikkailua jotta saadaan javascriptille value JSTL:llä -->
+<!-- Korvataan JSON:lla myöhemmin -->
+<div id="viestidiv" style="display: none;">
+<c:out value="${viesti }"></c:out>
+</div>
+<script type="text/javascript">
+ilmoitus($("#viestidiv").html(), "ding dong");
+</script>
+</c:if>
+
+<!-- Pieni javascripti estämään 0h merkkauksen frontendistä -->
+<script type="text/javascript">
+$("#tunnit").change(function() {
+	if (this.value == 0) {
+		$("#minuuutit option[value='15']").prop("selected", true);
+		$("#minuutit option[value='0']").remove();
+	}
+	else if ($("#minuutit option[value='0']").length < 1) {
+		$("#minuutit option:first").before('<option value="0">0 minuuttia</option>');
+	}
+});
+</script>
+
 </body>
 </html>
