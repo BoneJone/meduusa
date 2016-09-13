@@ -22,7 +22,7 @@ public class Yhteys {
 
 		try {
 			// Ajurin lataus SQLite
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("org.mariadb.jdbc.Driver");
 
 			// Yhteyden avaus
 			yhteys = DriverManager.getConnection(url, username, password);
