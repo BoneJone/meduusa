@@ -1,0 +1,41 @@
+<style>
+.paginaatio {
+	list-style-type: none;
+}
+
+.paginaatio ul {
+	display: inline-block;
+	padding: 15px;
+	width: 1.5em;
+	height: 1.5em;
+	text-align: center;
+	border-radius: 50%;
+	border: 1px solid #bbb;
+	color: #000;
+}
+
+.paginaatio ul:hover {
+	background: #eee;
+}
+
+.pagination-active {
+	background: #ccc;
+	border: none;
+	color: #FFF;
+}
+</style>
+
+
+<!-- Paginaatio -->
+
+<div class="row">
+<div class="twelve columns center">
+<li class="paginaatio">
+<a href="#"><ul>&lt;</ul></a>
+<a href="#"><ul class="pagination-active">1</ul></a>
+<a href="#"><ul>2</ul></a>
+<a href="#"><ul>3</ul></a>
+<a href="#"><ul>&gt;</ul></a>
+</li>
+</div>
+</div>
