@@ -14,7 +14,4 @@ public interface Kayttaja {
 	public abstract String getSukunimi();
 	public abstract void setSukunimi(String sukunimi);
 	
-	public abstract double getTunnitYhteensa();
-	public abstract void setTunnitYhteensa(double tunnitYhteensa);
-	
 }

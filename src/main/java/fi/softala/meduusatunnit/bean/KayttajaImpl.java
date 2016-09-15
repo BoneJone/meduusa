@@ -1,25 +1,23 @@
 package fi.softala.meduusatunnit.bean;
 
-public class KayttajaImpl implements Kayttaja{
+public class KayttajaImpl implements Kayttaja {
 
 	int id;
 	String sahkoposti;
 	String etunimi;
 	String sukunimi;
-	double tunnitYhteensa;
 
 	public KayttajaImpl() {
 		super();
 	}
 
-	public KayttajaImpl(int id, String sahkoposti, String etunimi, String sukunimi,
-			double tunnitYhteensa) {
+	public KayttajaImpl(int id, String sahkoposti, String etunimi,
+			String sukunimi) {
 		super();
 		this.id = id;
 		this.sahkoposti = sahkoposti;
 		this.etunimi = etunimi;
 		this.sukunimi = sukunimi;
-		this.tunnitYhteensa = tunnitYhteensa;
 	}
 
 	public int getId() {
@@ -54,22 +52,10 @@ public class KayttajaImpl implements Kayttaja{
 		this.sukunimi = sukunimi;
 	}
 
-
-	public double getTunnitYhteensa() {
-		return tunnitYhteensa;
-	}
-
-	public void setTunnitYhteensa(double tunnitYhteensa) {
-		this.tunnitYhteensa = tunnitYhteensa;
-	}
-
 	@Override
 	public String toString() {
 		return "KayttajaImpl [id=" + id + ", sahkoposti=" + sahkoposti
-				+ ", etunimi=" + etunimi + ", sukunimi=" + sukunimi
-				+ ", tunnitYhteensa=" + tunnitYhteensa + "]";
+				+ ", etunimi=" + etunimi + ", sukunimi=" + sukunimi + "]";
 	}
 
-
-	
 }
