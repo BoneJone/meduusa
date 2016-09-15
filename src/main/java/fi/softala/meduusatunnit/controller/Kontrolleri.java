@@ -2,6 +2,7 @@ package fi.softala.meduusatunnit.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -14,9 +15,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import fi.softala.meduusatunnit.bean.Kayttaja;
+import fi.softala.meduusatunnit.bean.KayttajaImpl;
 import fi.softala.meduusatunnit.bean.Merkinta;
+import fi.softala.meduusatunnit.bean.MerkintaImpl;
 import fi.softala.meduusatunnit.dao.Dao;
 import fi.softala.meduusatunnit.dao.MerkintaDAO;
+import fi.softala.meduusatunnit.utility.MerkintaJarjestaja;
 import fi.softala.meduusatunnit.utility.Slack;
 
 /**
@@ -61,17 +66,16 @@ public class Kontrolleri extends HttpServlet {
 			// jos on, niin yritetään poistaa sillä ID:llä merkintä kannasta
 			// Sen jälkeen näytetään sivu normaalisti
 			try {
-				Integer.valueOf(poistoParam);
-				Dao dao = new Dao();
-				//HashMap<String, String> vastaus = dao.poistaMerkinta(poistoParam);
-				HashMap<String, String> vastaus = new HashMap<String, String>();
-				if (vastaus.containsKey("success")) {
-					naytaSivu(request, response, vastaus.get("success"), null);
-				} else if (vastaus.containsKey("virhe")) {
-					naytaSivu(request, response, vastaus.get("virhe"), null);
+				int poistettava = Integer.valueOf(poistoParam);
+				int rivit = merkintaDao.poistaMerkinta(poistettava);
+				
+				if (rivit == 1) {
+					naytaSivu(request, response, "Merkintä poistettu onnistuneesti!", null);
+				} else if (rivit == 0) {
+					naytaSivu(request, response, "Merkintää poistaessa tapahtui virhe!", null);
 				}
 				else {
-					naytaSivu(request, response, null, null);
+					naytaSivu(request, response, "Merkintää poistaessa tapahtui jotain odottamatonta!", null);
 				}
 			} catch (Exception ex) {
 				System.out.println(ex);
@@ -97,7 +101,40 @@ public class Kontrolleri extends HttpServlet {
 		
 		// Kutsutaan DAO-luokkaa ja haetaan merkinnät
 		List<Merkinta> merkinnat = merkintaDao.haeKaikkiMerkinnat();
+		
 		String naytettavat = "kaikki";
+		
+		// Kikkaillaan totalit omaksi listaksi, joku muu saa miettiä tähän fiksumpaa tapaa
+		List<Merkinta> tiimintunnit = new ArrayList<>();
+		
+		for (int i = 0; i < merkinnat.size(); i++) {
+			
+			if (tiimintunnit.size() == 0) {
+				Merkinta merkinta = new MerkintaImpl();
+				merkinta.setKayttaja(merkinnat.get(i).getKayttaja());
+				merkinta.setTunnit(merkinnat.get(i).getTunnit());
+				tiimintunnit.add(merkinta);
+			}
+			else {
+				boolean loytyi = false;
+				for (int j = 0; j < tiimintunnit.size(); j++) {
+					if (merkinnat.get(i).getKayttaja().getId() == tiimintunnit.get(j).getKayttaja().getId()) {
+						tiimintunnit.get(j).setTunnit(tiimintunnit.get(j).getTunnit() + merkinnat.get(i).getTunnit());
+						j = tiimintunnit.size();
+						loytyi = true;
+					}
+				}
+				if (!loytyi) {
+					Merkinta merkinta = new MerkintaImpl();
+					merkinta.setKayttaja(merkinnat.get(i).getKayttaja());
+					merkinta.setTunnit(merkinnat.get(i).getTunnit());
+					tiimintunnit.add(merkinta);
+				}
+			}
+		}
+		
+		// Järjestetään tiimin tunnit suurimmasta määrästä pienimpään
+		Collections.sort(tiimintunnit, new MerkintaJarjestaja());
 		
 		// Jos on saatu doGet-metodilta id-parametri, katsotaan löytyykö vastaavaa
 		// id:tä käyttäjälistalta
@@ -117,6 +154,7 @@ public class Kontrolleri extends HttpServlet {
 		}
 		
 		request.setAttribute("merkinnat", merkinnat);
+		request.setAttribute("tiimintunnit", tiimintunnit);
 		request.setAttribute("naytettavat", naytettavat);
 		
 		// Request dispatcher
@@ -144,14 +182,20 @@ public class Kontrolleri extends HttpServlet {
 			if ((tunnitInt >= 0 && tunnitInt < 13 && minuutitInt >= 0 && minuutitInt < 60) && tunnitInt + minuutitInt > 0) {
 				// Lasketaan tuntimäärä tunneista ja minuuteista doubleksi
 				double tunnitYht = Double.valueOf(tunnitInt) + (Double.valueOf(minuutitInt) / 60);
+				
+				// Muodostetaan olio
+				Merkinta merkinta = new MerkintaImpl();
+				Kayttaja kayttaja = new KayttajaImpl();
+				kayttaja.setSahkoposti(nimi);
+				merkinta.setKayttaja(kayttaja);
+				merkinta.setTunnit(tunnitYht);
+				merkinta.setKuvaus(kuvaus);
 
 				// Lähetetään pyyntö DAO-luokkaan
-				Dao dao = new Dao();
-				//HashMap<String, String> vastaus = dao.lisaaMerkinta(nimi, tunnitYht, kuvaus);
-				HashMap<String, String> vastaus = new HashMap<String, String>();
+				int rivit = merkintaDao.tallennaMerkinta(merkinta);
 				
 				// Katsotaan vastaus, näytetään sen mukaan sivulla viesti
-				if (vastaus.containsKey("success")) {
+				if (rivit == 1) {
 					System.out.println("Onnistui!");
 					
 					// Jos Slack-checkbox valittu niin viesti Slackiin
@@ -165,21 +209,21 @@ public class Kontrolleri extends HttpServlet {
 					slackbot.lahetaViesti(slackviesti);
 					}
 					
-					naytaSivu(request, response, vastaus.get("success"), null);
+					naytaSivu(request, response, "Merkintä tallennettu onnistuneesti!", null);
 				
-				} else if (vastaus.containsKey("virhe")) {
-					System.out.println("Ei onnistunut - " + vastaus.get("virhe"));
-					naytaSivu(request, response, vastaus.get("virhe"), null);
+				} else if (rivit == 0) {
+					System.out.println("Ei onnistunut - rivit = " + rivit);
+					naytaSivu(request, response, "Merkintää tallentaessa tapahtui virhe!", null);
 				}
 				else {
-					naytaSivu(request, response, "Jotain outoa tapahtui", null);
+					naytaSivu(request, response, "Merkintää tallentaessa tapahtui ODOTTAMATON virhe!", null);
 				}
 			} else {
-				naytaSivu(request, response, "Tuntien määrä oltava 1-12h", null);
+				naytaSivu(request, response, "Virhe! Tuntien määrä oltava 1-12h", null);
 			}
 			
 		} catch (Exception ex) {
-			System.out.println("Errori");
+			System.out.println("Errori: " + ex);
 		}
 		
 	}

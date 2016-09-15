@@ -2,6 +2,7 @@ package fi.softala.meduusatunnit.dao;
 
 import java.util.List;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -28,10 +29,18 @@ public class MerkintaDAOSpringJdbcImpl implements MerkintaDAO {
 		return merkinnat;
 	}
 
-	public void tallennaMerkinta(Merkinta merkinta) {
-		String sql = "INSERT INTO Merkinta (kayttaja_id, tunnit, kuvaus) VALUES((SELECT id FROM Kayttaja WHERE sahkoposti = ?), ?, ?)";
-		Object[] parametrit = { merkinta.getKayttaja().getId(), merkinta.getTunnit(), merkinta.getKuvaus() };
-		jdbcTemplate.update(sql, parametrit);
+	public int tallennaMerkinta(Merkinta merkinta) {
+		String sql = "SELECT id FROM Kayttaja WHERE sahkoposti = ?";
+		String kayttaja;
+		try {
+		kayttaja = jdbcTemplate.queryForObject(sql, new Object[] { merkinta.getKayttaja().getSahkoposti() }, String.class);
+		} catch (EmptyResultDataAccessException ex) {
+			return 0;
+		}
+		sql = "INSERT INTO Merkinta (kayttaja_id, tunnit, kuvaus) VALUES(?, ?, ?)";
+		Object[] parametrit = { kayttaja, merkinta.getTunnit(), merkinta.getKuvaus() };
+		int rivit = jdbcTemplate.update(sql, parametrit);
+		return rivit;
 	}
 
 	public List<Merkinta> haeYhdenKayttajanMerkinnat(int kayttajaId) {
@@ -43,9 +52,10 @@ public class MerkintaDAOSpringJdbcImpl implements MerkintaDAO {
 		return merkinnat;
 	}
 
-	public void poistaMerkinta(int merkintaId) {
+	public int poistaMerkinta(int merkintaId) {
 		String sql = "DELETE FROM Merkinta WHERE id = ?";
 		Object[] parametrit = { merkintaId };
-		jdbcTemplate.update(sql, parametrit);
+		int rivit = jdbcTemplate.update(sql, parametrit);
+		return rivit;
 	}
 }

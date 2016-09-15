@@ -74,9 +74,6 @@ var ilmoitus = function(viesti, tyyppi) {
 <div class="row">
 <div class="eight columns">
 <h3>Tiimin jäsenet</h3>
-Tähän yhteismäärät käytetyistä tunneista henkilöittäin. Pois käytöstä kunnes toteutetaan tähän uuteen ratkaisuun.
-<c:if test="${not empty mahdotonEhto }">
-<h3>Tiimin jäsenet</h3>
 <table class="u-full-width">
 <thead>
 <tr>
@@ -84,15 +81,15 @@ Tähän yhteismäärät käytetyistä tunneista henkilöittäin. Pois käytöstä kunnes tot
 </tr>
 </thead>
 <tbody>
-<c:forEach items="${kayttajat }" var="kayttaja">
-<c:set var="yhteistunnit" value="${yhteistunnit + kayttaja.tunnitYhteensa }"></c:set>
+<c:forEach items="${tiimintunnit }" var="merkinta">
+<c:set var="yhteistunnit" value="${yhteistunnit + merkinta.tunnit }"></c:set>
 <tr>
 <td>
-<a href="<c:url value="/kontrolleri"><c:param name="kayttaja" value="${kayttaja.id }"/></c:url>">
-<c:out value="${kayttaja.etunimi }"></c:out>&nbsp;<c:out value="${kayttaja.sukunimi }"></c:out>
+<a href="<c:url value="/kontrolleri"><c:param name="kayttaja" value="${merkinta.kayttaja.id }"/></c:url>">
+<c:out value="${merkinta.kayttaja.etunimi }"></c:out>&nbsp;<c:out value="${merkinta.kayttaja.sukunimi }"></c:out>
 </a>
 </td>
-<td><fmt:formatNumber type="number" maxFractionDigits="2" value="${kayttaja.tunnitYhteensa }"></fmt:formatNumber>h</td>
+<td><fmt:formatNumber type="number" maxFractionDigits="2" value="${merkinta.tunnit }"></fmt:formatNumber>h</td>
 </tr>
 </c:forEach>
 <tr>
@@ -101,7 +98,6 @@ Tähän yhteismäärät käytetyistä tunneista henkilöittäin. Pois käytöstä kunnes tot
 </tr>
 </tbody>
 </table>
-</c:if>
 
 <c:if test="${not empty naytettavat && naytettavat == 'kayttaja' }"><a class="button" href="<c:url value="/kontrolleri"/>">Näytä kaikki</a><br><br></c:if>
 
@@ -166,6 +162,7 @@ Mahdollisia syitä:<br>
 </ul>
 </c:when>
 <c:when test="${not empty merkinnat && not empty naytettavat && naytettavat == 'kaikki' }">
+<c:set var="yhteistunnit" value="0"></c:set>
 <h3>Tiimin kirjaamat tunnit</h3>
 <table class="u-full-width">
 <thead>
@@ -190,7 +187,8 @@ Mahdollisia syitä:<br>
 </table>
 </c:when>
 <c:when test="${not empty merkinnat && not empty naytettavat && naytettavat == 'kayttaja' }">
-<h3>Henkilön <strong><c:out value="${kayttaja.etunimi }"></c:out>&nbsp;<c:out value="${kayttaja.sukunimi }"></c:out></strong> merkinnät</h3>
+<c:set var="yhteistunnit" value="0"></c:set>
+<h3>Henkilön <strong><c:out value="${merkinnat[0].kayttaja.etunimi }"></c:out>&nbsp;<c:out value="${merkinnat[0].kayttaja.sukunimi }"></c:out></strong> merkinnät</h3>
 <table class="u-full-width">
 <thead>
 <tr><th>Päivä</th><th>Tunnit</th><th>Kuvaus</th><th></th></tr>
@@ -205,10 +203,11 @@ Mahdollisia syitä:<br>
 <a class="button poisto" href="#modali" onClick="poisto(<c:out value="${merkinta.id }"></c:out>)">Poista</a>
 </td>
 </tr>
+<c:set var="yhteistunnit" value="${yhteistunnit + merkinta.tunnit }"></c:set>
 </c:forEach>
 <tr>
 <td></td>
-<td colspan="2"><strong><fmt:formatNumber type="number" maxFractionDigits="2" value="${kayttaja.tunnitYhteensa }"></fmt:formatNumber>h yhteensä</strong></td>
+<td colspan="2"><strong><fmt:formatNumber type="number" maxFractionDigits="2" value="${yhteistunnit }"></fmt:formatNumber>h yhteensä</strong></td>
 </tr>
 </tbody>
 </table>
