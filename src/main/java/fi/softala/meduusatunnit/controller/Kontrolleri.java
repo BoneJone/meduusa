@@ -1,4 +1,4 @@
-package fi.softala.meduusatunnit.servlet;
+package fi.softala.meduusatunnit.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;

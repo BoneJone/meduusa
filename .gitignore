@@ -4,3 +4,4 @@ target/*
 .project
 .metadata
 local.properties
+/target/
