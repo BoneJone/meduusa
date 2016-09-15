@@ -70,8 +70,12 @@ var ilmoitus = function(viesti, tyyppi) {
 </div>
 
 <!-- Yhteenveto/lisäysrivi alkaa -->
+<c:set var="yhteistunnit" value="0"></c:set>
 <div class="row">
 <div class="eight columns">
+<h3>Tiimin jäsenet</h3>
+Tähän yhteismäärät käytetyistä tunneista henkilöittäin. Pois käytöstä kunnes toteutetaan tähän uuteen ratkaisuun.
+<c:if test="${not empty mahdotonEhto }">
 <h3>Tiimin jäsenet</h3>
 <table class="u-full-width">
 <thead>
@@ -80,7 +84,6 @@ var ilmoitus = function(viesti, tyyppi) {
 </tr>
 </thead>
 <tbody>
-<c:set var="yhteistunnit" value="0"></c:set>
 <c:forEach items="${kayttajat }" var="kayttaja">
 <c:set var="yhteistunnit" value="${yhteistunnit + kayttaja.tunnitYhteensa }"></c:set>
 <tr>
@@ -98,8 +101,9 @@ var ilmoitus = function(viesti, tyyppi) {
 </tr>
 </tbody>
 </table>
+</c:if>
 
-<c:if test="${not empty kayttaja }"><a class="button" href="<c:url value="/kontrolleri"/>">Näytä kaikki</a><br><br></c:if>
+<c:if test="${not empty naytettavat && naytettavat == 'kayttaja' }"><a class="button" href="<c:url value="/kontrolleri"/>">Näytä kaikki</a><br><br></c:if>
 
 </div>
 <!-- Div tuntien lisäys formille -->
@@ -152,7 +156,7 @@ var ilmoitus = function(viesti, tyyppi) {
 <!-- Div lisättyjen tuntien näytölle -->
 <div class="twelve columns">
 <c:choose>
-<c:when test="${empty merkinnat && empty kayttaja }">
+<c:when test="${empty merkinnat }">
 <h3>Kirjattuja tunteja ei saatu haettua</h3>
 Mahdollisia syitä:<br>
 <ul>
@@ -161,7 +165,7 @@ Mahdollisia syitä:<br>
 <li>Tietokannassa on muuta vikaa</li>
 </ul>
 </c:when>
-<c:when test="${not empty merkinnat }">
+<c:when test="${not empty merkinnat && not empty naytettavat && naytettavat == 'kaikki' }">
 <h3>Tiimin kirjaamat tunnit</h3>
 <table class="u-full-width">
 <thead>
@@ -170,11 +174,12 @@ Mahdollisia syitä:<br>
 <tbody>
 <c:forEach items="${merkinnat }" var="merkinta">
 <tr>
-<td><c:out value="${merkinta.kayttajanNimi }" /></td>
+<td><c:out value="${merkinta.kayttaja.etunimi }" />&nbsp;<c:out value="${merkinta.kayttaja.sukunimi }" /></td>
 <td><fmt:formatDate value="${merkinta.paivamaara }" pattern="dd.MM.yyyy"/></td>
 <td><fmt:formatNumber type="number" maxFractionDigits="2" value="${merkinta.tunnit }"></fmt:formatNumber>h</td>
 <td><c:out value="${merkinta.kuvaus }"></c:out></td>
 </tr>
+<c:set var="yhteistunnit" value="${yhteistunnit + merkinta.tunnit }"></c:set>
 </c:forEach>
 <tr>
 <td></td>
@@ -184,14 +189,14 @@ Mahdollisia syitä:<br>
 </tbody>
 </table>
 </c:when>
-<c:when test="${not empty kayttaja }">
+<c:when test="${not empty merkinnat && not empty naytettavat && naytettavat == 'kayttaja' }">
 <h3>Henkilön <strong><c:out value="${kayttaja.etunimi }"></c:out>&nbsp;<c:out value="${kayttaja.sukunimi }"></c:out></strong> merkinnät</h3>
 <table class="u-full-width">
 <thead>
 <tr><th>Päivä</th><th>Tunnit</th><th>Kuvaus</th><th></th></tr>
 </thead>
 <tbody>
-<c:forEach items="${kayttaja.merkinnat }" var="merkinta">
+<c:forEach items="${merkinnat }" var="merkinta">
 <tr>
 <td><fmt:formatDate value="${merkinta.paivamaara }" pattern="dd.MM.yyyy"/></td>
 <td><fmt:formatNumber type="number" maxFractionDigits="2" value="${merkinta.tunnit }"></fmt:formatNumber>h</td>

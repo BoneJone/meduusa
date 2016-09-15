@@ -2,8 +2,8 @@ package fi.softala.meduusatunnit.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,11 +12,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import fi.softala.meduusatunnit.bean.Kayttaja;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import fi.softala.meduusatunnit.bean.Merkinta;
 import fi.softala.meduusatunnit.dao.Dao;
-import fi.softala.meduusatunnit.utility.KayttajaJarjestaja;
-import fi.softala.meduusatunnit.utility.MerkintaJarjestaja;
+import fi.softala.meduusatunnit.dao.MerkintaDAO;
 import fi.softala.meduusatunnit.utility.Slack;
 
 /**
@@ -32,6 +32,9 @@ public class Kontrolleri extends HttpServlet {
     public Kontrolleri() {
         // TODO Auto-generated constructor stub
     }
+    
+	ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
+	private MerkintaDAO merkintaDao = (MerkintaDAO) context.getBean("daoLuokka");
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -60,7 +63,8 @@ public class Kontrolleri extends HttpServlet {
 			try {
 				Integer.valueOf(poistoParam);
 				Dao dao = new Dao();
-				HashMap<String, String> vastaus = dao.poistaMerkinta(poistoParam);
+				//HashMap<String, String> vastaus = dao.poistaMerkinta(poistoParam);
+				HashMap<String, String> vastaus = new HashMap<String, String>();
 				if (vastaus.containsKey("success")) {
 					naytaSivu(request, response, vastaus.get("success"), null);
 				} else if (vastaus.containsKey("virhe")) {
@@ -79,35 +83,6 @@ public class Kontrolleri extends HttpServlet {
 		}
 	}
 	
-	// Käydään läpi kaikki tietokannasta haetut käyttäjät ja palautetaan vastauksena
-	// yksi ArrayList josta löytyy kaikkien käyttäjien merkinnät
-	public ArrayList<Merkinta> haeMerkinnat(ArrayList<Kayttaja> kayttajat) {
-		ArrayList<Merkinta> merkinnat = new ArrayList<Merkinta>();
-		for (int i = 0; i < kayttajat.size(); i++) {
-			try {
-			for (int j = 0; j < kayttajat.get(i).getMerkinnat().size(); j++) {
-				merkinnat.add(kayttajat.get(i).getMerkinnat().get(j));
-			}
-			} catch (Exception ex) {
-				System.out.println("Virhe haeMerkinnassa: " + ex);
-			}
-		}
-		
-		// Järjestetään merkinnät päivämäärän mukaan
-		Collections.sort(merkinnat, new MerkintaJarjestaja());
-		return merkinnat;
-	}
-	
-	// Kutsuu DAO-luokkaa, joka hakee tietokannasta käyttäjätiedot ja merkinnät
-	public ArrayList<Kayttaja> haeKayttajat() {
-		Dao dao = new Dao();
-		ArrayList<Kayttaja> kayttajat = dao.haeKayttajat();
-		
-		// Järjestetään käyttäjät isoimman tuntimäärän mukaan
-		Collections.sort(kayttajat, new KayttajaJarjestaja());
-		return kayttajat;
-	}
-	
 	// Metodi varsinaisen sivun näyttöön
 	protected void naytaSivu(HttpServletRequest request, HttpServletResponse response, String viesti, String id) throws ServletException, IOException {
 		// Asetetaan enkoodaus UTF-8
@@ -120,33 +95,29 @@ public class Kontrolleri extends HttpServlet {
 			request.setAttribute("viesti", viesti);
 		}
 		
-		// Kutsutaan DAO-luokkaa ja haetaan käyttäjät merkintöineen
-		ArrayList<Kayttaja> kayttajat = haeKayttajat();
-		
-		// Alustetaan tyhjä kayttaja-olio
-		Kayttaja kayttaja = null;
+		// Kutsutaan DAO-luokkaa ja haetaan merkinnät
+		List<Merkinta> merkinnat = merkintaDao.haeKaikkiMerkinnat();
+		String naytettavat = "kaikki";
 		
 		// Jos on saatu doGet-metodilta id-parametri, katsotaan löytyykö vastaavaa
 		// id:tä käyttäjälistalta
 		if (id != null) {
-			for (int i = 0; i < kayttajat.size(); i++) {
-				if (String.valueOf(kayttajat.get(i).getId()).equals(id)) {
-					kayttaja = kayttajat.get(i);
-					request.setAttribute("kayttaja", kayttaja);
-					i = kayttajat.size();
+			List<Merkinta> kayttajanMerkinnat = new ArrayList<Merkinta>();
+			
+			for (int i = 0; i < merkinnat.size(); i++) {
+				if (String.valueOf(merkinnat.get(i).getKayttaja().getId()).equals(id)) {
+					kayttajanMerkinnat.add(merkinnat.get(i));
 				}
+			}
+			
+			if (kayttajanMerkinnat.size() > 0) {
+				merkinnat = kayttajanMerkinnat;
+				naytettavat = "kayttaja";
 			}
 		}
 		
-		// Haetaan kaikkien käyttäjien merkinnät mikäli ID:tä ei oltu määritelty
-		// tai sitä ei löytynyt
-		if (kayttajat.size() > 0 && kayttaja == null) {
-			ArrayList<Merkinta> merkinnat = haeMerkinnat(kayttajat);
-			request.setAttribute("merkinnat", merkinnat);
-		}
-		
-		// Attribuuttien asetus
-		request.setAttribute("kayttajat", kayttajat);
+		request.setAttribute("merkinnat", merkinnat);
+		request.setAttribute("naytettavat", naytettavat);
 		
 		// Request dispatcher
 		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/sivu.jsp");
@@ -176,7 +147,8 @@ public class Kontrolleri extends HttpServlet {
 
 				// Lähetetään pyyntö DAO-luokkaan
 				Dao dao = new Dao();
-				HashMap<String, String> vastaus = dao.lisaaMerkinta(nimi, tunnitYht, kuvaus);
+				//HashMap<String, String> vastaus = dao.lisaaMerkinta(nimi, tunnitYht, kuvaus);
+				HashMap<String, String> vastaus = new HashMap<String, String>();
 				
 				// Katsotaan vastaus, näytetään sen mukaan sivulla viesti
 				if (vastaus.containsKey("success")) {
