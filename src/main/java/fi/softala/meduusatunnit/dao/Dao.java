@@ -13,7 +13,7 @@ import fi.softala.meduusatunnit.dao.Paivitys;
 import fi.softala.meduusatunnit.dao.Yhteys;
 
 public class Dao {
-	
+	/*
 	public ArrayList<Kayttaja> haeKayttajat() {
 		ArrayList<Kayttaja> kayttajat = new ArrayList<Kayttaja>();
 
@@ -161,5 +161,5 @@ public class Dao {
 		}
 
 	}
-
+*/
 }
