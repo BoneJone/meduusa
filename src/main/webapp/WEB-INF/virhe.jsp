@@ -12,9 +12,9 @@
 <!-- Fontit ja stylesheetit -->
 <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Raleway:400,300,600">
 <link rel="stylesheet" type="text/css" href="css/normalize.css">
-<link rel="stylesheet" type="text/css" href="css/skeleton.css">
-<link rel="stylesheet" type="text/css" href="css/style.css">
-<link rel="stylesheet" type="text/css" href="css/jquery.toast.min.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/skeleton.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/jquery.toast.min.css">
 </head>
 <body>
 <!-- container alkaa -->
@@ -23,8 +23,9 @@
 <!-- virhe ilmoitus div -->
 <div class="row virhe">
 <div class="twelve columns center">
-<h1 lang="fi">Tapahtui virhe 404</h1>
-<a class="button button-primary" href="<c:url value="kontrolleri"/>">Etusivulle</a>
+<h1 lang="fi">404 - Sivua ei löydy</h1>
+<br><br>
+<a class="button button-primary" href="<c:url value="/"/>">Palaa etusivulle</a>
 </div>
 </div>
 
