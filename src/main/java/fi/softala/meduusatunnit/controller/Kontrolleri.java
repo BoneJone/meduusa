@@ -3,7 +3,6 @@ package fi.softala.meduusatunnit.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -19,7 +18,6 @@ import fi.softala.meduusatunnit.bean.Kayttaja;
 import fi.softala.meduusatunnit.bean.KayttajaImpl;
 import fi.softala.meduusatunnit.bean.Merkinta;
 import fi.softala.meduusatunnit.bean.MerkintaImpl;
-import fi.softala.meduusatunnit.dao.Dao;
 import fi.softala.meduusatunnit.dao.MerkintaDAO;
 import fi.softala.meduusatunnit.utility.MerkintaJarjestaja;
 import fi.softala.meduusatunnit.utility.Slack;

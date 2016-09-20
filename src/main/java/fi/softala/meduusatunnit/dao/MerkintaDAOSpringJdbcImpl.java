@@ -48,7 +48,7 @@ public class MerkintaDAOSpringJdbcImpl implements MerkintaDAO {
 		Object[] parametrit = { kayttajaId };
 		RowMapper<Merkinta> mapper = new MerkintaRowMapper();
 
-		List<Merkinta> merkinnat = jdbcTemplate.query(sql, mapper);
+		List<Merkinta> merkinnat = jdbcTemplate.query(sql, parametrit, mapper);
 		return merkinnat;
 	}
 
