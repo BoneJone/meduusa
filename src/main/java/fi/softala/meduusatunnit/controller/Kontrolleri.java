@@ -12,8 +12,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import org.slf4j.Logger;
 import fi.softala.meduusatunnit.bean.Kayttaja;
 import fi.softala.meduusatunnit.bean.KayttajaImpl;
 import fi.softala.meduusatunnit.bean.Merkinta;
@@ -28,6 +30,8 @@ import fi.softala.meduusatunnit.utility.Slack;
 @WebServlet(name = "kontrolleri", urlPatterns = { "/kontrolleri" })
 public class Kontrolleri extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+
+	final static Logger logger = LoggerFactory.getLogger(Kontrolleri.class);
 
     /**
      * Default constructor. 
@@ -55,7 +59,7 @@ public class Kontrolleri extends HttpServlet {
 				Integer.valueOf(kayttajaParam);
 				naytaSivu(request, response, null, kayttajaParam);
 			} catch (Exception ex) {
-				System.out.println(ex);
+				logger.debug("Tapahtui exception", ex);
 				naytaSivu(request, response, null, null);
 			}
 		}
@@ -76,7 +80,7 @@ public class Kontrolleri extends HttpServlet {
 					naytaSivu(request, response, "Merkintää poistaessa tapahtui jotain odottamatonta!", null);
 				}
 			} catch (Exception ex) {
-				System.out.println(ex);
+				logger.debug("Tapahtui exception", ex);
 				naytaSivu(request, response, null, null);
 			}
 		}
@@ -194,7 +198,7 @@ public class Kontrolleri extends HttpServlet {
 				
 				// Katsotaan vastaus, näytetään sen mukaan sivulla viesti
 				if (rivit == 1) {
-					System.out.println("Onnistui!");
+					logger.info("Onnistui!");
 					
 					// Jos Slack-checkbox valittu niin viesti Slackiin
 					if (slack != null && slack[0] != null && slack[0].equals("yes")) {
@@ -210,7 +214,7 @@ public class Kontrolleri extends HttpServlet {
 					naytaSivu(request, response, "Merkintä tallennettu onnistuneesti!", null);
 				
 				} else if (rivit == 0) {
-					System.out.println("Ei onnistunut - rivit = " + rivit);
+					logger.debug("Ei onnistunut - rivit = " + rivit);
 					naytaSivu(request, response, "Merkintää tallentaessa tapahtui virhe!", null);
 				}
 				else {
@@ -221,7 +225,7 @@ public class Kontrolleri extends HttpServlet {
 			}
 			
 		} catch (Exception ex) {
-			System.out.println("Errori: " + ex);
+			logger.debug("Errori: " + ex);
 		}
 		
 	}

@@ -8,7 +8,12 @@ import java.nio.charset.StandardCharsets;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class Slack {
+	
+	final static Logger logger = LoggerFactory.getLogger(Slack.class);
 	
 	public void lahetaViesti(String viesti) {
 		
@@ -36,15 +41,17 @@ public class Slack {
 		DataOutputStream outputstream = new DataOutputStream(yhteys.getOutputStream());
 		outputstream.write(postParametrit);
 		int vastauskoodi = yhteys.getResponseCode();
-		System.out.println(vastauskoodi);
+
+		logger.debug("Vastauskoodi", vastauskoodi);
+
 		BufferedReader vastausreader = new BufferedReader(new InputStreamReader(yhteys.getInputStream()));
 		String vastaus;
 		while ((vastaus = vastausreader.readLine()) != null) {
-			System.out.println(vastaus);
+			logger.info("Vastauskoodi", vastaus);
 		}
 		vastausreader.close();
 		} catch (Exception ex) {
-			System.out.println("Virhe Slack-viestiä lähettäessä: " + ex);
+			logger.debug("Virhe Slack-viestiä lähettäessä: " + ex);
 		}
 	}
 
