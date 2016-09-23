@@ -196,9 +196,11 @@ Mahdollisia syitä:<br>
   <div id="myDiv" style="width: 1000px; height: 400px;"><!-- Plotly chart will be drawn inside this DIV --></div>
   <script>
    var trace1 = {
-		    x: [<c:forEach items="${merkinnat }" var="merkinta">'<fmt:formatDate value="${merkinta.paivamaara }" pattern="HH.mm dd.MM.yyyy"/>', </c:forEach>],
+		    x: [<c:forEach items="${merkinnat }" var="merkinta">'<fmt:formatDate value="${merkinta.paivamaara }" pattern="dd.MM.yyyy HH.mm"/>', </c:forEach>],
 		    y: [<c:forEach items="${merkinnat }" var="merkinta"><fmt:formatNumber type="number" maxFractionDigits="2" value="${merkinta.tunnit }"></fmt:formatNumber>, </c:forEach>],
+
 		    type: 'bar',
+		    hoverinfo: 'none'
 		};
 
 		var data = [trace1];
@@ -209,12 +211,12 @@ Mahdollisia syitä:<br>
 		        title: 'Tunnit'
 		    },
 	    	xaxis: {
-	            autorange: 'reversed'
+	            autorange: 'reversed'          
 	    	},
 	    	font: {
 	    	    family: "Courier New, monospace",
-	    	    size: 8,
-	    	  }
+	    	    size: 10,
+	    	  },
 		};
 
 		Plotly.newPlot('myDiv', data, layout, {displayModeBar: false}, {displaylogo: false});
