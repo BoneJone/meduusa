@@ -21,6 +21,8 @@
 -->
 <html>
 <head>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -162,6 +164,7 @@ Mahdollisia syitä:<br>
 </ul>
 </c:when>
 <c:when test="${not empty merkinnat && not empty naytettavat && naytettavat == 'kaikki' }">
+
 <c:set var="yhteistunnit" value="0"></c:set>
 <h3>Tiimin kirjaamat tunnit</h3>
 <table class="u-full-width">
@@ -185,10 +188,38 @@ Mahdollisia syitä:<br>
 </tr>
 </tbody>
 </table>
+
 </c:when>
 <c:when test="${not empty merkinnat && not empty naytettavat && naytettavat == 'kayttaja' }">
 <c:set var="yhteistunnit" value="0"></c:set>
 <h3>Henkilön <strong><c:out value="${merkinnat[0].kayttaja.etunimi }"></c:out>&nbsp;<c:out value="${merkinnat[0].kayttaja.sukunimi }"></c:out></strong> merkinnät</h3>
+  <div id="myDiv" style="width: 1000px; height: 400px;"><!-- Plotly chart will be drawn inside this DIV --></div>
+  <script>
+   var trace1 = {
+		    x: [<c:forEach items="${merkinnat }" var="merkinta">'<fmt:formatDate value="${merkinta.paivamaara }" pattern="HH.mm dd.MM.yyyy"/>', </c:forEach>],
+		    y: [<c:forEach items="${merkinnat }" var="merkinta"><fmt:formatNumber type="number" maxFractionDigits="2" value="${merkinta.tunnit }"></fmt:formatNumber>, </c:forEach>],
+		    type: 'bar',
+		};
+
+		var data = [trace1];
+
+		var layout = {
+		    showlegend: false,
+		    yaxis: {
+		        title: 'Tunnit'
+		    },
+	    	xaxis: {
+	            autorange: 'reversed'
+	    	},
+	    	font: {
+	    	    family: "Courier New, monospace",
+	    	    size: 8,
+	    	  }
+		};
+
+		Plotly.newPlot('myDiv', data, layout, {displayModeBar: false}, {displaylogo: false});
+  </script>
+     
 <table class="u-full-width">
 <thead>
 <tr><th>Päivä</th><th>Tunnit</th><th>Kuvaus</th><th></th></tr>
