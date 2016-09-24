@@ -21,8 +21,6 @@
 -->
 <html>
 <head>
-<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -40,6 +38,7 @@
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
 <script type="text/javascript" src="js/jquery.leanModal.min.js"></script>
 <script type="text/javascript" src="js/jquery.toast.min.js"></script>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 <!-- jQuery toast pluginin konfiguraatio -->
 <script type="text/javascript">
 var ilmoitus = function(viesti, tyyppi) {
@@ -58,6 +57,7 @@ var ilmoitus = function(viesti, tyyppi) {
 		});
 	}
 </script>
+
 </head>
 <body>
 
@@ -193,14 +193,19 @@ Mahdollisia syitä:<br>
 <c:when test="${not empty merkinnat && not empty naytettavat && naytettavat == 'kayttaja' }">
 <c:set var="yhteistunnit" value="0"></c:set>
 <h3>Henkilön <strong><c:out value="${merkinnat[0].kayttaja.etunimi }"></c:out>&nbsp;<c:out value="${merkinnat[0].kayttaja.sukunimi }"></c:out></strong> merkinnät</h3>
-  <div id="myDiv" style="width: 1000px; height: 400px;"><!-- Plotly chart will be drawn inside this DIV --></div>
+  <div class="row">
+  <div class="twelve columns" id="plotly-div"></div>
+  </div>
   <script>
-   var trace1 = {
-		    x: [<c:forEach items="${merkinnat }" var="merkinta">'<fmt:formatDate value="${merkinta.paivamaara }" pattern="dd.MM.yyyy HH.mm"/>', </c:forEach>],
-		    y: [<c:forEach items="${merkinnat }" var="merkinta"><fmt:formatNumber type="number" maxFractionDigits="2" value="${merkinta.tunnit }"></fmt:formatNumber>, </c:forEach>],
 
+   var trace1 = {
+		    x: [<c:forEach items="${merkinnat }" var="merkinta">'<fmt:formatDate value="${merkinta.paivamaara }" pattern="dd.MM."/>', </c:forEach>],
+		    y: [<c:forEach items="${merkinnat }" var="merkinta"><fmt:formatNumber type="number" maxFractionDigits="2" value="${merkinta.tunnit }"></fmt:formatNumber>, </c:forEach>],
 		    type: 'bar',
-		    hoverinfo: 'none'
+		    hoverinfo: 'none',
+		    marker: {
+		    	color: '#1EAEDB'
+		    }
 		};
 
 		var data = [trace1];
@@ -208,18 +213,26 @@ Mahdollisia syitä:<br>
 		var layout = {
 		    showlegend: false,
 		    yaxis: {
-		        title: 'Tunnit'
+		        title: 'Tunnit',
+		        fixedrange: true
 		    },
 	    	xaxis: {
-	            autorange: 'reversed'          
+	            autorange: 'reversed',
+	            fixedrange: true
 	    	},
 	    	font: {
-	    	    family: "Courier New, monospace",
-	    	    size: 10,
+	    	    family: "Raleway, HelveticaNeue",
+	    	    size: 13,
 	    	  },
 		};
-
-		Plotly.newPlot('myDiv', data, layout, {displayModeBar: false}, {displaylogo: false});
+		
+		var gd = Plotly.d3.select('#plotly-div').append('div').node();
+		
+		Plotly.plot(gd, data, layout, {displayModeBar: false}, {displaylogo: false}, {staticPlot: true});
+		
+		window.onresize = function() {
+		    Plotly.Plots.resize(gd);
+		};
   </script>
      
 <table class="u-full-width">
