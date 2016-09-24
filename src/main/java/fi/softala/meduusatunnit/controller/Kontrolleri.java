@@ -198,7 +198,7 @@ public class Kontrolleri extends HttpServlet {
 				
 				// Katsotaan vastaus, näytetään sen mukaan sivulla viesti
 				if (rivit == 1) {
-					logger.info("Onnistui!");
+					logger.info("Lisättiin " + tunnitYht + "h henkilölle " + nimi);
 					
 					// Jos Slack-checkbox valittu niin viesti Slackiin
 					if (slack != null && slack[0] != null && slack[0].equals("yes")) {

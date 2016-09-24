@@ -199,7 +199,7 @@ Mahdollisia syitä:<br>
   <script>
 
    var trace1 = {
-		    x: [<c:forEach items="${merkinnat }" var="merkinta">'<fmt:formatDate value="${merkinta.paivamaara }" pattern="dd.MM."/>', </c:forEach>],
+		    x: [<c:forEach items="${merkinnat }" varStatus="loop" var="merkinta">'<fmt:formatDate value="${merkinta.paivamaara }" pattern="d.M."/><c:out value="${loop.index}"/>', </c:forEach>],
 		    y: [<c:forEach items="${merkinnat }" var="merkinta"><fmt:formatNumber type="number" maxFractionDigits="2" value="${merkinta.tunnit }"></fmt:formatNumber>, </c:forEach>],
 		    type: 'bar',
 		    hoverinfo: 'none',
@@ -233,6 +233,10 @@ Mahdollisia syitä:<br>
 		window.onresize = function() {
 		    Plotly.Plots.resize(gd);
 		};
+		$('.xtick text').each(function(i) {
+			var initialText = $(this).text();
+			$(this).text(initialText.substring(0,5));
+		});
   </script>
      
 <table class="u-full-width">
