@@ -199,7 +199,7 @@ Mahdollisia syitä:<br>
   <script>
 
    var trace1 = {
-		    x: [<c:forEach items="${merkinnat }" varStatus="loop" var="merkinta">'<fmt:formatDate value="${merkinta.paivamaara }" pattern="d.M."/><c:out value="${loop.index}"/>', </c:forEach>],
+		    x: [<c:forEach items="${merkinnat }" varStatus="loop" var="merkinta">'<fmt:formatDate value="${merkinta.paivamaara }" pattern="dd.MM."/><c:out value="${loop.index}"/>', </c:forEach>],
 		    y: [<c:forEach items="${merkinnat }" var="merkinta"><fmt:formatNumber type="number" maxFractionDigits="2" value="${merkinta.tunnit }"></fmt:formatNumber>, </c:forEach>],
 		    type: 'bar',
 		    hoverinfo: 'none',
