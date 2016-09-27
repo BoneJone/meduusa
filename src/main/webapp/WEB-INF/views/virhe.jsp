@@ -5,7 +5,9 @@
 <c:set var="url" value="${pageContext.request.contextPath}" />
 <html>
 <head>
+
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Error 404</title>
 <!-- Fontit ja stylesheetit -->

@@ -2,6 +2,8 @@ package fi.softala.meduusatunnit.dao;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -10,6 +12,7 @@ import fi.softala.meduusatunnit.bean.Merkinta;
 
 public class MerkintaDAOSpringJdbcImpl implements MerkintaDAO {
 
+	@Inject
 	private JdbcTemplate jdbcTemplate;
 
 	public JdbcTemplate getJdbcTemplate() {
