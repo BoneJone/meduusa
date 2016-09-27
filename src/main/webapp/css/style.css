@@ -76,3 +76,25 @@ h1 {
 .virhe {
 	margin-top: 25%;
 }
+.aside {
+	background-color: #354052;
+	margin-right: -10px;
+}
+.aside .title {
+	color: #6F7B7E;
+font-size: 14px;
+font-weight: bold;
+text-transform: uppercase;
+}
+.aside .main {
+	padding: 40px;
+	color: #6F7B7E;
+}
+.aside .main .item.active {
+    color: #F6F7F7;
+}
+.aside .main .item {
+    display: block;
+    padding: 10px 0;
+    color: #6F7B7E;
+}
