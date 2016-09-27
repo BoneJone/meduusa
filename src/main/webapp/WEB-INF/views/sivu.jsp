@@ -26,7 +26,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<title>Meduusa tuntikirjausjärjestelmä</title>
+<title>Tuntikirjausjärjestelmä</title>
 <!-- Fontit ja stylesheetit -->
 <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Raleway:400,300,600">
 <link rel="stylesheet" type="text/css" href="css/normalize.css">
@@ -67,7 +67,7 @@ var ilmoitus = function(viesti, tyyppi) {
 <!-- Div tittelille -->
 <div class="row toppi">
 <div class="twelve columns center">
-<h1 lang="fi">Meduusa tuntikirjausjärjestelmä</h1>
+<h1 lang="fi">Tuntikirjausjärjestelmä</h1>
 </div>
 </div>
 
