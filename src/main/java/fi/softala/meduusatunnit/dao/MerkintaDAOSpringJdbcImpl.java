@@ -7,9 +7,11 @@ import javax.inject.Inject;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
 import fi.softala.meduusatunnit.bean.Merkinta;
 
+@Repository
 public class MerkintaDAOSpringJdbcImpl implements MerkintaDAO {
 
 	@Inject
