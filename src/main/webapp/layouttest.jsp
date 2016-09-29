@@ -14,12 +14,13 @@
 		<aside class="column is-2 aside hero is-fullheight is-hidden-mobile">
 		<div>
 			<div class="ylapalkki">
-			<article class="ylajuttu media has-text-centered">
+			<article class="media has-text-centered">
 							<div class="media-left">
 								<figure class="image is-48x48"> <img
 									src="img/pleishoulder.png" alt="Image"></figure>
+								<br>
 							</div>
-				<span class="title has-text-centered">BonesJones</span>
+				<span class="title has-text-centered">BonesJones</span>	
 				</article>
 			</div>
 			<div class="main">
@@ -114,7 +115,7 @@
 						<div class="box tunnit">
 							<article class="merkinta media">
 								<div class="media-left">
-								<figure class="image is-64x64"> <img
+								<figure class="image is-48x48"> <img
 									src="img/frontend.png" alt="Image"></figure>
 									</div>
 								<div class="media-content">
@@ -130,13 +131,13 @@
 							</article>
 							<article class="merkinta media">
 								<div class="media-left">
-								<figure class="image is-64x64"> <img
+								<figure class="image is-48x48"> <img
 									src="img/frontend.png" alt="Image"></figure>
 									</div>
 								<div class="media-content">
 								<div class="merkinnat content">
 								<p>
-								<strong>Bulma koodausta</strong>
+								<strong>Bulma koodausta</strong>, 2 tuntia 15 minuuttia
 								<small style="float:right;">22.6.2016</small>
 								<br>
 								Eetu Halinen
@@ -146,13 +147,13 @@
 							</article>
 							<article class="merkinta media">
 								<div class="media-left">
-								<figure class="image is-64x64"> <img
+								<figure class="image is-48x48"> <img
 									src="img/frontend.png" alt="Image"></figure>
 									</div>
 								<div class="media-content">
 								<div class="merkinnat content">
 								<p>
-								<strong>Backend juttuja täysii</strong>
+								<strong>Backend juttuja täysii</strong>, 4 tuntia 45 minuuttia
 								<small style="float:right;">22.9.2016</small>
 								<br>
 								Nico Hagelberg
@@ -162,13 +163,13 @@
 							</article>
 							<article class="merkinta media">
 								<div class="media-left">
-								<figure class="image is-64x64"> <img
+								<figure class="image is-48x48"> <img
 									src="img/frontend.png" alt="Image"></figure>
 									</div>
 								<div class="media-content">
 								<div class="merkinnat content">
 								<p>
-								<strong>Backend koodausta</strong>
+								<strong>Backend koodausta</strong>, 3 tuntia
 								<small style="float:right;">24.6.2016</small>
 								<br>
 								Pasi Pesonen
@@ -178,13 +179,13 @@
 							</article>
 							<article class="merkinta media">
 								<div class="media-left">
-								<figure class="image is-64x64"> <img
+								<figure class="image is-48x48"> <img
 									src="img/frontend.png" alt="Image"></figure>
 									</div>
 								<div class="media-content">
 								<div class="merkinnat content">
 								<p>
-								<strong>Haloo pitsamies kuinka monta pissaaa on pissassa</strong>
+								<strong>Haloo pitsamies kuinka monta pissaaa on pissassa</strong>, 4 tuntia
 								<small style="float:right;">27.6.2016</small>
 								<br>
 								Matias Hedenstam

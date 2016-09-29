@@ -83,12 +83,12 @@ h1 {
 .aside .title {
 	color: #fff;
 font-size: 20px;
-font-weight: bold;
 text-transform: uppercase;
 padding-top: 13px;
+padding-left: 5px;
 }
 .aside .main {
-	padding: 40px;
+	padding: 40px 10px;
 	color: #6F7B7E;
 }
 .aside .main .item.active {
@@ -147,3 +147,11 @@ padding-top: 13px;
 .merkinta {
 	border-bottom: 1px solid #e1e1e1;
 }
+.item:hover {
+	color:#ffff !important;
+	background-color: #434343 !important;
+}
+.item {
+	padding-left: 30px !important;
+}
+
