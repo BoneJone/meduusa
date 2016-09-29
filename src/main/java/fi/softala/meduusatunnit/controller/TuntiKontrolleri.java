@@ -70,6 +70,10 @@ public class TuntiKontrolleri {
 				// Lasketaan tuntimäärä tunneista ja minuuteista doubleksi
 				double tunnitYht = Double.valueOf(tunnitInt)
 						+ (Double.valueOf(minuutitInt) / 60);
+				
+				if (kuvaus != null) {
+					kuvaus = kuvaus.trim();
+				}
 
 				// Muodostetaan olio
 				Merkinta merkinta = new MerkintaImpl();
