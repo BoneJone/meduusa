@@ -160,7 +160,7 @@ public class Kontrolleri extends HttpServlet {
 		request.setAttribute("naytettavat", naytettavat);
 		
 		// Request dispatcher
-		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/sivu.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/bulma.jsp");
 		rd.forward(request, response);
 	}
 	/**
