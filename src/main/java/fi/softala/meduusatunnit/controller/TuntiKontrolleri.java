@@ -1,7 +1,5 @@
 package fi.softala.meduusatunnit.controller;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -20,7 +18,6 @@ import fi.softala.meduusatunnit.bean.KayttajaImpl;
 import fi.softala.meduusatunnit.bean.Merkinta;
 import fi.softala.meduusatunnit.bean.MerkintaImpl;
 import fi.softala.meduusatunnit.dao.MerkintaDAO;
-import fi.softala.meduusatunnit.utility.MerkintaJarjestaja;
 import fi.softala.meduusatunnit.utility.Slack;
 
 @Controller
@@ -41,69 +38,13 @@ public class TuntiKontrolleri {
 			.getLogger(TuntiKontrolleri.class);
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String naytaEtusivu(Model model, String id) {
-
-		// Näytetään etusivu
-
-		// Kutsutaan DAO-luokkaa ja haetaan merkinnät
+	public String naytaEtusivu(Model model) {
 		List<Merkinta> merkinnat = dao.haeKaikkiMerkinnat();
+		List<Merkinta> tiimintunnit = dao.haeTunnitYhteensa();
 
-		String naytettavat = "kaikki";
-
-		// Kikkaillaan totalit omaksi listaksi, joku muu saa miettiä tähän
-		// fiksumpaa tapaa
-		List<Merkinta> tiimintunnit = new ArrayList<>();
-
-		for (int i = 0; i < merkinnat.size(); i++) {
-
-			if (tiimintunnit.size() == 0) {
-				Merkinta merkinta = new MerkintaImpl();
-				merkinta.setKayttaja(merkinnat.get(i).getKayttaja());
-				merkinta.setTunnit(merkinnat.get(i).getTunnit());
-				tiimintunnit.add(merkinta);
-			} else {
-				boolean loytyi = false;
-				for (int j = 0; j < tiimintunnit.size(); j++) {
-					if (merkinnat.get(i).getKayttaja().getId() == tiimintunnit
-							.get(j).getKayttaja().getId()) {
-						tiimintunnit.get(j).setTunnit(
-								tiimintunnit.get(j).getTunnit()
-										+ merkinnat.get(i).getTunnit());
-						j = tiimintunnit.size();
-						loytyi = true;
-					}
-				}
-				if (!loytyi) {
-					Merkinta merkinta = new MerkintaImpl();
-					merkinta.setKayttaja(merkinnat.get(i).getKayttaja());
-					merkinta.setTunnit(merkinnat.get(i).getTunnit());
-					tiimintunnit.add(merkinta);
-				}
-			}
-		}
-		
-		// Jos on saatu doGet-metodilta id-parametri, katsotaan löytyykö vastaavaa
-		// id:tä käyttäjälistalta
-		if (id != null) {
-			List<Merkinta> kayttajanMerkinnat = new ArrayList<Merkinta>();
-			
-			for (int i = 0; i < merkinnat.size(); i++) {
-				if (String.valueOf(merkinnat.get(i).getKayttaja().getId()).equals(id)) {
-					kayttajanMerkinnat.add(merkinnat.get(i));
-				}
-			}
-			
-			if (kayttajanMerkinnat.size() > 0) {
-				merkinnat = kayttajanMerkinnat;
-				naytettavat = "kayttaja";
-			}
-		}
-
-		// Järjestetään tiimin tunnit suurimmasta määrästä pienimpään
-		Collections.sort(tiimintunnit, new MerkintaJarjestaja());
 		model.addAttribute("merkinnat", merkinnat);
 		model.addAttribute("tiimintunnit", tiimintunnit);
-		model.addAttribute("naytettavat", naytettavat);
+		model.addAttribute("naytettavat", "kaikki");
 
 		return "sivu";
 	}
@@ -178,35 +119,45 @@ public class TuntiKontrolleri {
 		if (viesti != null) {
 			model.addAttribute("viesti", viesti);
 		}	
-		return naytaEtusivu(model, null);
+		return naytaEtusivu(model);
 	}
 
 	@RequestMapping(value = "/henkilo/{id}", method = RequestMethod.GET)
 	public String naytaKayttaja(@PathVariable Integer id, Model model) {
+		List<Merkinta> merkinnat = dao.haeYhdenKayttajanMerkinnat(id);
+		List<Merkinta> tiimintunnit = dao.haeTunnitYhteensa();
 		
-		return naytaEtusivu(model, String.valueOf(id));
+		model.addAttribute("merkinnat", merkinnat);
+		model.addAttribute("tiimintunnit", tiimintunnit);
+		model.addAttribute("naytettavat", "kayttaja");
+		
+		return "sivu";
 	}
 	
 	@RequestMapping(value = "/poista/{id}", method = RequestMethod.GET)
 	public String poistaMerkinta(@PathVariable Integer id, Model model) {
-	
-		int rivit = dao.poistaMerkinta(id);
-		
+		int kayttajaId = dao.poistaMerkinta(id);
 		String viesti = null;
 		
-		if (rivit == 1) {
+		if (kayttajaId > 0) {
 			viesti = "Merkintä poistettu onnistuneesti!";
-		} else if (rivit == 0) {
+			List<Merkinta> merkinnat = dao.haeYhdenKayttajanMerkinnat(kayttajaId);
+			List<Merkinta> tiimintunnit = dao.haeTunnitYhteensa();
+			
+			model.addAttribute("viesti", viesti);
+			model.addAttribute("merkinnat", merkinnat);
+			model.addAttribute("tiimintunnit", tiimintunnit);
+			model.addAttribute("naytettavat", "kayttaja");
+			return "sivu";
+		} else if (kayttajaId == 0) {
 			viesti = "Merkintää poistaessa tapahtui virhe!";
+			model.addAttribute("viesti", viesti);
+			return naytaEtusivu(model);
 		}
 		else {
 			viesti = "Merkintää poistaessa tapahtui jotain odottamatonta!";
-		}
-		
-		if (viesti != null) {
 			model.addAttribute("viesti", viesti);
+			return naytaEtusivu(model);
 		}
-
-		return naytaEtusivu(model, null);
 	}
 }

@@ -1,15 +1,19 @@
 package fi.softala.meduusatunnit.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import fi.softala.meduusatunnit.bean.Merkinta;
+import fi.softala.meduusatunnit.controller.TuntiKontrolleri;
 
 @Repository
 public class MerkintaDAOSpringJdbcImpl implements MerkintaDAO {
@@ -24,6 +28,8 @@ public class MerkintaDAOSpringJdbcImpl implements MerkintaDAO {
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
 	}
+	
+	final static Logger logger = LoggerFactory.getLogger(MerkintaDAOSpringJdbcImpl.class);
 
 	public List<Merkinta> haeKaikkiMerkinnat() {
 
@@ -65,9 +71,17 @@ public class MerkintaDAOSpringJdbcImpl implements MerkintaDAO {
 	}
 
 	public int poistaMerkinta(int merkintaId) {
-		String sql = "DELETE FROM Merkinta WHERE id = ?";
 		Object[] parametrit = { merkintaId };
-		int rivit = jdbcTemplate.update(sql, parametrit);
-		return rivit;
+		String sql = "SELECT kayttaja_id FROM Merkinta WHERE id = ?";
+		int kayttajaId = 0;
+		try {
+			kayttajaId = jdbcTemplate.queryForObject(sql, parametrit, Integer.class);
+			sql = "DELETE FROM Merkinta WHERE id = ?";
+			jdbcTemplate.update(sql, parametrit);
+		} catch (Exception ex) {
+			logger.info("Yritettiin poistaa merkinta jota ei loydy (id" + merkintaId + ")");
+			return 0;
+		}
+		return kayttajaId;
 	}
 }
