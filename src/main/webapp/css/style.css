@@ -77,14 +77,15 @@ h1 {
 	margin-top: 25%;
 }
 .aside {
-	background-color: #354052;
+	background-color: #212121;
 	margin-right: -10px;
 }
 .aside .title {
-	color: #6F7B7E;
-font-size: 14px;
+	color: #fff;
+font-size: 20px;
 font-weight: bold;
 text-transform: uppercase;
+padding-top: 13px;
 }
 .aside .main {
 	padding: 40px;
@@ -97,4 +98,46 @@ text-transform: uppercase;
     display: block;
     padding: 10px 0;
     color: #6F7B7E;
+}
+.nav.menu {
+	padding-top: 10px;
+	border-bottom: 1px solid #e1e1e1;
+}
+.aside .ylapalkki {
+	background-color: #33C3F0;
+	height: 95px;
+	margin: 0 0px;
+	padding: 30px 30px;
+}
+.content .ylapalkki {
+	background-color: #fff;
+	height: 95px;
+	padding: 20px 20px;
+	box-shadow: 0 4px 2px -2px #b2c0c6;
+}
+.fa-3 {
+	font-size: 3em !important;
+}
+.sisalto {
+	margin-top: 30px;
+	margin-left: 30px;
+}
+
+.profiili-title {
+	color: #3a3a3a;
+	font-size: 20px;
+	border-bottom: 1px solid #e1e1e1;
+}
+.sisalto .column {
+	padding:10px;
+}
+.profiili-nimi{
+	margin-bottom:0px !important;
+	font-size: 16px;
+	padding-top: 2px;
+
+}
+.profiili-tunnit {
+	color:#738c98;
+	font-size: 13px;
 }

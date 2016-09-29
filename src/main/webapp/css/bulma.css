@@ -893,6 +893,7 @@ a.box:active {
 .button.is-primary {
   background-color: #33c3f0;
   border-width: 0;
+  padding: 20px 20px;
   color: white;
 }
 
@@ -1153,6 +1154,7 @@ a.box:active {
 
 .content {
   color: #4a4a4a;
+  background-color: #ecf0f2;
 }
 
 .content:not(:last-child) {
@@ -2695,7 +2697,7 @@ a.box:active {
 
 @media screen and (min-width: 1180px) {
   .container {
-    max-width: 1200px;
+    max-width: 100%;
   }
 }
 
@@ -3492,7 +3494,6 @@ a.box:active {
 }
 
 .media + .media {
-  border-top: 1px solid rgba(219, 219, 219, 0.5);
   margin-top: 10px;
   padding-top: 10px;
 }
@@ -4644,7 +4645,6 @@ a.panel-block:hover {
           flex-grow: 1;
   -ms-flex-negative: 1;
       flex-shrink: 1;
-  padding: 10px;
 }
 
 .columns.is-mobile > .column.is-narrow {
