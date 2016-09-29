@@ -56,6 +56,13 @@ public class MerkintaDAOSpringJdbcImpl implements MerkintaDAO {
 		List<Merkinta> merkinnat = jdbcTemplate.query(sql, parametrit, mapper);
 		return merkinnat;
 	}
+	
+	public List<Merkinta> haeTunnitYhteensa() {
+		String sql = "SELECT 0 AS merkinta_id, null AS paivamaara, null AS kuvaus, Kayttaja.id AS kayttaja_id, sahkoposti, etunimi, sukunimi, SUM(tunnit) AS tunnit FROM Merkinta JOIN Kayttaja ON Merkinta.kayttaja_id = Kayttaja.id GROUP BY kayttaja_id ORDER BY tunnit DESC";
+		RowMapper<Merkinta> mapper = new MerkintaRowMapper();
+		List<Merkinta> merkinnat = jdbcTemplate.query(sql, mapper);
+		return merkinnat;
+	}
 
 	public int poistaMerkinta(int merkintaId) {
 		String sql = "DELETE FROM Merkinta WHERE id = ?";

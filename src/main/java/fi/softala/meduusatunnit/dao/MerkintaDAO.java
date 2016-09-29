@@ -14,4 +14,6 @@ public interface MerkintaDAO {
 	
 	public abstract int poistaMerkinta(int merkintaId);
 	
+	public abstract List<Merkinta> haeTunnitYhteensa();
+	
 }
