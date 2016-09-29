@@ -26,22 +26,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<c:set var="url" value="${pageContext.request.contextPath}" />
 <title>Tuntikirjausj‰rjestelm‰</title>
 <!-- Fontit ja stylesheetit -->
 <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Raleway:400,300,600">
-<link rel="stylesheet" type="text/css" href="css/normalize.css">
-<link rel="stylesheet" type="text/css" href="css/skeleton.css">
-<link rel="stylesheet" type="text/css" href="css/style.css">
-<link rel="stylesheet" type="text/css" href="css/jquery.toast.min.css">
+<link rel="stylesheet" type="text/css" href="${url}/css/normalize.css">
+<link rel="stylesheet" type="text/css" href="${url}/css/skeleton.css">
+<link rel="stylesheet" type="text/css" href="${url}/css/style.css">
+<link rel="stylesheet" type="text/css" href="${url}/css/jquery.toast.min.css">
 <!-- jQuery, leanModal-kirjasto ja jQuery toast plugin -->
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
-<script type="text/javascript" src="js/jquery.leanModal.min.js"></script>
-<script type="text/javascript" src="js/jquery.toast.min.js"></script>
+<script type="text/javascript" src="${url}/js/jquery.leanModal.min.js"></script>
+<script type="text/javascript" src="${url}/js/jquery.toast.min.js"></script>
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 <!-- jQuery toast pluginin konfiguraatio -->
 <script type="text/javascript">
-var ilmoitus = function(viesti, tyyppi) {
+var ilmoitus = function(viesti) {
 	$.toast({
 		text: viesti,
 		heading: '<strong>Ilmoitus</strong>',
@@ -87,7 +88,9 @@ var ilmoitus = function(viesti, tyyppi) {
 <c:set var="yhteistunnit" value="${yhteistunnit + merkinta.tunnit }"></c:set>
 <tr>
 <td>
-<a href="<c:url value="/kontrolleri"><c:param name="kayttaja" value="${merkinta.kayttaja.id }"/></c:url>">
+
+<a href="<c:out value="${url}"></c:out>/henkilo/<c:out value="${merkinta.kayttaja.id }"></c:out>">
+
 <c:out value="${merkinta.kayttaja.etunimi }"></c:out>&nbsp;<c:out value="${merkinta.kayttaja.sukunimi }"></c:out>
 </a>
 </td>
@@ -101,13 +104,13 @@ var ilmoitus = function(viesti, tyyppi) {
 </tbody>
 </table>
 
-<c:if test="${not empty naytettavat && naytettavat == 'kayttaja' }"><a class="button" href="<c:url value="/kontrolleri"/>">N‰yt‰ kaikki</a><br><br></c:if>
+<c:if test="${not empty naytettavat && naytettavat == 'kayttaja' }"><a class="button" href="<c:out value="${url}"></c:out>">N‰yt‰ kaikki</a><br><br></c:if>
 
 </div>
 <!-- Div tuntien lis‰ys formille -->
 <div class="four columns">
 <h3 class="center">Lis‰‰ merkint‰</h3>
-<form action="kontrolleri" method="post">
+<form action="${url }/" method="post">
 <label for="nimi">Nimesi</label>
 <input type="text" name="nimi" id="nimi" class="u-full-width">
 <div class="row">
@@ -273,7 +276,7 @@ Merkint‰ poistetaan tietokannasta lopullisesti.
 <script type="text/javascript">
   $(".poisto").leanModal();
   var poisto = function(id) {
-	  $("#poistonappi").attr("href", "kontrolleri?poista=" + id);
+	  $("#poistonappi").attr("href", "${url}/poista/" + id);
   }
   var suljeModal = function() {
 	  $("#lean_overlay").trigger("click");
@@ -295,7 +298,7 @@ Merkint‰ poistetaan tietokannasta lopullisesti.
 <c:out value="${viesti }"></c:out>
 </div>
 <script type="text/javascript">
-ilmoitus($("#viestidiv").html(), "ding dong");
+	ilmoitus($("#viestidiv").html());
 </script>
 </c:if>
 

@@ -26,8 +26,8 @@
 	<mvc:view-controller path="/" view-name="sivu" />
 	
 	<!-- location of static content (images, js and css files) -->
-	<mvc:resources mapping="/css/**" location="/resources/css" />
-	<mvc:resources mapping="/js/**" location="/resources/js" />
+	<mvc:resources mapping="/css/**" location="/resources/css/" />
+	<mvc:resources mapping="/js/**" location="/resources/js/" />
 	
 
 </beans>
