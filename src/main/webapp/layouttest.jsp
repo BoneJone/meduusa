@@ -81,7 +81,9 @@
 									src="img/pleishoulder.png" alt="Image"></figure>
 							</div>
 							<div class="media-content">
-							<p class="profiili-nimi"><strong>Nico</strong></span></p>
+							<p class="profiili-nimi"><strong><i class="fa fa-shopping-cart" aria-hidden="true"></i>
+							Nico<i class="fa fa-shopping-cart" aria-hidden="true"></i>
+							</strong></span></p>
 							<p class="profiili-tunnit">420 tuntia</p>
 							</div>
 							</article>
@@ -110,90 +112,86 @@
 					</div>
 					<div class="column is-8">
 						<div class="box tunnit">
-							<table class="table">
-								<thead>
-									<tr>
-										<th>Nimi</th>
-										<th>Tunnit</th>
-										<th>Kuvaus</th>
-										<th colspan="4">P‰iv‰</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>Jonni</td>
-										<td>3</td>
-										<td>Koodasi</td>
-										<td>2.2.2015</td>
-									</tr>
-									<tr>
-										<td>Eetu</td>
-										<td>1</td>
-										<td>Koodasi</td>
-										<td>2.3.2015</td>
-									</tr>
-									<tr>
-										<td>Nico</td>
-										<td>1337</td>
-										<td>Koodasi</td>
-										<td>ALL DAY NIGGA</td>
-									</tr>
-									<tr>
-										<td>Jonni</td>
-										<td>3</td>
-										<td>Koodasi</td>
-										<td>2.2.2015</td>
-									</tr>
-									<tr>
-										<td>Eetu</td>
-										<td>1</td>
-										<td>Koodasi</td>
-										<td>2.3.2015</td>
-									</tr>
-									<tr>
-										<td>Nico</td>
-										<td>1337</td>
-										<td>Koodasi</td>
-										<td>ALL DAY NIGGA</td>
-									</tr>
-									<tr>
-										<td>Jonni</td>
-										<td>3</td>
-										<td>Koodasi</td>
-										<td>2.2.2015</td>
-									</tr>
-									<tr>
-										<td>Eetu</td>
-										<td>1</td>
-										<td>Koodasi</td>
-										<td>2.3.2015</td>
-									</tr>
-									<tr>
-										<td>Nico</td>
-										<td>1337</td>
-										<td>Koodasi</td>
-										<td>ALL DAY NIGGA</td>
-									</tr>
-									<tr>
-										<td>Jonni</td>
-										<td>3</td>
-										<td>Koodasi</td>
-										<td>2.2.2015</td>
-									</tr>
-									<tr>
-										<td>Eetu</td>
-										<td>1</td>
-										<td>Koodasi</td>
-										<td>2.3.2015</td>
-									</tr>
-									<tr>
-										<td>Nico</td>
-										<td>1337</td>
-										<td>Koodasi</td>
-										<td>ALL DAY NIGGA</td>
-									</tr>
-								</tbody>
-							</table>
+							<article class="merkinta media">
+								<div class="media-left">
+								<figure class="image is-64x64"> <img
+									src="img/frontend.png" alt="Image"></figure>
+									</div>
+								<div class="media-content">
+								<div class="merkinnat content">
+								<p>
+								<strong>Koodasi hyv‰‰ koodia</strong>, 3 tuntia
+								<small style="float:right;">21.5.2016</small>
+								<br>
+								Jonni Aaltonen
+								</p>
+								</div>
+								</div>
+							</article>
+							<article class="merkinta media">
+								<div class="media-left">
+								<figure class="image is-64x64"> <img
+									src="img/frontend.png" alt="Image"></figure>
+									</div>
+								<div class="media-content">
+								<div class="merkinnat content">
+								<p>
+								<strong>Bulma koodausta</strong>
+								<small style="float:right;">22.6.2016</small>
+								<br>
+								Eetu Halinen
+								</p>
+								</div>
+								</div>
+							</article>
+							<article class="merkinta media">
+								<div class="media-left">
+								<figure class="image is-64x64"> <img
+									src="img/frontend.png" alt="Image"></figure>
+									</div>
+								<div class="media-content">
+								<div class="merkinnat content">
+								<p>
+								<strong>Backend juttuja t‰ysii</strong>
+								<small style="float:right;">22.9.2016</small>
+								<br>
+								Nico Hagelberg
+								</p>
+								</div>
+								</div>
+							</article>
+							<article class="merkinta media">
+								<div class="media-left">
+								<figure class="image is-64x64"> <img
+									src="img/frontend.png" alt="Image"></figure>
+									</div>
+								<div class="media-content">
+								<div class="merkinnat content">
+								<p>
+								<strong>Backend koodausta</strong>
+								<small style="float:right;">24.6.2016</small>
+								<br>
+								Pasi Pesonen
+								</p>
+								</div>
+								</div>
+							</article>
+							<article class="merkinta media">
+								<div class="media-left">
+								<figure class="image is-64x64"> <img
+									src="img/frontend.png" alt="Image"></figure>
+									</div>
+								<div class="media-content">
+								<div class="merkinnat content">
+								<p>
+								<strong>Haloo pitsamies kuinka monta pissaaa on pissassa</strong>
+								<small style="float:right;">27.6.2016</small>
+								<br>
+								Matias Hedenstam
+								</p>
+								</div>
+								</div>
+							</article>
 						</div>
 					</div>
 				</div>
