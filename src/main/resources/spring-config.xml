@@ -7,12 +7,6 @@
 	http://www.springframework.org/schema/context
     http://www.springframework.org/schema/context/spring-context.xsd">
 
-	<context:property-placeholder location="db_connection.properties"/>
-	
-	<bean id="daoLuokka" class="fi.softala.meduusatunnit.dao.MerkintaDAOSpringJdbcImpl">
-		<property name="jdbcTemplate" ref="jdbcTemplate" />
-	</bean>
-
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
 		<property name="driverClassName" value="${db.driver}" />
