@@ -1,7 +1,6 @@
 package fi.softala.meduusatunnit.dao;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -13,7 +12,6 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import fi.softala.meduusatunnit.bean.Merkinta;
-import fi.softala.meduusatunnit.controller.TuntiKontrolleri;
 
 @Repository
 public class MerkintaDAOSpringJdbcImpl implements MerkintaDAO {
