@@ -4,7 +4,7 @@
 				</div>
 				<div class="nav-right">
 					<span class="nav-item"> 
-					<a class="button is-primary lisaaNappi" href="#"> <span class="icon"> <i class="fa fa-plus-circle "></i></span> <span><strong>Lis‰‰ merkint‰</strong></span>
+					<a class="button is-primary lisaaNappi modal-button" data-target="#merkintamodal" onClick="naytaLisaysModal()"> <span class="icon"> <i class="fa fa-plus-circle "></i></span> <span><strong>Lis‰‰ merkint‰</strong></span>
 					</a>
 					</span>
 				</div>

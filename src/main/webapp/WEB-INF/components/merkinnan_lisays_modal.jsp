@@ -1,9 +1,9 @@
-<div class="modal is-active" id="merkinta-modal">
+<div class="modal" id="merkintamodal">
   <div class="modal-background"></div>
   <div class="modal-card">
     <header class="modal-card-head">
       <p class="modal-card-title center">Lisää tuntimerkintä</p>
-      <button class="delete"></button>
+      <button class="delete" onClick="piilotaLisaysModal()"></button>
     </header>
     <section class="modal-card-body">
 
@@ -47,8 +47,8 @@
 
     </section>
     <footer class="modal-card-foot">
-      <a class="button">Peruuta</a>
-      <a class="button is-primary">Tallenna merkintä</a>
+      <a class="button" onClick="piilotaLisaysModal()">Peruuta</a>
+      <a class="button is-primary" onClick="piilotaLisaysModal()">Tallenna merkintä</a>
     </footer>
   </div>
 </div>

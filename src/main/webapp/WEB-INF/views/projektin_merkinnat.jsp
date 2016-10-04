@@ -12,6 +12,15 @@
 <link rel="stylesheet" type="text/css" href="${url}/css/bulma.css">
 <link rel="stylesheet" type="text/css" href="${url}/css/style.css">
 <script src="https://use.fontawesome.com/80f171c042.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>
+var naytaLisaysModal = function() {
+	$('#merkintamodal').addClass('is-active');
+};
+var piilotaLisaysModal = function() {
+	$('#merkintamodal').removeClass('is-active');
+};
+</script>
 </head>
 <body>
 	<div class="columns">
@@ -34,14 +43,15 @@
 					
 				</div>
 			</div>
-
+			
+			<!-- Tuntimerkinnän lisäys modal -->
+			<jsp:include page="../components/merkinnan_lisays_modal.jsp" />
 
 		</div>
 
 	</div>
 	
 	<!-- Footer -->
-
-
+	
 </body>
 </html>
