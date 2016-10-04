@@ -12,6 +12,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import fi.softala.meduusatunnit.bean.Merkinta;
+import fi.softala.meduusatunnit.bean.Projekti;
 
 @Repository
 public class MerkintaDAOSpringJdbcImpl implements MerkintaDAO {
@@ -61,7 +62,18 @@ public class MerkintaDAOSpringJdbcImpl implements MerkintaDAO {
 		int rivit = jdbcTemplate.update(sql, parametrit);
 		return rivit;
 	}
-
+	
+	
+	 public void lisaaProjekti (Projekti projekti) {
+		 String sql = "INSERT INTO Projektit (nimi, kuvaus) VALUES(?, ?)";
+		 Object[] parametrit = { projekti.getNimi(), projekti.getKuvaus() };
+	  	try {
+	  	  jdbcTemplate.update(sql, parametrit);
+	  	}	catch (EmptyResultDataAccessException ex) {
+	  			logger.error("Projektia lisätessä tapahtui virhe");
+	  	}	
+	 }
+	
 	public List<Merkinta> haeYhdenKayttajanMerkinnat(int kayttajaId) {
 		String sql = "SELECT Kayttajat.id AS kayttaja_id, Merkinnat.id AS merkinta_id, sahkoposti, etunimi, sukunimi, paivamaara, tunnit, kuvaus FROM Merkinnat JOIN Kayttajat ON Merkinnat.kayttaja_id = Kayttajat.id WHERE kayttaja_id = ? ORDER BY Merkinnat.paivamaara DESC";
 		Object[] parametrit = { kayttajaId };

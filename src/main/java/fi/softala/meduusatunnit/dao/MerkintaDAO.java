@@ -3,6 +3,7 @@ package fi.softala.meduusatunnit.dao;
 import java.util.List;
 
 import fi.softala.meduusatunnit.bean.Merkinta;
+import fi.softala.meduusatunnit.bean.Projekti;
 
 public interface MerkintaDAO {
 
@@ -17,5 +18,7 @@ public interface MerkintaDAO {
 	public abstract int poistaMerkinta(int merkintaId);
 	
 	public abstract List<Merkinta> haeTunnitYhteensa();
+	
+	public abstract void lisaaProjekti (Projekti projekti);
 	
 }
