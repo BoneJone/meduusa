@@ -14,7 +14,7 @@
 <body>
  <section class="hero is-alt is-fullheight">
       <div class="hero-body">
-        <div class="container">
+        <div class="container login">
           <div class="columns is-vcentered">
             <div class="column is-4 is-offset-4">
               <h1 class="title has-text-centered">

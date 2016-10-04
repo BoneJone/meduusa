@@ -22,7 +22,7 @@ public class MerkintaDAOSpringJdbcImpl implements MerkintaDAO {
 
 	public List<Merkinta> haeKaikkiMerkinnat() {
 
-		String sql = "SELECT Kayttaja.id AS kayttaja_id, Merkinta.id AS merkinta_id, sahkoposti, etunimi, sukunimi, paivamaara, tunnit, kuvaus FROM Merkinta JOIN Kayttaja ON Merkinta.kayttaja_id = Kayttaja.id ORDER BY Merkinta.paivamaara DESC";
+		String sql = "SELECT Kayttajat.id AS kayttaja_id, Merkinnat.id AS merkinta_id, sahkoposti, etunimi, sukunimi, paivamaara, tunnit, kuvaus FROM Merkinnat JOIN Kayttajat ON Merkinnat.kayttaja_id = Kayttajat.id ORDER BY Merkinnat.paivamaara DESC";
 		RowMapper<Merkinta> mapper = new MerkintaRowMapper();
 
 		List<Merkinta> merkinnat = jdbcTemplate.query(sql, mapper);

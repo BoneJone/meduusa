@@ -78,7 +78,7 @@ h1 {
 }
 .aside {
 	background-color: #212121;
-	margin-right: -10px;
+	padding-right: 0px;
 }
 .aside .title {
 	color: #fff;
@@ -129,7 +129,7 @@ padding-left: 5px;
 	border-bottom: 1px solid #e1e1e1;
 }
 .sisalto .column {
-	padding:10px;
+	padding:10px !important;
 }
 .profiili-nimi{
 	margin-bottom:0px !important;
@@ -157,4 +157,40 @@ padding-left: 5px;
 
 .content ul {
 	list-style: none !important;
+}
+
+.lisaaNappi {
+	background-color: #1eaedb !important;
+	padding: 20px 20px !important;
+}
+.profiilit a {
+	color: #33c3f0;
+}
+@media screen and (min-width: 1180px) {
+  .container {
+    max-width: 100%;
+  }
+  @media screen and (min-width: 1180px) {
+  .login  {
+    max-width: 1200px !important;
+  }
+.column {
+	padding: 0px !important;
+}
+.tuntiTulostus {
+	width: 48px;
+	height: 44px;
+	border-radius: 20%;
+	margin-top: 2px;
+
+}
+.tuntiTulostus p{
+	text-align: center;
+	margin-bottom: -5px !important;
+	
+}
+.tuntiTulostus small{
+	text-align: center;
+	margin-top: -5px;
+	color: #616161;
 }
