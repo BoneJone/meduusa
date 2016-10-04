@@ -76,3 +76,121 @@ h1 {
 .virhe {
 	margin-top: 25%;
 }
+.aside {
+	background-color: #212121;
+	padding-right: 0px;
+}
+.aside .title {
+	color: #fff;
+font-size: 18px;
+text-transform: uppercase;
+padding-top: 13px;
+padding-left: 5px;
+}
+.aside .main {
+	padding: 40px 10px;
+	color: #6F7B7E;
+}
+.aside .main .item.active {
+    color: #F6F7F7;
+}
+.aside .main .item {
+    display: block;
+    padding: 10px 0;
+    color: #6F7B7E;
+}
+.nav.menu {
+	padding-top: 10px;
+	border-bottom: 1px solid #e1e1e1;
+}
+.aside .ylapalkki {
+	background-color: #33C3F0;
+	height: 95px;
+	margin: 0 0px;
+	padding: 30px 30px;
+}
+.content .ylapalkki {
+	background-color: #fff;
+	height: 95px;
+	padding: 20px 20px;
+	box-shadow: 0 4px 2px -2px #b2c0c6;
+}
+.fa-3 {
+	font-size: 3em !important;
+}
+.sisalto {
+	margin-top: 30px;
+	margin-left: 30px;
+}
+
+.profiili-title {
+	color: #3a3a3a;
+	font-size: 20px;
+	border-bottom: 1px solid #e1e1e1;
+}
+.sisalto .column {
+	padding:10px !important;
+}
+.profiili-nimi{
+	margin-bottom:0px !important;
+	font-size: 16px;
+	padding-top: 2px;
+
+}
+.profiili-tunnit {
+	color:#738c98;
+	font-size: 13px;
+}
+.merkinnat {
+	background-color: #fff;
+}
+.merkinta {
+	border-bottom: 1px solid #e1e1e1;
+}
+.item:hover {
+	color:#ffff !important;
+	background-color: #434343 !important;
+}
+.item {
+	padding-left: 30px !important;
+}
+
+.content ul {
+	list-style: none !important;
+}
+
+.lisaaNappi {
+	background-color: #1eaedb !important;
+	padding: 20px 20px !important;
+}
+.profiilit a {
+	color: #33c3f0;
+}
+@media screen and (min-width: 1180px) {
+  .container {
+    max-width: 100%;
+  }
+  @media screen and (min-width: 1180px) {
+  .login  {
+    max-width: 1200px !important;
+  }
+.column {
+	padding: 0px !important;
+}
+.tuntiTulostus {
+	width: 48px;
+	height: 44px;
+	border-radius: 20%;
+	margin-top: 2px;
+
+}
+.tuntiTulostus p{
+	text-align: center;
+	margin-bottom: -5px !important;
+	
+}
+.tuntiTulostus small{
+	text-align: center;
+	margin-top: -5px;
+	color: #616161;
+}

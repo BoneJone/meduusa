@@ -46,7 +46,7 @@ public class TuntiKontrolleri {
 		model.addAttribute("tiimintunnit", tiimintunnit);
 		model.addAttribute("naytettavat", "kaikki");
 
-		return "sivu";
+		return "projektin_merkinnat";
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.POST)
