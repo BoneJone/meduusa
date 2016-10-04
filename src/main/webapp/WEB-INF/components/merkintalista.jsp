@@ -26,7 +26,7 @@
 								<div class="merkinnat content">
 								<p>
 								<strong><c:out value="${merkinta.kuvaus }"></c:out></strong>
-								<small style="float:right;"><fmt:formatDate value="${merkinta.paivamaara }" pattern="dd.MM.yyyy"/></small>
+								<small style="float:right;"><span style="color: #CCC;"><a href="#!" onClick="poistaMerkinta(<c:out value="${merkinta.id }"></c:out>)">Poista</a> | </span><fmt:formatDate value="${merkinta.paivamaara }" pattern="dd.MM.yyyy"/></small>
 								<br>
 								<c:out value="${merkinta.kayttaja.etunimi }" />&nbsp;<c:out value="${merkinta.kayttaja.sukunimi }" />
 								</p>

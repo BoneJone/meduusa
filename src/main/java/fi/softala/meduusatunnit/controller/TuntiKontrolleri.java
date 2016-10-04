@@ -139,7 +139,8 @@ public class TuntiKontrolleri {
 		return "projektin_merkinnat";
 	}
 	
-	@RequestMapping(value = "/poista/{id}", method = RequestMethod.GET)
+	// Tässäkin projekti-id (eka arvo) mapattu nyt manuaalisesti valueen 1
+	@RequestMapping(value = "1/poista/{id}", method = RequestMethod.GET)
 	public String poistaMerkinta(@PathVariable Integer id, Model model) {
 		int kayttajaId = dao.poistaMerkinta(id);
 		String viesti = null;
@@ -153,7 +154,7 @@ public class TuntiKontrolleri {
 			model.addAttribute("merkinnat", merkinnat);
 			model.addAttribute("tiimintunnit", tiimintunnit);
 			model.addAttribute("naytettavat", "kayttaja");
-			return "sivu";
+			return "projektin_merkinnat";
 		} else if (kayttajaId == 0) {
 			viesti = "Merkintää poistaessa tapahtui virhe!";
 			model.addAttribute("viesti", viesti);

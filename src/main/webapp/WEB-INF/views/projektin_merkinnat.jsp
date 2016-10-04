@@ -13,6 +13,7 @@
 <link rel="stylesheet" type="text/css" href="${url}/css/style.css">
 <script src="https://use.fontawesome.com/80f171c042.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript" src="${url}/js/jquery.toast.min.js"></script>
 <script>
 var naytaLisaysModal = function() {
 	$('#merkintamodal').addClass('is-active');
@@ -20,6 +21,33 @@ var naytaLisaysModal = function() {
 var piilotaLisaysModal = function() {
 	$('#merkintamodal').removeClass('is-active');
 };
+
+var piilotaPoistoModal = function() {
+	$('#poistomodal').removeClass('is-active');
+}
+
+var poistaMerkinta = function(id) {
+	$("#poistonappi").attr("href", "${url}/1/poista/" + id);
+	$('#poistomodal').addClass('is-active');
+};
+</script>
+<!-- jQuery toast pluginin konfiguraatio -->
+<script type="text/javascript">
+var ilmoitus = function(viesti) {
+	$.toast({
+		text: viesti,
+		heading: '<strong>Ilmoitus</strong>',
+		showHideTransition: 'fade',
+		allowToastClose: true,
+		hideAfter: 3000,
+		stack: 5,
+		position: 'top-right',
+		bgColor: '#1EAEDB',
+		textColor: '#FFF',
+		textAlign: 'left',
+		loader: false,
+		});
+	}
 </script>
 </head>
 <body>
