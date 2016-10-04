@@ -31,7 +31,7 @@ public class MerkintaDAOSpringJdbcImpl implements MerkintaDAO {
 
 	public List<Merkinta> haeKaikkiMerkinnat() {
 
-		String sql = "SELECT Kayttaja.id AS kayttaja_id, Merkinta.id AS merkinta_id, sahkoposti, etunimi, sukunimi, paivamaara, tunnit, kuvaus FROM Merkinta JOIN Kayttaja ON Merkinta.kayttaja_id = Kayttaja.id ORDER BY Merkinta.paivamaara DESC";
+		String sql = "SELECT Kayttajat.id AS kayttaja_id, Merkinnat.id AS merkinta_id, sahkoposti, etunimi, sukunimi, paivamaara, tunnit, kuvaus FROM Merkinnat JOIN Kayttajat ON Merkinnat.kayttaja_id = Kayttajat.id ORDER BY Merkinnat.paivamaara DESC";
 		RowMapper<Merkinta> mapper = new MerkintaRowMapper();
 
 		List<Merkinta> merkinnat = jdbcTemplate.query(sql, mapper);
@@ -39,21 +39,22 @@ public class MerkintaDAOSpringJdbcImpl implements MerkintaDAO {
 	}
 
 	public int tallennaMerkinta(Merkinta merkinta) {
-		String sql = "SELECT id FROM Kayttaja WHERE sahkoposti = ?";
+		String sql = "SELECT id FROM Kayttajat WHERE sahkoposti = ?";
 		String kayttaja;
 		try {
 		kayttaja = jdbcTemplate.queryForObject(sql, new Object[] { merkinta.getKayttaja().getSahkoposti() }, String.class);
 		} catch (EmptyResultDataAccessException ex) {
 			return 0;
 		}
-		sql = "INSERT INTO Merkinta (kayttaja_id, tunnit, kuvaus) VALUES(?, ?, ?)";
+		// Kovakoodataan toistaiseksi projekti_id = 1
+		sql = "INSERT INTO Merkinnat (kayttaja_id, projekti_id, tunnit, kuvaus) VALUES(?, 1, ?, ?)";
 		Object[] parametrit = { kayttaja, merkinta.getTunnit(), merkinta.getKuvaus() };
 		int rivit = jdbcTemplate.update(sql, parametrit);
 		return rivit;
 	}
 
 	public List<Merkinta> haeYhdenKayttajanMerkinnat(int kayttajaId) {
-		String sql = "SELECT Kayttaja.id AS kayttaja_id, Merkinta.id AS merkinta_id, sahkoposti, etunimi, sukunimi, paivamaara, tunnit, kuvaus FROM Merkinta JOIN Kayttaja ON Merkinta.kayttaja_id = Kayttaja.id WHERE kayttaja_id = ? ORDER BY Merkinta.paivamaara DESC";
+		String sql = "SELECT Kayttajat.id AS kayttaja_id, Merkinnat.id AS merkinta_id, sahkoposti, etunimi, sukunimi, paivamaara, tunnit, kuvaus FROM Merkinnat JOIN Kayttajat ON Merkinnat.kayttaja_id = Kayttajat.id WHERE kayttaja_id = ? ORDER BY Merkinnat.paivamaara DESC";
 		Object[] parametrit = { kayttajaId };
 		RowMapper<Merkinta> mapper = new MerkintaRowMapper();
 
@@ -62,7 +63,7 @@ public class MerkintaDAOSpringJdbcImpl implements MerkintaDAO {
 	}
 	
 	public List<Merkinta> haeTunnitYhteensa() {
-		String sql = "SELECT 0 AS merkinta_id, null AS paivamaara, null AS kuvaus, Kayttaja.id AS kayttaja_id, sahkoposti, etunimi, sukunimi, SUM(tunnit) AS tunnit FROM Merkinta JOIN Kayttaja ON Merkinta.kayttaja_id = Kayttaja.id GROUP BY kayttaja_id ORDER BY tunnit DESC";
+		String sql = "SELECT 0 AS merkinta_id, null AS paivamaara, null AS kuvaus, Kayttajat.id AS kayttaja_id, sahkoposti, etunimi, sukunimi, SUM(tunnit) AS tunnit FROM Merkinnat JOIN Kayttajat ON Merkinnat.kayttaja_id = Kayttajat.id GROUP BY kayttaja_id ORDER BY tunnit DESC";
 		RowMapper<Merkinta> mapper = new MerkintaRowMapper();
 		List<Merkinta> merkinnat = jdbcTemplate.query(sql, mapper);
 		return merkinnat;
@@ -70,11 +71,11 @@ public class MerkintaDAOSpringJdbcImpl implements MerkintaDAO {
 
 	public int poistaMerkinta(int merkintaId) {
 		Object[] parametrit = { merkintaId };
-		String sql = "SELECT kayttaja_id FROM Merkinta WHERE id = ?";
+		String sql = "SELECT kayttaja_id FROM Merkinnat WHERE id = ?";
 		int kayttajaId = 0;
 		try {
 			kayttajaId = jdbcTemplate.queryForObject(sql, parametrit, Integer.class);
-			sql = "DELETE FROM Merkinta WHERE id = ?";
+			sql = "DELETE FROM Merkinnat WHERE id = ?";
 			jdbcTemplate.update(sql, parametrit);
 		} catch (Exception ex) {
 			logger.info("Yritettiin poistaa merkinta jota ei loydy (id" + merkintaId + ")");
