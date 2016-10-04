@@ -37,6 +37,15 @@ public class MerkintaDAOSpringJdbcImpl implements MerkintaDAO {
 		List<Merkinta> merkinnat = jdbcTemplate.query(sql, mapper);
 		return merkinnat;
 	}
+	
+	public List<Merkinta> haeSeuraavatMerkinnat(int projektiId, int offset, int maara) {
+		String sql = "SELECT Kayttajat.id AS kayttaja_id, Merkinnat.id AS merkinta_id, sahkoposti, etunimi, sukunimi, paivamaara, tunnit, kuvaus FROM Merkinnat JOIN Kayttajat ON Merkinnat.kayttaja_id = Kayttajat.id WHERE projekti_id = ? ORDER BY Merkinnat.paivamaara DESC LIMIT ? OFFSET ?";
+		Object[] parametrit = { projektiId, maara, offset };
+		RowMapper<Merkinta> mapper = new MerkintaRowMapper();
+
+		List<Merkinta> merkinnat = jdbcTemplate.query(sql, parametrit, mapper);
+		return merkinnat;
+	}
 
 	public int tallennaMerkinta(Merkinta merkinta) {
 		String sql = "SELECT id FROM Kayttajat WHERE sahkoposti = ?";

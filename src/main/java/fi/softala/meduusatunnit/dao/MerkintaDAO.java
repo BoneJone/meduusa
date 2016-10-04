@@ -10,6 +10,8 @@ public interface MerkintaDAO {
 
 	public abstract List<Merkinta> haeKaikkiMerkinnat();
 	
+	public abstract List<Merkinta> haeSeuraavatMerkinnat(int projektiId, int offset, int maara);
+	
 	public abstract List<Merkinta> haeYhdenKayttajanMerkinnat(int kayttajaId);
 	
 	public abstract int poistaMerkinta(int merkintaId);
