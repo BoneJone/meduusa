@@ -126,7 +126,8 @@ public class TuntiKontrolleri {
 		return naytaEtusivu(model);
 	}
 
-	@RequestMapping(value = "/henkilo/{id}", method = RequestMethod.GET)
+	// Kovakoodataan projekti id urliin tällä hetkellä = 1
+	@RequestMapping(value = "/1/henkilo/{id}", method = RequestMethod.GET)
 	public String naytaKayttaja(@PathVariable Integer id, Model model) {
 		List<Merkinta> merkinnat = dao.haeYhdenKayttajanMerkinnat(id);
 		List<Merkinta> tiimintunnit = dao.haeTunnitYhteensa();
@@ -135,7 +136,7 @@ public class TuntiKontrolleri {
 		model.addAttribute("tiimintunnit", tiimintunnit);
 		model.addAttribute("naytettavat", "kayttaja");
 		
-		return "sivu";
+		return "projektin_merkinnat";
 	}
 	
 	@RequestMapping(value = "/poista/{id}", method = RequestMethod.GET)

@@ -79,6 +79,7 @@ h1 {
 .aside {
 	background-color: #212121;
 	padding-right: 0px;
+	min-height: 101vh !important;
 }
 .aside .title {
 	color: #fff;
