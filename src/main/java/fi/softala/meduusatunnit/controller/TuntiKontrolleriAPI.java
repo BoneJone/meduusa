@@ -43,6 +43,12 @@ public class TuntiKontrolleriAPI {
 		List<Merkinta> merkinnat = dao.haeKaikkiMerkinnat();
 		return merkinnat;
 	}
+	
+	@RequestMapping(value = "/api/tiimin-yhteistunnit", method = RequestMethod.GET)
+	public @ResponseBody List<Merkinta> haeTiiminYhteistunnit() {
+		List<Merkinta> merkinnat = dao.haeTunnitYhteensa();
+		return merkinnat;
+	}
 
 	@RequestMapping(value = "/api/henkilo/{id}", method = RequestMethod.GET)
 	public @ResponseBody List<Merkinta> haeHenkilonMerkinnat(@PathVariable Integer id) {
