@@ -7,6 +7,7 @@ import fi.softala.meduusatunnit.bean.Projekti;
 
 public interface MerkintaDAO {
 
+	// Merkintöihin liittyvät
 	public abstract int tallennaMerkinta(Merkinta merkinta);
 
 	public abstract List<Merkinta> haeKaikkiMerkinnat();
@@ -19,6 +20,12 @@ public interface MerkintaDAO {
 	
 	public abstract List<Merkinta> haeTunnitYhteensa();
 	
+	// Projektiin liittyvät
+	
 	public abstract void lisaaProjekti (Projekti projekti);
 	
+	public abstract List<Projekti> haeKayttajanProjektit(int id);
+	
+	public abstract Projekti haeProjektinTiedot(int id);
+
 }

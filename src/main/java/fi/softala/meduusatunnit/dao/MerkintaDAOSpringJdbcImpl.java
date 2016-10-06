@@ -1,5 +1,6 @@
 package fi.softala.meduusatunnit.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Repository;
 
 import fi.softala.meduusatunnit.bean.Merkinta;
 import fi.softala.meduusatunnit.bean.Projekti;
+import fi.softala.meduusatunnit.bean.ProjektiImpl;
 
 @Repository
 public class MerkintaDAOSpringJdbcImpl implements MerkintaDAO {
@@ -31,7 +33,6 @@ public class MerkintaDAOSpringJdbcImpl implements MerkintaDAO {
 	final static Logger logger = LoggerFactory.getLogger(MerkintaDAOSpringJdbcImpl.class);
 
 	public List<Merkinta> haeKaikkiMerkinnat() {
-
 		String sql = "SELECT Kayttajat.id AS kayttaja_id, Merkinnat.id AS merkinta_id, sahkoposti, etunimi, sukunimi, paivamaara, tunnit, kuvaus FROM Merkinnat JOIN Kayttajat ON Merkinnat.kayttaja_id = Kayttajat.id ORDER BY Merkinnat.paivamaara DESC";
 		RowMapper<Merkinta> mapper = new MerkintaRowMapper();
 
@@ -63,17 +64,6 @@ public class MerkintaDAOSpringJdbcImpl implements MerkintaDAO {
 		return rivit;
 	}
 	
-	
-	 public void lisaaProjekti (Projekti projekti) {
-		 String sql = "INSERT INTO Projektit (nimi, kuvaus) VALUES(?, ?)";
-		 Object[] parametrit = { projekti.getNimi(), projekti.getKuvaus() };
-	  	try {
-	  	  jdbcTemplate.update(sql, parametrit);
-	  	}	catch (EmptyResultDataAccessException ex) {
-	  			logger.error("Projektia lisätessä tapahtui virhe");
-	  	}	
-	 }
-	
 	public List<Merkinta> haeYhdenKayttajanMerkinnat(int kayttajaId) {
 		String sql = "SELECT Kayttajat.id AS kayttaja_id, Merkinnat.id AS merkinta_id, sahkoposti, etunimi, sukunimi, paivamaara, tunnit, kuvaus FROM Merkinnat JOIN Kayttajat ON Merkinnat.kayttaja_id = Kayttajat.id WHERE kayttaja_id = ? ORDER BY Merkinnat.paivamaara DESC";
 		Object[] parametrit = { kayttajaId };
@@ -104,4 +94,35 @@ public class MerkintaDAOSpringJdbcImpl implements MerkintaDAO {
 		}
 		return kayttajaId;
 	}
+	
+	// Projekteihin liittyvät
+	// Katsotaan, eriytetäänkö omaan DAOon
+	public List<Projekti> haeKayttajanProjektit(int kayttajaId) {
+		List<Projekti> projektit = new ArrayList<Projekti>();
+		String sql = "SELECT p.id, p.nimi, p.kuvaus, p.luontipaiva, SUM(tunnit) AS tunnit FROM Projektit p JOIN Merkinnat m ON (p.id = m.projekti_id) WHERE m.kayttaja_id = ? GROUP BY p.id";
+		try {
+			RowMapper<Projekti> mapper = new ProjektiListaRowMapper();
+			projektit = jdbcTemplate.query(sql, mapper);
+		} catch (EmptyResultDataAccessException ex) {
+			logger.error("Käyttäjällä ei ole yhtään projekteja");
+		}
+		return projektit;
+	}
+	
+	public Projekti haeProjektinTiedot(int projektiId) {
+		Projekti projekti = new ProjektiImpl();
+		
+		
+		return projekti;
+	}
+	
+	public void lisaaProjekti(Projekti projekti) {
+		 String sql = "INSERT INTO Projektit (nimi, kuvaus) VALUES(?, ?)";
+		 Object[] parametrit = { projekti.getNimi(), projekti.getKuvaus() };
+	  	try {
+	  	  jdbcTemplate.update(sql, parametrit);
+	  	}	catch (EmptyResultDataAccessException ex) {
+	  			logger.error("Projektia lisätessä tapahtui virhe");
+	  	}	
+	 }
 }

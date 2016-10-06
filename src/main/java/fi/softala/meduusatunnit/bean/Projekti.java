@@ -7,13 +7,16 @@ public interface Projekti {
 	public abstract int getId();
 	public abstract void setId(int id);
 	
-	public abstract Date getPaivamaara();
-	public abstract void setPaivamaara(Date paivamaara);
+	public abstract Date getLuontipaiva();
+	public abstract void setLuontipaiva(Date luontipaiva);
 	
 	public abstract String getNimi();
 	public abstract void setNimi(String nimi);
 	
 	public abstract String getKuvaus();
 	public abstract void setKuvaus(String kuvaus);
+	
+	public abstract int getYhteistunnit();
+	public abstract void setYhteistunnit(int yhteisTunnit);
 
 }

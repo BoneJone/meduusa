@@ -2,26 +2,13 @@ package fi.softala.meduusatunnit.bean;
 
 import java.util.Date;
 
-public class ProjektiImpl {
-	
+public class ProjektiImpl implements Projekti {
+
 	int id;
 	String nimi;
 	String kuvaus;
-	Date paivamaara;
-	
-	
-	public ProjektiImpl() {
-		super();
-		
-	}
-
-	public ProjektiImpl(int id, String nimi, String kuvaus, Date paivamaara) {
-		super();
-		this.id = id;
-		this.nimi = nimi;
-		this.kuvaus = kuvaus;
-		this.paivamaara = paivamaara;
-	}
+	Date luontipaiva;
+	int yhteistunnit;
 
 	public int getId() {
 		return id;
@@ -47,18 +34,20 @@ public class ProjektiImpl {
 		this.kuvaus = kuvaus;
 	}
 
-	public Date getPaivamaara() {
-		return paivamaara;
+	public Date getLuontipaiva() {
+		return luontipaiva;
 	}
 
-	public void setPaivamaara(Date paivamaara) {
-		this.paivamaara = paivamaara;
+	public void setLuontipaiva(Date luontipaiva) {
+		this.luontipaiva = luontipaiva;
 	}
 
-	@Override
-	public String toString() {
-		return "ProjektiImpl [id=" + id + ", nimi=" + nimi + ", kuvaus="
-				+ kuvaus + ", paivamaara=" + paivamaara + "]";
+	public int getYhteistunnit() {
+		return yhteistunnit;
+	}
+
+	public void setYhteistunnit(int yhteistunnit) {
+		this.yhteistunnit = yhteistunnit;
 	}
 
 }

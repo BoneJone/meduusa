@@ -42,6 +42,7 @@ public class TuntiKontrolleri {
 		List<Merkinta> merkinnat = dao.haeKaikkiMerkinnat();
 		List<Merkinta> tiimintunnit = dao.haeTunnitYhteensa();
 
+
 		model.addAttribute("merkinnat", merkinnat);
 		model.addAttribute("tiimintunnit", tiimintunnit);
 		model.addAttribute("naytettavat", "kaikki");
