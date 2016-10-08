@@ -22,10 +22,10 @@ public interface MerkintaDAO {
 	
 	// Projektiin liittyvät
 	
-	public abstract void lisaaProjekti (Projekti projekti);
+	public abstract int lisaaProjekti (Projekti projekti, int kayttajaId);
 	
 	public abstract List<Projekti> haeKayttajanProjektit(int id);
 	
-	public abstract Projekti haeProjektinTiedot(int id);
+	public abstract Projekti haeProjektinMerkinnat(int projektiId, int kayttajaId);
 
 }

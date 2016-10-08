@@ -1,6 +1,7 @@
 package fi.softala.meduusatunnit.bean;
 
 import java.util.Date;
+import java.util.List;
 
 public interface Projekti {
 	
@@ -16,7 +17,7 @@ public interface Projekti {
 	public abstract String getKuvaus();
 	public abstract void setKuvaus(String kuvaus);
 	
-	public abstract int getYhteistunnit();
-	public abstract void setYhteistunnit(int yhteisTunnit);
+	public abstract List<Merkinta> getMerkinnat();
+	public abstract void setMerkinnat(List<Merkinta> merkinnat);
 
 }

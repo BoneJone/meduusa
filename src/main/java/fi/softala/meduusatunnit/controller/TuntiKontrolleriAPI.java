@@ -19,6 +19,7 @@ import fi.softala.meduusatunnit.bean.Kayttaja;
 import fi.softala.meduusatunnit.bean.KayttajaImpl;
 import fi.softala.meduusatunnit.bean.Merkinta;
 import fi.softala.meduusatunnit.bean.MerkintaImpl;
+import fi.softala.meduusatunnit.bean.Projekti;
 import fi.softala.meduusatunnit.dao.MerkintaDAO;
 import fi.softala.meduusatunnit.utility.Slack;
 
@@ -54,6 +55,20 @@ public class TuntiKontrolleriAPI {
 	public @ResponseBody List<Merkinta> haeHenkilonMerkinnat(@PathVariable Integer id) {
 		List<Merkinta> merkinnat = dao.haeYhdenKayttajanMerkinnat(id);
 		return merkinnat;
+	}
+	
+	// Kovakoodattu toistaiseksi käyttämään käyttjä id:tä 1
+	@RequestMapping(value = "/api/projekti/{id}", method = RequestMethod.GET)
+	public @ResponseBody Projekti haeProjektinMerkinnat(@PathVariable Integer id) {
+		Projekti projekti = dao.haeProjektinMerkinnat(id, 1);
+		return projekti;
+	}
+	
+	// Kovakoodattu hakemaan käyttäjän id 1 projektit
+	@RequestMapping(value = "/api/kayttajan-projektit", method = RequestMethod.GET)
+	public @ResponseBody List<Projekti> haeKayttajanProjektit() {
+		List<Projekti> projektit = dao.haeKayttajanProjektit(1);
+		return projektit;
 	}
 	
 	@RequestMapping(value = "/api/lisaa-merkinta", method = RequestMethod.POST)

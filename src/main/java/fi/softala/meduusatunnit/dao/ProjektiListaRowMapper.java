@@ -15,7 +15,6 @@ public class ProjektiListaRowMapper implements RowMapper<Projekti>{
 		projekti.setId(rs.getInt("id"));
 		projekti.setNimi(rs.getString("nimi"));
 		projekti.setKuvaus(rs.getString("kuvaus"));
-		projekti.setYhteistunnit(rs.getInt("tunnit"));
 		projekti.setLuontipaiva(rs.getTimestamp("luontipaiva"));
 		return projekti;
 	}

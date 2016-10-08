@@ -1,6 +1,7 @@
 package fi.softala.meduusatunnit.bean;
 
 import java.util.Date;
+import java.util.List;
 
 public class ProjektiImpl implements Projekti {
 
@@ -8,7 +9,21 @@ public class ProjektiImpl implements Projekti {
 	String nimi;
 	String kuvaus;
 	Date luontipaiva;
-	int yhteistunnit;
+	List<Merkinta> merkinnat;
+
+	public ProjektiImpl() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public ProjektiImpl(int id, String nimi, String kuvaus, Date luontipaiva, List<Merkinta> merkinnat) {
+		super();
+		this.id = id;
+		this.nimi = nimi;
+		this.kuvaus = kuvaus;
+		this.luontipaiva = luontipaiva;
+		this.merkinnat = merkinnat;
+	}
 
 	public int getId() {
 		return id;
@@ -42,12 +57,12 @@ public class ProjektiImpl implements Projekti {
 		this.luontipaiva = luontipaiva;
 	}
 
-	public int getYhteistunnit() {
-		return yhteistunnit;
+	public List<Merkinta> getMerkinnat() {
+		return merkinnat;
 	}
 
-	public void setYhteistunnit(int yhteistunnit) {
-		this.yhteistunnit = yhteistunnit;
+	public void setMerkinnat(List<Merkinta> merkinnat) {
+		this.merkinnat = merkinnat;
 	}
 
 }
