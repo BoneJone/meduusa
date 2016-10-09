@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Raleway:400,300,600" />
+<link rel="stylesheet" type="text/css" href="/css/normalize.css" />
+<link rel="stylesheet" type="text/css" href="/css/skeleton.css" />
+<link rel="stylesheet" type="text/css" href="/css/style.css" />
+<title>Meduusa | Tervetuloa!</title>
+</head>
+<body>
+
+<div class="container">
+<div class="row">
+<div class="twelve columns">
+<form th:action="@{/logout}" method="post">
+<button type="submit" style="margin-top: 20px;">Kirjaudu ulos</button>
+</form>
+<h3 style="padding-top: 20px;">Merkinnät</h3>
+
+<table class="table">
+<thead>
+<tr>
+<th>ID</th><th>Tunnit</th><th>Kuvaus</th>
+</tr>
+</thead>
+<tbody>
+    <tr th:each="merkinta : ${merkinnat}">
+        <td th:text="${merkinta.id}"></td>
+        <td th:text="${merkinta.tunnit}"></td>
+        <td th:text="${merkinta.kuvaus}"></td>
+    </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+
+</body>
+</html>

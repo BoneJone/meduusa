@@ -1,0 +1,66 @@
+package me.nicou.tuntikirjaus.bean;
+
+import java.util.Date;
+
+public class MerkintaImpl implements Merkinta {
+
+	int id;
+	Date paivamaara;
+	double tunnit;
+	String kuvaus;
+	Kayttaja kayttaja;
+
+	public MerkintaImpl() {
+		super();
+	}
+
+	public MerkintaImpl(int id, Date paivamaara, double tunnit, String kuvaus, Kayttaja kayttaja) {
+		super();
+		this.id = id;
+		this.paivamaara = paivamaara;
+		this.tunnit = tunnit;
+		this.kuvaus = kuvaus;
+		this.kayttaja = kayttaja;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public Date getPaivamaara() {
+		return paivamaara;
+	}
+
+	public void setPaivamaara(Date paivamaara) {
+		this.paivamaara = paivamaara;
+	}
+
+	public double getTunnit() {
+		return tunnit;
+	}
+
+	public void setTunnit(double tunnit) {
+		this.tunnit = tunnit;
+	}
+
+	public String getKuvaus() {
+		return kuvaus;
+	}
+
+	public void setKuvaus(String kuvaus) {
+		this.kuvaus = kuvaus;
+	}
+
+	public Kayttaja getKayttaja() {
+		return kayttaja;
+	}
+
+	public void setKayttaja(Kayttaja kayttaja) {
+		this.kayttaja = kayttaja;
+	}
+
+}

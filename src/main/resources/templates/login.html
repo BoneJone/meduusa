@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Raleway:400,300,600" />
+<link rel="stylesheet" type="text/css" href="/css/normalize.css" />
+<link rel="stylesheet" type="text/css" href="/css/skeleton.css" />
+<link rel="stylesheet" type="text/css" href="/css/style.css" />
+<title>Meduusa | Kirjaudu sisään</title>
+</head>
+<body>
+
+<div class="container">
+<div class="row">
+<div class="five columns">
+<h3 style="padding-top: 20px;">Kirjaudu sisään</h3>
+<form method="post" th:action="@{/login}">
+<label>Sähköpostiosoite</label>
+<input class="u-full-width" type="text" name="username" placeholder="Sähköpostiosoite"/>
+<label>Salasana</label>
+<input class="u-full-width" type="password" name="password" placeholder="Salasana"/>
+<button class="button button-primary" type="submit">Kirjaudu</button>
+<div th:if="${param.error}" style="color: #f00;"><strong>Virheelliset käyttäjätiedot!</strong></div>
+<div th:if="${param.logout}" style="color: #0a0;"><strong>Sinut kirjattiin ulos onnistuneesti!</strong></div>
+</form>
+
+</div>
+</div>
+</div>
+
+</body>
+</html>
