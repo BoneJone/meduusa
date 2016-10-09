@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import me.nicou.tuntikirjaus.bean.Kayttaja;
+import me.nicou.tuntikirjaus.bean.KayttajaImpl;
 
 @Repository("kayttajaDao")
 public class KayttajaDaoImpl implements KayttajaDao {
@@ -23,9 +24,14 @@ public class KayttajaDaoImpl implements KayttajaDao {
 	
 	public Kayttaja haeKayttajaSahkopostilla(String sahkoposti) {
 		String sql = "SELECT id, etunimi, sukunimi, sahkoposti, salasana FROM Kayttajat WHERE sahkoposti = ?";
-		RowMapper<Kayttaja> mapper = new KayttajaRowMapper();
-		Kayttaja kayttaja = jdbcTemplate.queryForObject(sql, new Object[] { sahkoposti }, mapper);
-		logger.info("Haettiin kannasta käyttäjä " + kayttaja.toString());
+		Kayttaja kayttaja = new KayttajaImpl();
+		try {
+			RowMapper<Kayttaja> mapper = new KayttajaRowMapper();
+			kayttaja = jdbcTemplate.queryForObject(sql, new Object[] { sahkoposti }, mapper);
+			logger.info("Haettiin kannasta käyttäjä " + kayttaja.toString());
+		} catch (Exception ex) {
+			logger.error("Käyttäjää " + sahkoposti + " ei löytynyt kannasta");
+		}
 		return kayttaja;
 	}
 
