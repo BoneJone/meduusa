@@ -4,14 +4,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Raleway:400,300,600" />
-<link rel="stylesheet" type="text/css" href="/css/normalize.css" />
-<link rel="stylesheet" type="text/css" href="/css/skeleton.css" />
-<link rel="stylesheet" type="text/css" href="/css/style.css" />
-<link rel="stylesheet" type="text/css" href="/css/jquery.toast.min.css" />
+<link rel="stylesheet" type="text/css" href="/css/normalize.css" th:href="@{/css/normalize.css}" />
+<link rel="stylesheet" type="text/css" href="/css/skeleton.css" th:href="@{/css/skeleton.css}" />
+<link rel="stylesheet" type="text/css" href="/css/style.css" th:href="@{/css/style.css}" />
+<link rel="stylesheet" type="text/css" href="/css/jquery.toast.min.css" th:href="@{/css/jquery.toast.min.css}" />
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
-<script type="text/javascript" src="/js/jquery.leanModal.min.js"></script>
-<script type="text/javascript" src="/js/jquery.toast.min.js"></script>
+<script type="text/javascript" src="/js/jquery.leanModal.min.js" th:src="@{/js/jquery.leanModal.min.js}"></script>
+<script type="text/javascript" src="/js/jquery.toast.min.js" th:src="@{/js/jquery.toast.min.js}"></script>
 <title th:text="${'Meduusa | ' + projekti.nimi}"></title>
 <script type="text/javascript">
 var ilmoitus = function(viesti) {
@@ -22,7 +22,7 @@ var ilmoitus = function(viesti) {
 		allowToastClose: true,
 		hideAfter: 3000,
 		stack: 5,
-		position: 'top-right',
+		position: 'bottom-right',
 		bgColor: '#1EAEDB',
 		textColor: '#FFF',
 		textAlign: 'left',
@@ -40,7 +40,7 @@ var ilmoitus = function(viesti) {
 
 <h3 style="padding: 3px 0px; margin: 0px;" th:text="${projekti.nimi}"></h3>
 <h6 th:text="${projekti.kuvaus}" style="font-weight: bold;"></h6>
-<a href="/">&lt; Kaikki projektit</a><br /><br />
+<a th:href="@{/}">&lt; Kaikki projektit</a><br /><br />
 </div>
 <div class="three columns">
 
@@ -114,8 +114,9 @@ Merkintä poistetaan tietokannasta lopullisesti.
   $(".poisto").leanModal();
   var projektiId = [[${projekti.id}]];
   var kayttajaId = [[${kayttaja.id}]];
+  var rootUrl = [[@{/}]];
   var poisto = function(id) {
-	  $("#poistonappi").attr("href", "/projekti/" + projektiId + "/jasen/" + kayttajaId + "/poista/" + id);
+	  $("#poistonappi").attr("href", rootUrl + "/projekti/" + projektiId + "/jasen/" + kayttajaId + "/poista/" + id);
   }
   var suljeModal = function() {
 	  $("#lean_overlay").trigger("click");
