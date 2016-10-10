@@ -46,7 +46,7 @@ public class ProjektiDaoImpl implements ProjektiDao {
 			RowMapper<Projekti> mapper = new ProjektiListaRowMapper();
 			projekti = jdbcTemplate.queryForObject(sql, new Object[] { sahkoposti, projektiId }, mapper);
 		} catch (EmptyResultDataAccessException ex) {
-			logger.debug("Käyttäjä yritti hakea projekti jota ei löytynyt");
+			logger.debug("Käyttäjä yritti hakea projekti jota ei löytynyt tai johon ei kuulu");
 			return projekti;
 		}
 		
@@ -54,6 +54,29 @@ public class ProjektiDaoImpl implements ProjektiDao {
 		RowMapper<Merkinta> mapper = new MerkintaRowMapper();
 		try {
 			List<Merkinta> merkinnat = jdbcTemplate.query(sql, new Object[] { projektiId }, mapper);
+			projekti.setMerkinnat(merkinnat);
+		} catch (EmptyResultDataAccessException ex) {
+			logger.debug("Haettiin tiedot projektista jolla ei ole vielä merkintöjä");
+		}
+		
+		return projekti;
+	}
+	
+	public Projekti haeProjektinTiedotKayttajalta(int projektiId, String sahkoposti, int kayttajaId) {
+		Projekti projekti = new ProjektiImpl();
+		String sql = "SELECT id, nimi, kuvaus, luontipaiva FROM Projektit p JOIN ProjektinJasenet pj ON p.id = pj.projekti_id WHERE pj.kayttaja_id = (SELECT id FROM Kayttajat WHERE sahkoposti = ?) AND p.id = ? ORDER BY id DESC";
+		try {
+			RowMapper<Projekti> mapper = new ProjektiListaRowMapper();
+			projekti = jdbcTemplate.queryForObject(sql, new Object[] { sahkoposti, projektiId }, mapper);
+		} catch (EmptyResultDataAccessException ex) {
+			logger.debug("Käyttäjä yritti hakea projekti jota ei löytynyt tai johon ei kuulu");
+			return projekti;
+		}
+		
+		sql = "SELECT k.id AS kayttaja_id, m.id AS merkinta_id, sahkoposti, etunimi, sukunimi, paivamaara, tunnit, kuvaus FROM Merkinnat m JOIN Kayttajat k ON m.kayttaja_id = k.id WHERE m.projekti_id = ? AND m.kayttaja_id = ? ORDER BY m.paivamaara DESC";
+		RowMapper<Merkinta> mapper = new MerkintaRowMapper();
+		try {
+			List<Merkinta> merkinnat = jdbcTemplate.query(sql, new Object[] { projektiId, kayttajaId }, mapper);
 			projekti.setMerkinnat(merkinnat);
 		} catch (EmptyResultDataAccessException ex) {
 			logger.debug("Haettiin tiedot projektista jolla ei ole vielä merkintöjä");
@@ -77,6 +100,11 @@ public class ProjektiDaoImpl implements ProjektiDao {
 		sql = "INSERT INTO Merkinnat (kayttaja_id, projekti_id, tunnit, kuvaus) VALUES(?, ?, ?, ?)";
 		Object[] parametrit = { kayttaja, projektiId, merkinta.getTunnit(), merkinta.getKuvaus() };
 		return jdbcTemplate.update(sql, parametrit);
+	}
+	
+	public int poistaKayttajanMerkinta(int merkintaId, String sahkoposti) {
+		String sql = "DELETE FROM Merkinnat WHERE id = ? AND kayttaja_id = (SELECT id FROM Kayttajat WHERE sahkoposti = ?)";
+		return jdbcTemplate.update(sql, new Object[] { merkintaId, sahkoposti });
 	}
 	
 	public List<Merkinta> haeProjektinYhteistunnit(int projektiId) {

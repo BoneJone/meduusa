@@ -62,6 +62,51 @@ public class ProjektiKontrolleri {
 		return "projekti";
 	}
 	
+	@RequestMapping(value = "/projekti/{projektiId}/jasen/{kayttajaId}", method = RequestMethod.GET)
+	public String haeProjektinTiedotKayttajalta(
+			@PathVariable Integer projektiId,
+			@PathVariable Integer kayttajaId,
+			Model model,
+			Principal principal) {
+		
+		Projekti projekti = projektiDao.haeProjektinTiedotKayttajalta(projektiId, principal.getName(), kayttajaId);
+		if (projekti.getId() == 0) { return "redirect:/"; }
+		Kayttaja kayttaja = kayttajaDao.haeKayttajaSahkopostilla(principal.getName());
+		List<Merkinta> yhteistunnit = projektiDao.haeProjektinYhteistunnit(projektiId);
+		model.addAttribute("kayttaja", kayttaja);
+		model.addAttribute("projekti", projekti);
+		model.addAttribute("yhteistunnit", yhteistunnit);
+		
+		return "jasenen-merkinnat";
+	}
+	
+	@RequestMapping(value = "/projekti/{projektiId}/jasen/{kayttajaId}/poista/{merkintaId}", method = RequestMethod.GET)
+	public String poistaKayttajanMerkinta(
+			@PathVariable Integer projektiId,
+			@PathVariable Integer kayttajaId,
+			@PathVariable Integer merkintaId,
+			Model model,
+			Principal principal
+			) {
+		
+		int rivit = projektiDao.poistaKayttajanMerkinta(merkintaId, principal.getName());
+		if (rivit == 0) {
+			model.addAttribute("viesti", "Merkinnän poistossa tapahtui virhe!");
+		} else {
+			model.addAttribute("viesti", "Merkintä poistettu!");
+		}
+		
+		Projekti projekti = projektiDao.haeProjektinTiedotKayttajalta(projektiId, principal.getName(), kayttajaId);
+		if (projekti.getId() == 0) { return "redirect:/"; }
+		Kayttaja kayttaja = kayttajaDao.haeKayttajaSahkopostilla(principal.getName());
+		List<Merkinta> yhteistunnit = projektiDao.haeProjektinYhteistunnit(projektiId);
+		model.addAttribute("kayttaja", kayttaja);
+		model.addAttribute("projekti", projekti);
+		model.addAttribute("yhteistunnit", yhteistunnit);
+		
+		return "jasenen-merkinnat";
+	}
+	
 	@RequestMapping(value = "/projekti/{projektiId}/lisaa", method = RequestMethod.POST)
 	public String lisaaMerkinta(
 			Model model,

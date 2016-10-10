@@ -28,7 +28,6 @@ public class KayttajaDaoImpl implements KayttajaDao {
 		try {
 			RowMapper<Kayttaja> mapper = new KayttajaRowMapper();
 			kayttaja = jdbcTemplate.queryForObject(sql, new Object[] { sahkoposti }, mapper);
-			logger.info("Haettiin kannasta käyttäjä " + kayttaja.toString());
 		} catch (Exception ex) {
 			logger.error("Käyttäjää " + sahkoposti + " ei löytynyt kannasta");
 		}
