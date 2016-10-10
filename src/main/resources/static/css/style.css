@@ -76,3 +76,11 @@ h1 {
 .virhe {
 	margin-top: 25%;
 }
+
+.alaborder {
+	border-bottom: 1px solid #ddd;
+}
+
+.projektirivi:last-child {
+	border-bottom: none;
+}

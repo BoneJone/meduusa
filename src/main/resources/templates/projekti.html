@@ -7,11 +7,12 @@
 <link rel="stylesheet" type="text/css" href="/css/normalize.css" />
 <link rel="stylesheet" type="text/css" href="/css/skeleton.css" />
 <link rel="stylesheet" type="text/css" href="/css/style.css" />
+<link rel="stylesheet" type="text/css" href="/css/jquery.toast.min.css" />
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
 <script type="text/javascript" src="/js/jquery.leanModal.min.js"></script>
 <script type="text/javascript" src="/js/jquery.toast.min.js"></script>
-<title>Meduusa | Merkinnät</title>
+<title th:text="${'Meduusa | ' + projekti.nimi}"></title>
 <script type="text/javascript">
 var ilmoitus = function(viesti) {
 	$.toast({
@@ -34,12 +35,12 @@ var ilmoitus = function(viesti) {
 
 <div class="container">
 
-<div class="row toppi">
+<div class="row toppi alarivi" style="border-bottom: 1px solid #ddd;">
 <div class="nine columns">
 
-<h3 th:text="${projekti.nimi}"></h3>
-<h6 th:text="${projekti.kuvaus}"></h6>
-<a href="/">&lt; Kaikki projektit</a>
+<h3 style="padding: 3px 0px; margin: 0px;" th:text="${projekti.nimi}"></h3>
+<h6 th:text="${projekti.kuvaus}" style="font-weight: bold;"></h6>
+<a href="/">&lt; Kaikki projektit</a><br /><br />
 </div>
 <div class="three columns">
 
@@ -59,7 +60,12 @@ var ilmoitus = function(viesti) {
 <th>Henkilö</th><th>Tunnit</th>
 </tr>
 </thead>
-<tbody></tbody>
+<tbody>
+    <tr th:each="merkinta : ${yhteistunnit}">
+        <td><a th:href="@{'/projekti/' + ${projekti.id} + '/jasen/' + ${merkinta.kayttaja.id}}" th:text="${merkinta.kayttaja.etunimi + ' ' + merkinta.kayttaja.sukunimi}"></a></td>
+        <td th:text="${merkinta.tunnit + 'h'}"></td>
+    </tr>
+</tbody>
 </table>
 
 </div>
@@ -140,6 +146,24 @@ var ilmoitus = function(viesti) {
 
 
 
+</div>
+
+<script th:inline="javascript">
+  $(".poisto").leanModal();
+  var projektiId = [[${projekti.id}]];
+  var poisto = function(id) {
+	  $("#poistonappi").attr("href", "/projekti/" + projektiId + "/poista/" + id);
+  }
+  var suljeModal = function() {
+	  $("#lean_overlay").trigger("click");
+  }
+</script>
+
+<div th:if="${not #lists.isEmpty(viesti)}">
+<div id="viestidiv" th:text="${viesti}" style="display: none;"></div>
+<script type="text/javascript">
+	ilmoitus($('#viestidiv').html());
+</script>
 </div>
 
 </body>

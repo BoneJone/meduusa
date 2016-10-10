@@ -27,13 +27,6 @@ public class ProjektiDaoImpl implements ProjektiDao {
 	
 	private static final Logger logger = LoggerFactory.getLogger(KayttajaDaoImpl.class);
 	
-	public List<Merkinta> haeKaikkiMerkinnat() {
-		String sql = "SELECT Kayttajat.id AS kayttaja_id, Merkinnat.id AS merkinta_id, sahkoposti, etunimi, sukunimi, paivamaara, tunnit, kuvaus FROM Merkinnat JOIN Kayttajat ON Merkinnat.kayttaja_id = Kayttajat.id ORDER BY Merkinnat.paivamaara DESC";
-		RowMapper<Merkinta> mapper = new MerkintaRowMapper();
-		List<Merkinta> merkinnat = jdbcTemplate.query(sql, mapper);
-		return merkinnat;
-	}
-	
 	public List<Projekti> haeKayttajanProjektit(String sahkoposti) {
 		List<Projekti> projektit = new ArrayList<Projekti>();
 		String sql = "SELECT id, nimi, kuvaus, luontipaiva FROM Projektit p JOIN ProjektinJasenet pj ON p.id = pj.projekti_id WHERE pj.kayttaja_id = (SELECT id FROM Kayttajat WHERE sahkoposti = ?) ORDER BY id DESC";
@@ -75,7 +68,7 @@ public class ProjektiDaoImpl implements ProjektiDao {
 		try {
 			kayttaja = jdbcTemplate.queryForObject(sql, new Object[] { merkinta.getKayttaja().getSahkoposti() }, String.class);
 		} catch (EmptyResultDataAccessException ex) {
-			logger.info("Käyttäjä yritti lisätä tunteja projektiin jota ei löydy tai johon hän ei kuulu");
+			logger.debug("Käyttäjä yritti lisätä tunteja projektiin jota ei löydy tai johon hän ei kuulu");
 			return 0;
 		}
 
@@ -84,6 +77,18 @@ public class ProjektiDaoImpl implements ProjektiDao {
 		sql = "INSERT INTO Merkinnat (kayttaja_id, projekti_id, tunnit, kuvaus) VALUES(?, ?, ?, ?)";
 		Object[] parametrit = { kayttaja, projektiId, merkinta.getTunnit(), merkinta.getKuvaus() };
 		return jdbcTemplate.update(sql, parametrit);
+	}
+	
+	public List<Merkinta> haeProjektinYhteistunnit(int projektiId) {
+		String sql = "SELECT 0 AS merkinta_id, null AS paivamaara, null AS kuvaus, Kayttajat.id AS kayttaja_id, sahkoposti, etunimi, sukunimi, SUM(tunnit) AS tunnit FROM Merkinnat JOIN Kayttajat ON Merkinnat.kayttaja_id = Kayttajat.id GROUP BY kayttaja_id ORDER BY tunnit DESC";
+		List<Merkinta> merkinnat = new ArrayList<>();
+		try {
+			RowMapper<Merkinta> mapper = new MerkintaRowMapper();
+			merkinnat = jdbcTemplate.query(sql, mapper);
+		} catch (EmptyResultDataAccessException ex) {
+			logger.debug("Käyttäjä yritti hakea yhteistunnit projektista jolla ei ole merkintöjä");
+		}
+		return merkinnat;
 	}
 
 }

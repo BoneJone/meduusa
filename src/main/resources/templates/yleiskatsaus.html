@@ -35,7 +35,7 @@ var ilmoitus = function(viesti) {
 
 <div class="container">
 
-<div class="row toppi">
+<div class="row toppi alaborer">
 <div class="six columns">
 <h3 th:text="${'Tervetuloa, ' + kayttaja.etunimi + ' ' + kayttaja.sukunimi + '!'}"></h3>
 </div>
@@ -49,7 +49,7 @@ var ilmoitus = function(viesti) {
 <div class="row">
 <div class="twelve columns">
 <h4>Omat projektit</h4>
-<p th:each="projekti : ${projektit}">
+<p class="alaborder projektirivi" th:each="projekti : ${projektit}">
         <a th:href="@{'/projekti/' + ${projekti.id}}">
         <h5 th:text="${projekti.nimi}"></h5>
         </a>
