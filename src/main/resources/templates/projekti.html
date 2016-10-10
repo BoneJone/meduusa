@@ -9,9 +9,8 @@
 <link rel="stylesheet" type="text/css" href="/css/style.css" />
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
-<script type="text/javascript" src="${url}/js/jquery.leanModal.min.js"></script>
-<script type="text/javascript" src="${url}/js/jquery.toast.min.js"></script>
-<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script type="text/javascript" src="/js/jquery.leanModal.min.js"></script>
+<script type="text/javascript" src="/js/jquery.toast.min.js"></script>
 <title>Meduusa | Merkinnät</title>
 <script type="text/javascript">
 var ilmoitus = function(viesti) {
@@ -36,19 +35,24 @@ var ilmoitus = function(viesti) {
 <div class="container">
 
 <div class="row toppi">
-<div class="six columns">
-&nbsp;
+<div class="nine columns">
+
+<h3 th:text="${projekti.nimi}"></h3>
+<h6 th:text="${projekti.kuvaus}"></h6>
+<a href="/">&lt; Kaikki projektit</a>
 </div>
-<div class="six columns">
+<div class="three columns">
+
 <form th:action="@{/logout}" method="post">
 	<button type="submit" class="button" style="float: right;">Kirjaudu ulos</button>
 </form>
+
 </div>
 </div>
 
 <div class="row">
 <div class="eight columns">
-<h3>Tiimin jäsenet</h3>
+<h4>Tiimin jäsenet</h4>
 <table class="u-full-width">
 <thead>
 <tr>
@@ -63,10 +67,8 @@ var ilmoitus = function(viesti) {
 
 
 <div class="four columns">
-<h3 class="center">Lisää merkintä</h3>
-<form method="post" th:action="@{/lisaa}">
-<label for="nimi">Nimesi</label>
-<input type="text" name="nimi" id="nimi" class="u-full-width" />
+<h4 class="center">Lisää merkintä</h4>
+<form method="post" th:action="@{'/projekti/' + ${projekti.id} + '/lisaa'}">
 <div class="row">
 <div class="six columns">
 <label for="tunnit">Käytetty aika</label>
@@ -115,13 +117,13 @@ var ilmoitus = function(viesti) {
 
 <div class="twelve columns">
 
-<h3>Tiimin kirjaamat tunnit</h3>
+<h4>Tiimin kirjaamat tunnit</h4>
 <table class="u-full-width">
 <thead>
 <tr><th>Henkilö</th><th>Päivä</th><th>Tunnit</th><th>Kuvaus</th></tr>
 </thead>
 <tbody>
-    <tr th:each="merkinta : ${merkinnat}">
+    <tr th:each="merkinta : ${projekti.merkinnat}">
         <td th:text="${merkinta.kayttaja.etunimi + ' ' + merkinta.kayttaja.sukunimi}"></td>
         <td th:text="${#dates.format(merkinta.paivamaara, 'dd.MM.yyy')}"></td>
         <td th:text="${merkinta.tunnit + 'h'}"></td>

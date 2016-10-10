@@ -10,7 +10,8 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 	@Override
 	public void addViewControllers(ViewControllerRegistry viewController) {
 		//viewController.addViewController("/").setViewName("merkinnat");
-		viewController.addViewController("/login").setViewName("login");
+		viewController.addViewController("/kirjaudu").setViewName("login");
+		viewController.addViewController("/").setViewName("yleiskatsaus");
 	}
 
 }

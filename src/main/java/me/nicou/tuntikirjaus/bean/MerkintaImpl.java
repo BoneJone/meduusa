@@ -63,4 +63,10 @@ public class MerkintaImpl implements Merkinta {
 		this.kayttaja = kayttaja;
 	}
 
+	@Override
+	public String toString() {
+		return "MerkintaImpl [id=" + id + ", paivamaara=" + paivamaara + ", tunnit=" + tunnit + ", kuvaus=" + kuvaus
+				+ ", kayttaja=" + kayttaja + "]";
+	}
+
 }

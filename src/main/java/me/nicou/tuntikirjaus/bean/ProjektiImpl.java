@@ -65,4 +65,10 @@ public class ProjektiImpl implements Projekti {
 		this.merkinnat = merkinnat;
 	}
 
+	@Override
+	public String toString() {
+		return "ProjektiImpl [id=" + id + ", nimi=" + nimi + ", kuvaus=" + kuvaus + ", luontipaiva=" + luontipaiva
+				+ ", merkinnat=" + merkinnat + "]";
+	}
+
 }

@@ -26,7 +26,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
 		UserDetails kayttaja = new org.springframework.security.core.userdetails.User(
 				username,
 				kirjautuvaKayttaja.getSalasana(),
-				AuthorityUtils.createAuthorityList("ADMIN")
+				AuthorityUtils.createAuthorityList("USER")
 				);
 		
 		return kayttaja;
