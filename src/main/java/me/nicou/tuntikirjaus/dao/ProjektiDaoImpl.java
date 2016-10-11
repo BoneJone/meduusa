@@ -107,12 +107,12 @@ public class ProjektiDaoImpl implements ProjektiDao {
 		return jdbcTemplate.update(sql, new Object[] { merkintaId, sahkoposti });
 	}
 	
-	public List<Merkinta> haeProjektinYhteistunnit(int projektiId) {
-		String sql = "SELECT 0 AS merkinta_id, null AS paivamaara, null AS kuvaus, Kayttajat.id AS kayttaja_id, sahkoposti, etunimi, sukunimi, SUM(tunnit) AS tunnit FROM Merkinnat JOIN Kayttajat ON Merkinnat.kayttaja_id = Kayttajat.id WHERE projekti_id = ? GROUP BY kayttaja_id ORDER BY tunnit DESC";
+	public List<Merkinta> haeProjektinYhteistunnit(int projektiId, String sahkoposti) {
+		String sql = "SELECT 0 AS merkinta_id, null AS paivamaara, null AS kuvaus, Kayttajat.id AS kayttaja_id, sahkoposti, etunimi, sukunimi, SUM(tunnit) AS tunnit FROM Merkinnat JOIN Kayttajat ON Merkinnat.kayttaja_id = Kayttajat.id WHERE projekti_id = ? AND (SELECT 1 FROM ProjektinJasenet pj JOIN Kayttajat k ON pj.kayttaja_id = k.id WHERE projekti_id = ? AND k.sahkoposti = ?) = 1 GROUP BY kayttaja_id ORDER BY tunnit DESC";
 		List<Merkinta> merkinnat = new ArrayList<>();
 		try {
 			RowMapper<Merkinta> mapper = new MerkintaRowMapper();
-			merkinnat = jdbcTemplate.query(sql, new Object[] { projektiId }, mapper);
+			merkinnat = jdbcTemplate.query(sql, new Object[] { projektiId, projektiId, sahkoposti }, mapper);
 		} catch (EmptyResultDataAccessException ex) {
 			logger.debug("Käyttäjä yritti hakea yhteistunnit projektista jolla ei ole merkintöjä");
 		}

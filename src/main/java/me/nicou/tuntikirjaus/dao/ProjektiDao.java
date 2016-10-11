@@ -17,6 +17,6 @@ public interface ProjektiDao {
 	
 	public int poistaKayttajanMerkinta(int merkintaId, String sahkoposti);
 	
-	public List<Merkinta> haeProjektinYhteistunnit(int projektiId);
+	public List<Merkinta> haeProjektinYhteistunnit(int projektiId, String sahkoposti);
 
 }

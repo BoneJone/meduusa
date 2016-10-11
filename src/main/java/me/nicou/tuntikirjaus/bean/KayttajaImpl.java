@@ -1,11 +1,15 @@
 package me.nicou.tuntikirjaus.bean;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class KayttajaImpl implements Kayttaja {
 
 	int id;
 	String sahkoposti;
 	String etunimi;
 	String sukunimi;
+	
+	@JsonIgnore
 	String salasana;
 
 	public KayttajaImpl() {

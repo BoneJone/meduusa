@@ -37,7 +37,7 @@ public class ProjektiKontrolleri {
 	private static final Logger logger = LoggerFactory.getLogger(ProjektiKontrolleri.class);
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String naytaMerkinnat(Model model, Principal principal) {
+	public String haeKayttajanProjektit(Model model, Principal principal) {
 		Kayttaja kayttaja = kayttajaDao.haeKayttajaSahkopostilla(principal.getName());
 		List<Projekti> projektit = projektiDao.haeKayttajanProjektit(principal.getName());
 		model.addAttribute("kayttaja", kayttaja);
@@ -54,7 +54,7 @@ public class ProjektiKontrolleri {
 		Projekti projekti = projektiDao.haeProjektinTiedot(id, principal.getName());
 		if (projekti.getId() == 0) { return "redirect:/"; }
 		Kayttaja kayttaja = kayttajaDao.haeKayttajaSahkopostilla(principal.getName());
-		List<Merkinta> yhteistunnit = projektiDao.haeProjektinYhteistunnit(id);
+		List<Merkinta> yhteistunnit = projektiDao.haeProjektinYhteistunnit(id, principal.getName());
 		model.addAttribute("kayttaja", kayttaja);
 		model.addAttribute("projekti", projekti);
 		model.addAttribute("yhteistunnit", yhteistunnit);
@@ -72,7 +72,7 @@ public class ProjektiKontrolleri {
 		Projekti projekti = projektiDao.haeProjektinTiedotKayttajalta(projektiId, principal.getName(), kayttajaId);
 		if (projekti.getId() == 0) { return "redirect:/"; }
 		Kayttaja kayttaja = kayttajaDao.haeKayttajaSahkopostilla(principal.getName());
-		List<Merkinta> yhteistunnit = projektiDao.haeProjektinYhteistunnit(projektiId);
+		List<Merkinta> yhteistunnit = projektiDao.haeProjektinYhteistunnit(projektiId, principal.getName());
 		model.addAttribute("kayttaja", kayttaja);
 		model.addAttribute("projekti", projekti);
 		model.addAttribute("yhteistunnit", yhteistunnit);
@@ -99,7 +99,7 @@ public class ProjektiKontrolleri {
 		Projekti projekti = projektiDao.haeProjektinTiedotKayttajalta(projektiId, principal.getName(), kayttajaId);
 		if (projekti.getId() == 0) { return "redirect:/"; }
 		Kayttaja kayttaja = kayttajaDao.haeKayttajaSahkopostilla(principal.getName());
-		List<Merkinta> yhteistunnit = projektiDao.haeProjektinYhteistunnit(projektiId);
+		List<Merkinta> yhteistunnit = projektiDao.haeProjektinYhteistunnit(projektiId, principal.getName());
 		model.addAttribute("kayttaja", kayttaja);
 		model.addAttribute("projekti", projekti);
 		model.addAttribute("yhteistunnit", yhteistunnit);
@@ -192,7 +192,7 @@ public class ProjektiKontrolleri {
 		Projekti projekti = projektiDao.haeProjektinTiedot(projektiId, principal.getName());
 		if (projekti.getId() == 0) { return "redirect:/"; }
 		Kayttaja kayttaja = kayttajaDao.haeKayttajaSahkopostilla(principal.getName());
-		List<Merkinta> yhteistunnit = projektiDao.haeProjektinYhteistunnit(projektiId);
+		List<Merkinta> yhteistunnit = projektiDao.haeProjektinYhteistunnit(projektiId, principal.getName());
 		model.addAttribute("kayttaja", kayttaja);
 		model.addAttribute("projekti", projekti);
 		model.addAttribute("yhteistunnit", yhteistunnit);
