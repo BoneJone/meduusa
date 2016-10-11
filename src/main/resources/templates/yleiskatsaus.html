@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Raleway:400,300,600" />
+<link rel="stylesheet" type="text/css" href="/css/normalize.css" th:href="@{/css/normalize.css}" />
+<link rel="stylesheet" type="text/css" href="/css/skeleton.css" th:href="@{/css/skeleton.css}" />
+<link rel="stylesheet" type="text/css" href="/css/style.css" th:href="@{/css/style.css}" />
+<link rel="stylesheet" type="text/css" href="/css/jquery.toast.min.css" th:href="@{/css/jquery.toast.min.css}" />
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/js/jquery.leanModal.min.js" th:src="@{/js/jquery.leanModal.min.js}"></script>
+<script type="text/javascript" src="/js/jquery.toast.min.js" th:src="@{/js/jquery.toast.min.js}"></script>
+<title>Meduusa | Yleiskatsaus</title>
+<script type="text/javascript">
+var ilmoitus = function(viesti) {
+	$.toast({
+		text: viesti,
+		heading: '<strong>Ilmoitus</strong>',
+		showHideTransition: 'fade',
+		allowToastClose: true,
+		hideAfter: 3000,
+		stack: 5,
+		position: 'bottom-right',
+		bgColor: '#1EAEDB',
+		textColor: '#FFF',
+		textAlign: 'left',
+		loader: false,
+		});
+	}
+</script>
+</head>
+<body>
+
+<div class="container">
+
+<div class="row toppi alaborer">
+<div class="nine columns">
+<h3 th:text="${'Tervetuloa, ' + kayttaja.etunimi + ' ' + kayttaja.sukunimi + '!'}"></h3>
+</div>
+<div class="three columns">
+<form th:action="@{/logout}" method="post">
+	<button type="submit" class="button" style="float: right;">Kirjaudu ulos</button>
+</form>
+</div>
+</div>
+
+<div class="row">
+<div class="twelve columns">
+<h4>Omat projektit</h4>
+<p class="alaborder projektirivi" th:each="projekti : ${projektit}">
+        <a th:href="@{'/projekti/' + ${projekti.id}}">
+        <h5 th:text="${projekti.nimi}"></h5>
+        </a>
+        <h6 th:text="${projekti.kuvaus}"></h6>
+</p>
+</div>
+
+</div>
+
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Raleway:400,300,600" />
+<link rel="stylesheet" type="text/css" href="/css/normalize.css" th:href="@{/css/normalize.css}" />
+<link rel="stylesheet" type="text/css" href="/css/skeleton.css" th:href="@{/css/skeleton.css}" />
+<link rel="stylesheet" type="text/css" href="/css/style.css" th:href="@{/css/style.css}" />
+<link rel="stylesheet" type="text/css" href="/css/jquery.toast.min.css" th:href="@{/css/jquery.toast.min.css}" />
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/js/jquery.leanModal.min.js" th:src="@{/js/jquery.leanModal.min.js}"></script>
+<script type="text/javascript" src="/js/jquery.toast.min.js" th:src="@{/js/jquery.toast.min.js}"></script>
+<title th:text="${'Meduusa | ' + projekti.nimi}"></title>
+<script type="text/javascript">
+var ilmoitus = function(viesti) {
+	$.toast({
+		text: viesti,
+		heading: '<strong>Ilmoitus</strong>',
+		showHideTransition: 'fade',
+		allowToastClose: true,
+		hideAfter: 3000,
+		stack: 5,
+		position: 'bottom-right',
+		bgColor: '#1EAEDB',
+		textColor: '#FFF',
+		textAlign: 'left',
+		loader: false,
+		});
+	}
+</script>
+</head>
+<body>
+
+<div class="container">
+
+<div class="row toppi alarivi" style="border-bottom: 1px solid #ddd;">
+<div class="nine columns">
+
+<h3 style="padding: 3px 0px; margin: 0px;" th:text="${projekti.nimi}"></h3>
+<h6 th:text="${projekti.kuvaus}" style="font-weight: bold;"></h6>
+<a th:href="@{/}">&lt; Kaikki projektit</a><br /><br />
+</div>
+<div class="three columns">
+
+<form th:action="@{/logout}" method="post">
+	<button type="submit" class="button" style="float: right;">Kirjaudu ulos</button>
+</form>
+
+</div>
+</div>
+
+<div class="row">
+<div class="eight columns">
+<h4>Tiimin jäsenet</h4>
+<table class="u-full-width">
+<thead>
+<tr>
+<th>Henkilö</th><th>Tunnit</th>
+</tr>
+</thead>
+<tbody>
+    <tr th:each="merkinta : ${yhteistunnit}">
+        <td><a th:href="@{'/projekti/' + ${projekti.id} + '/jasen/' + ${merkinta.kayttaja.id}}" th:text="${merkinta.kayttaja.etunimi + ' ' + merkinta.kayttaja.sukunimi}"></a></td>
+        <td th:text="${merkinta.tunnit + 'h'}"></td>
+    </tr>
+</tbody>
+</table>
+
+</div>
+
+
+
+<div class="four columns">
+<h4 class="center">Lisää merkintä</h4>
+<form method="post" th:action="@{'/projekti/' + ${projekti.id} + '/lisaa'}">
+<div class="row">
+<div class="six columns">
+<label for="tunnit">Käytetty aika</label>
+<select name="tunnit" id="tunnit" class="u-full-width">
+<option value="0">0 tuntia</option>
+<option value="1" selected="selected">1 tunti</option>
+<option value="2">2 tuntia</option>
+<option value="3">3 tuntia</option>
+<option value="4">4 tuntia</option>
+<option value="5">5 tuntia</option>
+<option value="6">6 tuntia</option>
+<option value="7">7 tuntia</option>
+<option value="8">8 tuntia</option>
+<option value="9">9 tuntia</option>
+<option value="10">10 tuntia</option>
+<option value="11">11 tuntia</option>
+<option value="12">12 tuntia</option>
+</select>
+</div>
+<div class="six columns">
+<label for="minuutit">&nbsp;</label>
+<select name="minuutit" id="minuutit" class="u-full-width">
+<option value="0">0 minuuttia</option>
+<option value="15">15 minuuttia</option>
+<option value="30">30 minuuttia</option>
+<option value="45">45 minuuttia</option>
+</select>
+</div>
+</div>
+<label for="kuvaus">Mitä teit?</label>
+<textarea name="kuvaus" id="kuvaus" class="u-full-width" rows="7"></textarea>
+<input type="submit" class="button-primary" value="Tallenna" />
+<label>
+<input type="checkbox" name="slack" value="yes" checked="checked" />
+<span class="label-body">Lähetä tieto myös Slackiin</span>
+</label>
+</form>
+</div>
+
+</div>
+
+
+
+
+<div class="row">
+
+<div class="twelve columns">
+
+<h4>Kaikki merkinnät</h4>
+<table class="u-full-width">
+<thead>
+<tr><th>Henkilö</th><th>Päivä</th><th>Tunnit</th><th>Kuvaus</th></tr>
+</thead>
+<tbody>
+    <tr th:each="merkinta : ${projekti.merkinnat}">
+        <td th:text="${merkinta.kayttaja.etunimi + ' ' + merkinta.kayttaja.sukunimi}"></td>
+        <td th:text="${#dates.format(merkinta.paivamaara, 'dd.MM.yyy')}"></td>
+        <td th:text="${merkinta.tunnit + 'h'}"></td>
+        <td th:text="${merkinta.kuvaus}"></td>
+    </tr>
+</tbody>
+</table>
+
+
+
+</div>
+
+</div>
+
+
+
+</div>
+
+<script th:inline="javascript">
+  $(".poisto").leanModal();
+  var projektiId = [[${projekti.id}]];
+  var poisto = function(id) {
+	  $("#poistonappi").attr("href", "/projekti/" + projektiId + "/poista/" + id);
+  }
+  var suljeModal = function() {
+	  $("#lean_overlay").trigger("click");
+  }
+</script>
+
+<div th:if="${not #lists.isEmpty(viesti)}">
+<div id="viestidiv" th:text="${viesti}" style="display: none;"></div>
+<script type="text/javascript">
+	ilmoitus($('#viestidiv').html());
+</script>
+</div>
+
+</body>
+</html>

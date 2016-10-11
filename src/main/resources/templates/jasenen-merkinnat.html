@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Raleway:400,300,600" />
+<link rel="stylesheet" type="text/css" href="/css/normalize.css" th:href="@{/css/normalize.css}" />
+<link rel="stylesheet" type="text/css" href="/css/skeleton.css" th:href="@{/css/skeleton.css}" />
+<link rel="stylesheet" type="text/css" href="/css/style.css" th:href="@{/css/style.css}" />
+<link rel="stylesheet" type="text/css" href="/css/jquery.toast.min.css" th:href="@{/css/jquery.toast.min.css}" />
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/js/jquery.leanModal.min.js" th:src="@{/js/jquery.leanModal.min.js}"></script>
+<script type="text/javascript" src="/js/jquery.toast.min.js" th:src="@{/js/jquery.toast.min.js}"></script>
+<title th:text="${'Meduusa | ' + projekti.nimi}"></title>
+<script type="text/javascript">
+var ilmoitus = function(viesti) {
+	$.toast({
+		text: viesti,
+		heading: '<strong>Ilmoitus</strong>',
+		showHideTransition: 'fade',
+		allowToastClose: true,
+		hideAfter: 3000,
+		stack: 5,
+		position: 'bottom-right',
+		bgColor: '#1EAEDB',
+		textColor: '#FFF',
+		textAlign: 'left',
+		loader: false,
+		});
+	}
+</script>
+</head>
+<body>
+
+<div class="container">
+
+<div class="row toppi alarivi" style="border-bottom: 1px solid #ddd;">
+<div class="nine columns">
+
+<h3 style="padding: 3px 0px; margin: 0px;" th:text="${projekti.nimi}"></h3>
+<h6 th:text="${projekti.kuvaus}" style="font-weight: bold;"></h6>
+<a th:href="@{/}">&lt; Kaikki projektit</a><br /><br />
+</div>
+<div class="three columns">
+
+<form th:action="@{/logout}" method="post">
+	<button type="submit" class="button" style="float: right;">Kirjaudu ulos</button>
+</form>
+
+</div>
+</div>
+
+<div class="row">
+<div class="twelve">
+<h4>Tiimin jäsenet</h4>
+<table class="u-full-width">
+<thead>
+<tr>
+<th>Henkilö</th><th>Tunnit</th>
+</tr>
+</thead>
+<tbody>
+    <tr th:each="merkinta : ${yhteistunnit}">
+        <td><a th:href="@{'/projekti/' + ${projekti.id} + '/jasen/' + ${merkinta.kayttaja.id}}" th:text="${merkinta.kayttaja.etunimi + ' ' + merkinta.kayttaja.sukunimi}"></a></td>
+        <td th:text="${merkinta.tunnit + 'h'}"></td>
+    </tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+
+
+
+<div class="row">
+
+<div class="twelve columns">
+
+<h4>Jäsenen <strong th:text="${projekti.merkinnat[0].kayttaja.etunimi + ' ' + projekti.merkinnat[0].kayttaja.sukunimi}"></strong> merkinnät</h4>
+<a th:href="@{'/projekti/' + ${projekti.id}}">&lt; Näytä koko tiimin merkinnät</a><br /><br />
+<table class="u-full-width">
+<thead>
+<tr><th>Päivä</th><th>Tunnit</th><th>Kuvaus</th><th></th></tr>
+</thead>
+<tbody>
+    <tr th:each="merkinta : ${projekti.merkinnat}">
+        <td th:text="${#dates.format(merkinta.paivamaara, 'dd.MM.yyy')}"></td>
+        <td th:text="${merkinta.tunnit + 'h'}"></td>
+        <td th:text="${merkinta.kuvaus}"></td>
+        <td><a href="#modali" class="button poisto" th:onClick="'javascript:poisto(' + ${merkinta.id} + ')'" th:if="${kayttaja.id == merkinta.kayttaja.id}">Poista</a></td>
+    </tr>
+</tbody>
+</table>
+
+<div id="modali" class="center" th:if="${kayttaja.id == projekti.merkinnat[0].kayttaja.id}">
+<h4>Poistetaanko merkintä?</h4>
+Merkintä poistetaan tietokannasta lopullisesti.
+<br /><br />
+<button onClick="suljeModal()" class="button left">Säilytä</button> <a id="poistonappi" href="" class="button button-primary right">Poista</a>
+</div>
+
+</div>
+
+</div>
+
+
+
+</div>
+
+<script th:inline="javascript" th:if="${kayttaja.id == projekti.merkinnat[0].kayttaja.id}">
+  $(".poisto").leanModal();
+  var projektiId = [[${projekti.id}]];
+  var kayttajaId = [[${kayttaja.id}]];
+  var rootUrl = [[@{/}]];
+  var poisto = function(id) {
+	  $("#poistonappi").attr("href", rootUrl + "/projekti/" + projektiId + "/jasen/" + kayttajaId + "/poista/" + id);
+  }
+  var suljeModal = function() {
+	  $("#lean_overlay").trigger("click");
+  }
+</script>
+
+<div th:if="${not #lists.isEmpty(viesti)}">
+<div id="viestidiv" th:text="${viesti}" style="display: none;"></div>
+<script type="text/javascript">
+	ilmoitus($('#viestidiv').html());
+</script>
+</div>
+
+</body>
+</html>
