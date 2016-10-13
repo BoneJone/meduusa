@@ -1,8 +1,10 @@
 body {
   font-family: 'Raleway', sans-serif;
-  padding-top: 50px;
+  padding-top: 45px;
   background-color: #ecf0f2;
 }
+
+/* Yläpalkki ja sen komponentit */
 
 .ylapalkki {
   background: #4FC3F7 !important;
@@ -16,12 +18,14 @@ body {
   color: white;
 }
 
+/* Sivupalkki ja sen komponentit */
 .sivupalkki {
   background-color: #222c31;
   height: 100%;
   max-height: auto;
   position: fixed;
   display: block;
+  width: 250px;
 }
 
 .sivupalkki ul {
@@ -34,18 +38,41 @@ body {
   font-size: 18px;
 }
 
-.projektibtn {
+/* Sivupalkki - Käyttäjän nimi ja profiilikuva */
+.kayttaja {
+  margin-top: 20px;
+}
+
+.kayttaja img {
+	width: 42px;
+	height: 42px;
+	margin: 8px;
+	border-radius: 50px;
+}
+
+.kayttaja span {
+	font-size: 14pt;
+}
+
+.kayttaja p {
+  color: white;
+  font-size: 20px;
+}
+
+/* Sivupalkki - Projektilistan nappi ja sisältö */
+.projekti-btn-collapse {
   color: #4c626d;
   font-size: 18px;
   margin-left: -12px;
 }
 
-.projektibtn:focus {
+.projekti-btn-collapse:focus {
 	outline: 0;
 }
 
 .projektisisalto {
-  background: #222c31 !important;
+	margin-top: 5px;
+	margin-left: 5px;
 }
 
 .projektisisalto ul {
@@ -59,30 +86,33 @@ body {
   font-size: 16px;
 }
 
-.kayttaja {
-  margin-top: 20px;
+/* Main-content wrapperille left marginia kun sivupalkki esillä */
+@media (min-width:992px) {
+	.main-contentti {
+		margin-left: 250px;
+	}
 }
 
-.kayttaja p {
-  color: white;
-  font-size: 20px;
+/* Projektin pääsivulla wrapper projektin nimelle, kuvaukselle ja yhteistunneille */
+.projekti-yhteenveto {
+	margin: 30px 0px;
 }
 
-/* PROFIILIN TYYLIT */
+/* Projektin jäsenten ja merkintöjen tyylit */
 
-.profiili{
-  margin: 70px 0 0 50px;
-  display: block;
-  font-size: 12px;
+.profiili {
+  margin-bottom: 20px;
+  font-size: 13px;
 }
 
-.profiili .list-group {
+.profiili .list-group, .taulukko .list-group {
   box-shadow: 0px 0px 15px 4px rgba(0, 0, 0, 0.1);
 }
 
-.profiili li {
+.profiili li, .taulukko li {
   background: #222c31 !important;
   border: #222c31 !important;
+  font-size: 11pt;
 }
 .profiilikuva {
   width:36px;
@@ -97,16 +127,19 @@ body {
 }
 
 .taulukko {
-  background: white;
-  margin: 70px 0 0 50px;
-  display: block;
+  background: #fff;
   border-radius: 5px;
   box-shadow: 2px 2px 8px 3px rgba(0, 0, 0, 0.1);
+  padding: 0px;
 }
 
 .taulukko .tuntilista {
   width: 100%;
   max-width: auto;
+}
+
+.tuntilista-wrapper {
+	padding: 10px;
 }
 
 .muokkaabtn {
@@ -184,24 +217,4 @@ body {
   width: 100%;
   background: #2ebcfc !important;
   border:#2ebcfc !important;
-}
-
-/** MEDIA ------- MOBIILI MÄÄRITYKSET **/
-
-@media screen and (max-width: 768px){
-.profiili{
-    margin: 40px 0 0 0;
-    display: block;
-  }
-.taulukko {
-  margin: 40px 0 0 0;
-}
-}
-@media screen and (min-width: 768px) and (max-width: 1470px){
-  .profiili {
-    width: 83.333333%
-  }
-  .taulukko {
-    width: 83.333333%
-  }
 }

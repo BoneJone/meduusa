@@ -8,12 +8,9 @@
 
 
     <title th:text="${'Meduusa | ' + projekti.nimi}"></title>
-    <!-- google fontti linkki -->
-    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" />
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css" integrity="2hfp1SzUoho7/TsGGGDaFdsuuDL0LX2hnUp6VkX3CUQ2K4K+xjboZdsXyp4oUHZj" crossorigin="anonymous" />
-    <link type="text/css" rel="stylesheet" href="/css/styles.css" th:href="@{/css/styles.css}"  />
-    <!-- font awesome linkki -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/styles.css" th:href="@{/css/styles.css}" />
     <script src="https://use.fontawesome.com/b3b209c0c2.js"></script>
   </head>
   <body>
@@ -39,7 +36,7 @@
           </li>
         </ul>
       </div>
-      <a class="navbar-brand hidden-md-down" href="#">Meduusa</a>
+      <a class="navbar-brand hidden-md-down" href="/" th:href="@{/}">Meduusa</a>
       <div id="navbar">
         <nav class="nav navbar-nav pull-xs-left">
 
@@ -54,48 +51,46 @@
     <!-- Sivupalkki navigaatio, katoaa mobiilissa -->
     <div class="container-fluid">
       <div class="row">
-        <div class="clearfix hidden-sm-down col-md-2 sidebar sivupalkki">
+        <div class="col-md-2 hidden-md-down sidebar sivupalkki">
           <div class="kayttaja">
-            <p><img src="/img/placeholder.jpg" th:src="@{/img/placeholder.jpg}" style="width:64px;height:64px;border-radius:50px;" alt="Profiilikuva" /><span th:text="${kayttaja.etunimi + ' ' + kayttaja.sukunimi}"></span></p>
+            <p>
+              <img src="/img/placeholder.jpg" th:src="@{/img/placeholder.jpg}" alt="Profiilikuva" />
+              <span th:text="${kayttaja.etunimi + ' ' + kayttaja.sukunimi}"></span>
+            </p>
           </div>
           <ul class="nav nav-sidebar">
-            <li class="active"><a href="#"><i class="fa fa-calendar" aria-hidden="true"></i> Etusivu <span class="sr-only">(current)</span></a></li>
-            <li><a href="#"><i class="fa fa-clock-o" aria-hidden="true"></i> Tunnit</a></li>
-            <!--Projektit collapsee -->
-            <li><button class="navbar-toggler projektibtn" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar" aria-controls="exCollapsingNavbar" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-folder-o" aria-hidden="true"></i> Projektit <i class="fa fa-chevron-down" aria-hidden="true" style="font-size:14px;"></i></button></li>
-            <li><div class="collapse" id="exCollapsingNavbar">
-              <div class="bg-inverse p-a-1 projektisisalto">
-                <ul th:each="projekti : ${projektit}">
-                  <li><a th:href="@{'/projekti/' + ${projekti.id}}" th:text="${projekti.nimi}"></a></li>
-                </ul>
-              </div>
-            </div>
-            </li>
             <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i> Profiili</a></li>
-          </ul>
-          <footer class="footer kirjaudu">
-            <div class="container">
-            <ul>
-              <li>
-	            <form th:action="@{/logout}" method="post">
-					<button type="submit" class="btn btn-link" style="float: right;"><i class="fa fa-sign-out" aria-hidden="true"></i> Kirjaudu Ulos</button>
+            <li class="active"><a href="#"><i class="fa fa-calendar" aria-hidden="true"></i> Etusivu <span class="sr-only">(current)</span></a></li>
+            <!--Projektit collapsee -->
+            <li>
+	            <button class="navbar-toggler projekti-btn-collapse" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar" aria-controls="exCollapsingNavbar" aria-expanded="true" aria-label="Näytä projektit">
+		            <i class="fa fa-folder-o" aria-hidden="true"></i>
+		            Projektit
+		            <i class="fa fa-chevron-down" aria-hidden="true" style="font-size: 14px;"></i>
+	            </button>
+            </li>
+            <li>
+	            <div class="collapse" id="exCollapsingNavbar">
+	              <div class="projektisisalto">
+	                <ul th:each="projekti : ${projektit}">
+	                  <li><a th:href="@{'/projekti/' + ${projekti.id}}" th:text="${projekti.nimi}"></a></li>
+	                </ul>
+	              </div>
+	            </div>
+            </li>
+            <li>
+	            <form id="logoutform" th:action="@{/logout}" method="post">
+					<a href="#logout" onClick="document.getElementById('logoutform').submit()"><i class="fa fa-sign-out" aria-hidden="true"></i> Kirjaudu Ulos</a>
 				</form>
-              </li>
-              </ul>
-            </div>
-          </footer>
+			</li>
+          </ul>
         </div>
-      </div>
 
-      <div class="col-sm-12 col-md-12 hidden-md-up">
-        <div class="row">
-
-        </div>
-      </div>
-
-      <!-- mobiili lisää nappula -->
-      <div class="col-sm-12 col-md-10 offset-md-2 main">
-        <div class="col-sm-12 col-md-12 hidden-md-up">
+      <!-- Main contentti alkaa -->
+      <div class="col-sm-12 col-lg-10 offset-lg-2 main-contentti">
+      	<div class="row">
+      	<!-- Mobiilin lisää merkintä -nappi -->
+        <div class="col-sm-12 hidden-md-up">
           <div class="row">
             <div class="nappi">
               <button type="button" class="btn btn-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i> Lisää merkintä</button>
@@ -103,16 +98,17 @@
           </div>
         </div>
 
-        <!-- Profiili lista -->
-        <div class="row">
-        <div class="col-xs-12" style="margin: 20px 0px 0px 50px;">
+        <!-- Projektin nimi ja kuvaus -->
+        <div class="col-xs-12 projekti-yhteenveto">
         	<h2 th:text="${projekti.nimi}"></h2>
         	<h5 th:text="${projekti.kuvaus}"></h5>
+        	<h6><i class="fa fa-clock-o" aria-hidden="true"></i> 00h 00min</h6>
         </div>
-          <div class="col-xs-12 col-sm-12 col-md-10 col-xl-2 profiili">
+        
+        <!-- Tiimin jäsenet -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 profiili">
             <div class="list-group">
-              <li class="list-group-item active">Profiilit</li>
-              
+              <li class="list-group-item active">Tiimin jäsenet</li>
               <span th:each="merkinta : ${yhteistunnit}">
 	              <a th:href="@{'/projekti/' + ${projekti.id} + '/jasen/' + ${merkinta.kayttaja.id}}" class="list-group-item list-group-item-action">
 	              	<img src="/img/placeholder.jpg" th:src="@{/img/placeholder.jpg}" class="profiilikuva" alt="Profiilikuva" />
@@ -121,12 +117,15 @@
 	              </a>
               </span>
             </div>
-            <button type="button" class="btn btn-secondary btn-lg lisaysbtn">Lisää profiili</button>
+            <button type="button" class="btn btn-secondary btn-lg lisaysbtn">Lisää jäsen</button>
           </div>
           
           <!-- Tuntilista alkaa -->
-          <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xl-9 taulukko">
-            <div class="table-responsive">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-9 col-xl-9 taulukko">
+          <div class="list-group">
+          <li class="list-group-item active">Koko tiimin merkinnät</li>
+          </div>
+            <div class="table-responsive tuntilista-wrapper">
             <table class="table table-striped tuntilista">
           <thead>
             <tr>
@@ -147,7 +146,9 @@
             </tr>
           </tbody>
         </table>
-
+        </div>
+        
+        <!-- Merkintöjen paginaatio -->
         <nav aria-label="..." class="paginaatio">
           <ul class="pagination pagination-sm">
             <li class="page-item">
@@ -167,7 +168,7 @@
             </li>
           </ul>
         </nav>
-        </div>
+        
         </div>
       </div>
 
@@ -256,12 +257,11 @@
       </div><!-- /.modal -->
 
     </div>
-
+	</div>
 </div>
 
-    <!-- jQuery first, then Tether, then Bootstrap JS. -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js" integrity="sha384-THPy051/pYDQGanwU6poAc/hOdQxjnOEXzbT+OuUAFqNqFjL+4IGLBgCJC3ZOShY" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/js/bootstrap.min.js" integrity="VjEeINv9OSwtWFLAtmc4JCtEJXXBub00gtSnszmspDLCtC0I4z4nqz7rEFbIZLLU" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/js/bootstrap.min.js"></script>
   </body>
 </html>
