@@ -10,12 +10,21 @@ body {
   background: #4FC3F7 !important;
   box-shadow: 0 2px 10px 3px rgba(0, 0, 0, 0.2);
   min-height: 52px;
+  padding: 0px;
+  margin: 0px;
 }
 
 .ylapalkki button {
   background:#2ebcfc !important;
   border:1px solid white;
   color: white;
+  margin: 7px;
+}
+
+.nav-logo {
+	margin-left: 15px;
+	padding: 0px;
+	max-height: 45px;
 }
 
 /* Sivupalkki ja sen komponentit */
@@ -26,6 +35,8 @@ body {
   position: fixed;
   display: block;
   width: 250px;
+  padding-right: 10px;
+  z-index: 100;
 }
 
 .sivupalkki ul {
@@ -86,6 +97,17 @@ body {
   font-size: 16px;
 }
 
+/* Tää wrappaa sidebarin ja main contentin */
+.turbowrapperi {
+	margin: 0px;
+	padding: 0px;
+}
+
+/* Main content */
+.main-contentti {
+	margin-right: 15px;
+}
+
 /* Main-content wrapperille left marginia kun sivupalkki esillä */
 @media (min-width:992px) {
 	.main-contentti {
@@ -126,11 +148,14 @@ body {
   box-shadow: 0px 0px 15px 2px rgba(0, 0, 0, 0.1);
 }
 
+/* Projektin tuntien listaus */
+
 .taulukko {
   background: #fff;
   border-radius: 5px;
   box-shadow: 2px 2px 8px 3px rgba(0, 0, 0, 0.1);
   padding: 0px;
+  margin-bottom: 25px;
 }
 
 .taulukko .tuntilista {
@@ -153,7 +178,11 @@ body {
 }
 
 .paginaatio ul li a {
-  color: black;
+  
+}
+
+.paginaatio ul li a:hover {
+	text-decoration: none;
 }
 
 .nappi{
@@ -192,13 +221,14 @@ body {
 
 /*loginsivu.html css */
 
-.login {
-  margin: 250px auto;
-  width: 50%;
+.logini {
+  margin: 0 auto;
+  float: none;
+  text-align: center;
 }
 
-.login h3 {
-  text-align: center;
+.logini img {
+	max-width: 100%;
 }
 
 .sposti {
