@@ -59,6 +59,11 @@ public class ProjektiKontrolleri {
 		model.addAttribute("projekti", projekti);
 		model.addAttribute("yhteistunnit", yhteistunnit);
 		
+		// @TODO: Keksitään fiksumpi tapa, mutta nyt pitää includee nää joka hakuun
+		// jotta saadaan sidebariin projektit näkyviin
+		List<Projekti> projektit = projektiDao.haeKayttajanProjektit(principal.getName());
+		model.addAttribute("projektit", projektit);
+		
 		return "projekti";
 	}
 	
@@ -76,6 +81,11 @@ public class ProjektiKontrolleri {
 		model.addAttribute("kayttaja", kayttaja);
 		model.addAttribute("projekti", projekti);
 		model.addAttribute("yhteistunnit", yhteistunnit);
+		
+		// @TODO: Keksitään fiksumpi tapa, mutta nyt pitää includee nää joka hakuun
+		// jotta saadaan sidebariin projektit näkyviin
+		List<Projekti> projektit = projektiDao.haeKayttajanProjektit(principal.getName());
+		model.addAttribute("projektit", projektit);
 		
 		return "jasenen-merkinnat";
 	}
@@ -103,6 +113,11 @@ public class ProjektiKontrolleri {
 		model.addAttribute("kayttaja", kayttaja);
 		model.addAttribute("projekti", projekti);
 		model.addAttribute("yhteistunnit", yhteistunnit);
+		
+		// @TODO: Keksitään fiksumpi tapa, mutta nyt pitää includee nää joka hakuun
+		// jotta saadaan sidebariin projektit näkyviin
+		List<Projekti> projektit = projektiDao.haeKayttajanProjektit(principal.getName());
+		model.addAttribute("projektit", projektit);
 		
 		return "jasenen-merkinnat";
 	}
@@ -196,6 +211,11 @@ public class ProjektiKontrolleri {
 		model.addAttribute("kayttaja", kayttaja);
 		model.addAttribute("projekti", projekti);
 		model.addAttribute("yhteistunnit", yhteistunnit);
+		
+		// @TODO: Keksitään fiksumpi tapa, mutta nyt pitää includee nää joka hakuun
+		// jotta saadaan sidebariin projektit näkyviin
+		List<Projekti> projektit = projektiDao.haeKayttajanProjektit(principal.getName());
+		model.addAttribute("projektit", projektit);
 		
 		return "projekti";
 		
