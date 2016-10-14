@@ -53,7 +53,6 @@ body {
 	position: fixed;
 	display: block;
 	width: 250px;
-	padding-right: 10px;
 	z-index: 100;
 }
 
@@ -86,19 +85,18 @@ body {
 .sivupalkki .fa-chevron-down {
 	float: right;
 	margin-top: 8px;
-	margin-right: 12px;
 }
 
 /* Sivupalkki - Käyttäjän nimi ja profiilikuva */
 .kayttaja {
-	margin-top: 20px;
+	margin-top: 30px;
 }
 
 .kayttaja img {
-	width: 42px;
-	height: 42px;
-	margin: 8px;
-	border-radius: 50px;
+	width: 36px;
+	height: 36px;
+	margin-right: 7px;
+	border-radius: 50%;
 }
 
 .kayttaja span {
