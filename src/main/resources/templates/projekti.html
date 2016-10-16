@@ -1,32 +1,20 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+  <head th:include="common :: head"></head>
   <head>
-    <!-- Required meta tags always come first -->
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta http-equiv="x-ua-compatible" content="ie=edge" />
-
-
     <title th:text="${'Meduusa | ' + projekti.nimi}"></title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="/css/styles.css" th:href="@{/css/styles.css}" />
-    <link rel="shortcut icon" href="/favicon.ico?" th:href="@{/favicon.ico?}" type="image/x-icon" />
-    <script src="https://use.fontawesome.com/b3b209c0c2.js"></script>
   </head>
   <body>
 
     <!-- ylapalkki navbar, tulee hamburger menu mobiilissa -->
-    <div th:include="navigaatio :: navpalkki"></div>
+    <div th:include="common :: navpalkki"></div>
     
     <!-- Sivupalkki navigaatio, katoaa mobiilissa -->
-    <div th:include="navigaatio :: sivupalkki"></div>
-    
+    <div th:include="common :: sivupalkki"></div>
 
       <!-- Main contentti alkaa -->
 <div class="col-sm-12 col-lg-12">
       
-
     <div class="container-fluid">
       <div class="row">      
       
