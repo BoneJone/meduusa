@@ -5,9 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -23,7 +21,13 @@ public class WebSecurityConfig {
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
     	auth.userDetailsService(userDetailService).passwordEncoder(new BCryptPasswordEncoder(10));
     }
-	
+    
+    /* Header Session Strategy
+	@Bean
+	HeaderHttpSessionStrategy sessionStrategy() {
+		return new HeaderHttpSessionStrategy();
+	} */
+
 	// Rest API security config
 	@Configuration
 	@Order(1)
@@ -35,11 +39,9 @@ public class WebSecurityConfig {
 			.anyRequest().authenticated()
 			.and()
 			.cors()
-			.and()
-			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER)
-			.and()
-			//.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
 			//.and()
+			//.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+			.and()
 			.httpBasic();
 		}
 	}
@@ -54,6 +56,8 @@ public class WebSecurityConfig {
 	                .antMatchers("/css/**", "/js/**", "/img/**", "/favicon.ico").permitAll()
 	                .anyRequest().authenticated()
 	                .and()
+	                .csrf().csrfTokenRepository(new CookieCsrfTokenRepository())
+	                .and()
 	            .formLogin()
 	                .loginPage("/kirjaudu")
 	                .permitAll()
@@ -62,13 +66,4 @@ public class WebSecurityConfig {
 	                .permitAll();
 	    }
     }
-
-    /* Default in-memory userin generointi
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-            .inMemoryAuthentication()
-                .withUser("user").password("password").roles("USER");
-    }
-    */
 }

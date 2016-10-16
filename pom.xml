@@ -90,13 +90,26 @@
 		  
 		<!-- Spring Session & Redis API authentikaatio varten -->
 		<dependency>
+		  <groupId>com.github.kstyrc</groupId>
+		  <artifactId>embedded-redis</artifactId>
+		  <version>0.6</version>
+		</dependency>
+		
+		<dependency>
 		  <groupId>org.springframework.session</groupId>
 		  <artifactId>spring-session</artifactId>
 		</dependency>
 		
+		<!--  
 		<dependency>
 		  <groupId>org.springframework.boot</groupId>
 		  <artifactId>spring-boot-starter-data-redis</artifactId>
+		</dependency>
+		-->
+		
+		<dependency>
+		 <groupId>org.springframework.session</groupId>
+	     <artifactId>spring-session-data-redis</artifactId>
 		</dependency>
 				
 	</dependencies>
