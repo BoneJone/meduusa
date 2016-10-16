@@ -1,14 +1,20 @@
 package me.nicou.tuntikirjaus.kontrollerit;
 
 import java.security.Principal;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.session.web.http.HeaderHttpSessionStrategy;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,12 +31,30 @@ import me.nicou.tuntikirjaus.utility.Slack;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = "*", maxAge = 3600, allowedHeaders={"x-auth-token", "x-requested-with"})
 public class ProjektiRestKontrolleri {
 	
 	@Autowired
 	private ProjektiDaoImpl projektiDao;
 	
+	@Bean
+	HeaderHttpSessionStrategy sessionStrategy() {
+		return new HeaderHttpSessionStrategy();
+	}
+	
 	private static final Logger logger = LoggerFactory.getLogger(ProjektiRestKontrolleri.class);
+	
+	// Palauttaa käyttäjän principlen
+	@RequestMapping("/user")
+	public Principal user(Principal user) {
+		return user;
+	}
+	
+	// Palauttaa käyttäjän tokenin
+	@RequestMapping("/token")
+	public Map<String, String> token(HttpSession session) {
+		return Collections.singletonMap("token", session.getId());
+	}
 	
 	@RequestMapping(value = "/projektit", method = RequestMethod.GET)
 	public List<Projekti> haeKayttajanProjektit(Principal principal) {
