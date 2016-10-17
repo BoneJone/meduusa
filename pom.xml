@@ -25,6 +25,8 @@
 	</properties>
 
 	<dependencies>
+	
+		<!-- Spring komponentit -->
 		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -49,9 +51,28 @@
 		</dependency>
 		
 		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-rest</artifactId>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		
+		<dependency>
+		  <groupId>org.springframework.session</groupId>
+		  <artifactId>spring-session</artifactId>
+		</dependency>
+		
+		<!-- Thymeleaf -->
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+		
+		<!-- Tietokanta -->
 		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -62,54 +83,6 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-thymeleaf</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-rest</artifactId>
-		</dependency>
-		
-		<!--
-		
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
-		
-		  -->
-		  
-		<!-- Spring Session & Redis API authentikaatio varten -->
-		<dependency>
-		  <groupId>com.github.kstyrc</groupId>
-		  <artifactId>embedded-redis</artifactId>
-		  <version>0.6</version>
-		</dependency>
-		
-		<dependency>
-		  <groupId>org.springframework.session</groupId>
-		  <artifactId>spring-session</artifactId>
-		</dependency>
-		
-		<!--  
-		<dependency>
-		  <groupId>org.springframework.boot</groupId>
-		  <artifactId>spring-boot-starter-data-redis</artifactId>
-		</dependency>
-		-->
-		
-		<dependency>
-		 <groupId>org.springframework.session</groupId>
-	     <artifactId>spring-session-data-redis</artifactId>
 		</dependency>
 				
 	</dependencies>
