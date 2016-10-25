@@ -104,17 +104,18 @@ public class ProjektiDaoImpl implements ProjektiDao {
 			MerkintaLista merkintaLista = new MerkintaListaImpl();
 			merkintaLista.setNykyinenSivu(sivunumero);
 			merkintaLista.setMerkintojaPerSivu(offset);
-			merkintaLista.setSivujaYhteensa((int) Math.ceil(jdbcTemplate.queryForObject(sql, new Object[] { projektiId }, Integer.class) / MERKINNAT_PER_SIVU));
 			
-			logger.debug("Haetaan projektin " + projektiId + " tiedot, sivunumero " + 1);
-			logger.debug("Tietokannasta sivujen yhteismääräksi saatiin " + merkintaLista.getSivujaYhteensa());
+			// Sivujen yhteismäärän haku ja roundaus
+			int sivujaYhteensa = jdbcTemplate.queryForObject(sql, new Object[] { projektiId, kayttajaId }, Integer.class);
+			sivujaYhteensa = (int) Math.ceil((double) sivujaYhteensa / (double) MERKINNAT_PER_SIVU);
+			merkintaLista.setSivujaYhteensa(sivujaYhteensa);
 			
 			if (merkintaLista.getSivujaYhteensa() == 0 || sivunumero > merkintaLista.getSivujaYhteensa()) {
 				return projekti;
 			}
 			
 			RowMapper<Merkinta> mapper = new MerkintaRowMapper();
-			sql = "SELECT k.id AS kayttaja_id, m.id AS merkinta_id, sahkoposti, etunimi, sukunimi, paivamaara, tunnit, kuvaus FROM Merkinnat m JOIN Kayttajat k ON m.kayttaja_id = k.id WHERE m.projekti_id = ? AND m.kayttaja_id = ? ORDER BY m.paivamaara DESC DESC LIMIT ? OFFSET ?";
+			sql = "SELECT k.id AS kayttaja_id, m.id AS merkinta_id, sahkoposti, etunimi, sukunimi, paivamaara, tunnit, kuvaus FROM Merkinnat m JOIN Kayttajat k ON m.kayttaja_id = k.id WHERE m.projekti_id = ? AND m.kayttaja_id = ? ORDER BY m.paivamaara DESC LIMIT ? OFFSET ?";
 			merkintaLista.setMerkinnat(jdbcTemplate.query(sql, new Object[] { projektiId, kayttajaId, MERKINNAT_PER_SIVU, offset }, mapper));
 			projekti.setMerkintaLista(merkintaLista);
 		} catch (EmptyResultDataAccessException ex) {
