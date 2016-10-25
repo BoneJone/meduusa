@@ -48,10 +48,18 @@ public class ProjektiKontrolleri {
 	@RequestMapping(value = "/projekti/{id}", method = RequestMethod.GET)
 	public String haeProjektinTiedot(
 			@PathVariable Integer id,
+			@RequestParam(value = "p", required = false) Integer sivunumero,
 			Model model,
 			Principal principal) {
 		
-		Projekti projekti = projektiDao.haeProjektinTiedot(id, principal.getName());
+		if (sivunumero == null) {
+			sivunumero = 1;
+		} else if (sivunumero < 1) {
+			sivunumero = 1;
+		}
+		
+		Projekti projekti = projektiDao.haeProjektinTiedot(id, principal.getName(), sivunumero);
+		logger.debug(projekti.toString());
 		if (projekti.getId() == 0) { return "redirect:/"; }
 		Kayttaja kayttaja = kayttajaDao.haeKayttajaSahkopostilla(principal.getName());
 		List<Merkinta> yhteistunnit = projektiDao.haeProjektinYhteistunnit(id, principal.getName());
@@ -71,10 +79,17 @@ public class ProjektiKontrolleri {
 	public String haeProjektinTiedotKayttajalta(
 			@PathVariable Integer projektiId,
 			@PathVariable Integer kayttajaId,
+			@RequestParam(value = "p", required = false) Integer sivunumero,
 			Model model,
 			Principal principal) {
 		
-		Projekti projekti = projektiDao.haeProjektinTiedotKayttajalta(projektiId, principal.getName(), kayttajaId);
+		if (sivunumero == null) {
+			sivunumero = 1;
+		} else if (sivunumero < 1) {
+			sivunumero = 1;
+		}
+		
+		Projekti projekti = projektiDao.haeProjektinTiedotKayttajalta(projektiId, principal.getName(), kayttajaId, sivunumero);
 		if (projekti.getId() == 0) { return "redirect:/"; }
 		Kayttaja kayttaja = kayttajaDao.haeKayttajaSahkopostilla(principal.getName());
 		List<Merkinta> yhteistunnit = projektiDao.haeProjektinYhteistunnit(projektiId, principal.getName());
@@ -95,9 +110,16 @@ public class ProjektiKontrolleri {
 			@PathVariable Integer projektiId,
 			@PathVariable Integer kayttajaId,
 			@PathVariable Integer merkintaId,
+			@RequestParam(value = "p", required = false) Integer sivunumero,
 			Model model,
 			Principal principal
 			) {
+		
+		if (sivunumero == null) {
+			sivunumero = 1;
+		} else if (sivunumero < 1) {
+			sivunumero = 1;
+		}
 		
 		int rivit = projektiDao.poistaKayttajanMerkinta(merkintaId, principal.getName());
 		if (rivit == 0) {
@@ -106,7 +128,7 @@ public class ProjektiKontrolleri {
 			model.addAttribute("viesti", "Merkintä poistettu!");
 		}
 		
-		Projekti projekti = projektiDao.haeProjektinTiedotKayttajalta(projektiId, principal.getName(), kayttajaId);
+		Projekti projekti = projektiDao.haeProjektinTiedotKayttajalta(projektiId, principal.getName(), kayttajaId, sivunumero);
 		if (projekti.getId() == 0) { return "redirect:/"; }
 		Kayttaja kayttaja = kayttajaDao.haeKayttajaSahkopostilla(principal.getName());
 		List<Merkinta> yhteistunnit = projektiDao.haeProjektinYhteistunnit(projektiId, principal.getName());
@@ -204,7 +226,7 @@ public class ProjektiKontrolleri {
 			model.addAttribute("viesti", viesti);
 		}	
 		
-		Projekti projekti = projektiDao.haeProjektinTiedot(projektiId, principal.getName());
+		Projekti projekti = projektiDao.haeProjektinTiedot(projektiId, principal.getName(), 1);
 		if (projekti.getId() == 0) { return "redirect:/"; }
 		Kayttaja kayttaja = kayttajaDao.haeKayttajaSahkopostilla(principal.getName());
 		List<Merkinta> yhteistunnit = projektiDao.haeProjektinYhteistunnit(projektiId, principal.getName());

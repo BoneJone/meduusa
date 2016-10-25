@@ -12,6 +12,8 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import me.nicou.tuntikirjaus.bean.Merkinta;
+import me.nicou.tuntikirjaus.bean.MerkintaLista;
+import me.nicou.tuntikirjaus.bean.MerkintaListaImpl;
 import me.nicou.tuntikirjaus.bean.Projekti;
 import me.nicou.tuntikirjaus.bean.ProjektiImpl;
 
@@ -24,6 +26,8 @@ public class ProjektiDaoImpl implements ProjektiDao {
 	public ProjektiDaoImpl() {
 		super();
 	}
+	
+	private static final int MERKINNAT_PER_SIVU = 8;
 	
 	private static final Logger logger = LoggerFactory.getLogger(KayttajaDaoImpl.class);
 	
@@ -39,8 +43,10 @@ public class ProjektiDaoImpl implements ProjektiDao {
 		return projektit;
 	}
 	
-	public Projekti haeProjektinTiedot(int projektiId, String sahkoposti) {
+	public Projekti haeProjektinTiedot(int projektiId, String sahkoposti, int sivunumero) {
 		Projekti projekti = new ProjektiImpl();
+		projekti.setMerkintaLista(new MerkintaListaImpl());
+		projekti.getMerkintaLista().setMerkinnat(new ArrayList<Merkinta>());
 		String sql = "SELECT id, nimi, kuvaus, luontipaiva FROM Projektit p JOIN ProjektinJasenet pj ON p.id = pj.projekti_id WHERE pj.kayttaja_id = (SELECT id FROM Kayttajat WHERE sahkoposti = ?) AND p.id = ? ORDER BY id DESC";
 		try {
 			RowMapper<Projekti> mapper = new ProjektiListaRowMapper();
@@ -49,12 +55,29 @@ public class ProjektiDaoImpl implements ProjektiDao {
 			logger.debug("Käyttäjä yritti hakea projekti jota ei löytynyt tai johon ei kuulu");
 			return projekti;
 		}
-		
-		sql = "SELECT k.id AS kayttaja_id, m.id AS merkinta_id, sahkoposti, etunimi, sukunimi, paivamaara, tunnit, kuvaus FROM Merkinnat m JOIN Kayttajat k ON m.kayttaja_id = k.id WHERE m.projekti_id = ? ORDER BY m.paivamaara DESC";
-		RowMapper<Merkinta> mapper = new MerkintaRowMapper();
+
 		try {
-			List<Merkinta> merkinnat = jdbcTemplate.query(sql, new Object[] { projektiId }, mapper);
-			projekti.setMerkinnat(merkinnat);
+			sql = "SELECT COUNT(*) FROM Merkinnat WHERE projekti_id = ?";
+			
+			int offset = MERKINNAT_PER_SIVU * sivunumero - MERKINNAT_PER_SIVU;
+			MerkintaLista merkintaLista = new MerkintaListaImpl();
+			merkintaLista.setNykyinenSivu(sivunumero);
+			merkintaLista.setMerkintojaPerSivu(offset);
+			
+			// Sivujen yhteismäärän haku ja roundaus
+			int sivujaYhteensa = jdbcTemplate.queryForObject(sql, new Object[] { projektiId }, Integer.class);
+			sivujaYhteensa = (int) Math.ceil((double) sivujaYhteensa / (double) MERKINNAT_PER_SIVU);
+			merkintaLista.setSivujaYhteensa(sivujaYhteensa);
+			
+			if (merkintaLista.getSivujaYhteensa() == 0 || sivunumero > merkintaLista.getSivujaYhteensa()) {
+				return projekti;
+			}
+			
+			sql = "SELECT k.id AS kayttaja_id, m.id AS merkinta_id, sahkoposti, etunimi, sukunimi, paivamaara, tunnit, kuvaus FROM Merkinnat m JOIN Kayttajat k ON m.kayttaja_id = k.id WHERE m.projekti_id = ? ORDER BY m.paivamaara DESC LIMIT ? OFFSET ?";
+			
+			RowMapper<Merkinta> mapper = new MerkintaRowMapper();
+			merkintaLista.setMerkinnat(jdbcTemplate.query(sql, new Object[] { projektiId, MERKINNAT_PER_SIVU, offset }, mapper));
+			projekti.setMerkintaLista(merkintaLista);
 		} catch (EmptyResultDataAccessException ex) {
 			logger.debug("Haettiin tiedot projektista jolla ei ole vielä merkintöjä");
 		}
@@ -62,7 +85,7 @@ public class ProjektiDaoImpl implements ProjektiDao {
 		return projekti;
 	}
 	
-	public Projekti haeProjektinTiedotKayttajalta(int projektiId, String sahkoposti, int kayttajaId) {
+	public Projekti haeProjektinTiedotKayttajalta(int projektiId, String sahkoposti, int kayttajaId, int sivunumero) {
 		Projekti projekti = new ProjektiImpl();
 		String sql = "SELECT id, nimi, kuvaus, luontipaiva FROM Projektit p JOIN ProjektinJasenet pj ON p.id = pj.projekti_id WHERE pj.kayttaja_id = (SELECT id FROM Kayttajat WHERE sahkoposti = ?) AND p.id = ? ORDER BY id DESC";
 		try {
@@ -72,12 +95,28 @@ public class ProjektiDaoImpl implements ProjektiDao {
 			logger.debug("Käyttäjä yritti hakea projekti jota ei löytynyt tai johon ei kuulu");
 			return projekti;
 		}
-		
-		sql = "SELECT k.id AS kayttaja_id, m.id AS merkinta_id, sahkoposti, etunimi, sukunimi, paivamaara, tunnit, kuvaus FROM Merkinnat m JOIN Kayttajat k ON m.kayttaja_id = k.id WHERE m.projekti_id = ? AND m.kayttaja_id = ? ORDER BY m.paivamaara DESC";
-		RowMapper<Merkinta> mapper = new MerkintaRowMapper();
+
 		try {
-			List<Merkinta> merkinnat = jdbcTemplate.query(sql, new Object[] { projektiId, kayttajaId }, mapper);
-			projekti.setMerkinnat(merkinnat);
+			
+			sql = "SELECT COUNT(*) FROM Merkinnat WHERE projekti_id = ? AND kayttaja_id = ?";
+			
+			int offset = MERKINNAT_PER_SIVU * sivunumero - MERKINNAT_PER_SIVU;
+			MerkintaLista merkintaLista = new MerkintaListaImpl();
+			merkintaLista.setNykyinenSivu(sivunumero);
+			merkintaLista.setMerkintojaPerSivu(offset);
+			merkintaLista.setSivujaYhteensa((int) Math.ceil(jdbcTemplate.queryForObject(sql, new Object[] { projektiId }, Integer.class) / MERKINNAT_PER_SIVU));
+			
+			logger.debug("Haetaan projektin " + projektiId + " tiedot, sivunumero " + 1);
+			logger.debug("Tietokannasta sivujen yhteismääräksi saatiin " + merkintaLista.getSivujaYhteensa());
+			
+			if (merkintaLista.getSivujaYhteensa() == 0 || sivunumero > merkintaLista.getSivujaYhteensa()) {
+				return projekti;
+			}
+			
+			RowMapper<Merkinta> mapper = new MerkintaRowMapper();
+			sql = "SELECT k.id AS kayttaja_id, m.id AS merkinta_id, sahkoposti, etunimi, sukunimi, paivamaara, tunnit, kuvaus FROM Merkinnat m JOIN Kayttajat k ON m.kayttaja_id = k.id WHERE m.projekti_id = ? AND m.kayttaja_id = ? ORDER BY m.paivamaara DESC DESC LIMIT ? OFFSET ?";
+			merkintaLista.setMerkinnat(jdbcTemplate.query(sql, new Object[] { projektiId, kayttajaId, MERKINNAT_PER_SIVU, offset }, mapper));
+			projekti.setMerkintaLista(merkintaLista);
 		} catch (EmptyResultDataAccessException ex) {
 			logger.debug("Haettiin tiedot projektista jolla ei ole vielä merkintöjä");
 		}

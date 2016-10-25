@@ -56,7 +56,8 @@ public class ProjektiRestKontrolleri {
 	
 	@RequestMapping(value = "/projektit/{projektiId}", method = RequestMethod.GET)
 	public Projekti haeProjektinTiedot(@PathVariable Integer projektiId, Principal principal) {
-		return projektiDao.haeProjektinTiedot(projektiId, principal.getName());
+		// @TODO: Kovakoodattu sivunumero 1
+		return projektiDao.haeProjektinTiedot(projektiId, principal.getName(), 1);
 	}
 	
 	@RequestMapping(value = "/projektit/{projektiId}/jasen/{kayttajaId}", method = RequestMethod.GET)
@@ -64,7 +65,8 @@ public class ProjektiRestKontrolleri {
 			@PathVariable Integer projektiId,
 			@PathVariable Integer kayttajaId,
 			Principal principal) {
-		return projektiDao.haeProjektinTiedotKayttajalta(projektiId, principal.getName(), kayttajaId);
+		// @TODO: Kovakoodattu sivunumero 1
+		return projektiDao.haeProjektinTiedotKayttajalta(projektiId, principal.getName(), kayttajaId, 1);
 	}
 	
 	@RequestMapping(value = "/projektit/{projektiId}/yhteistunnit", method = RequestMethod.GET)
