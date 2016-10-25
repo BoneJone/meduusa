@@ -42,8 +42,8 @@ var ilmoitus = function(viesti) {
 		<img src="/img/placeholder.jpg" th:src="@{/img/placeholder.jpg}" class="profiilikuva-iso" alt="Profiilikuva" />
 		</a>
 		<div class="media-body etusivu-profiili">
-			<h4>Jonni Aaltonen</h4>
-			<p class="text-muted">jonni.aaltonen@meduusa.fi</p>
+			<h4 th:text="${'' + kayttaja.etunimi + ' ' + kayttaja.sukunimi + ''}"></h4>
+			<p class="text-muted" th:text="${''+kayttaja.sahkoposti+''}"></p>
 		</div>
 		<div class="media-right etusivu-kokonaistunnit">
 		<h1>50h</h1>
