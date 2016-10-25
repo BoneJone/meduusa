@@ -33,24 +33,71 @@ var ilmoitus = function(viesti) {
 	<div class="container-fluid">
 	<div class="row">
 	<div class="main-contentti">
+		<div class="etusivu-main">
 	<div class="row">
-		<div class="col-xs-12 projekti-yhteenveto">
-		<h3 th:text="${'Tervetuloa, ' + kayttaja.etunimi + ' ' + kayttaja.sukunimi + '!'}"></h3>
+
+	<div class="col-xs-12 etusivu-sisalto">
+		<div class="media etusivu-otsikko">
+		<a class="media-left etusivu-kuva">
+		<img src="/img/placeholder.jpg" th:src="@{/img/placeholder.jpg}" class="profiilikuva-iso" alt="Profiilikuva" />
+		</a>
+		<div class="media-body etusivu-profiili">
+			<h4>Jonni Aaltonen</h4>
+			<p class="text-muted">jonni.aaltonen@meduusa.fi</p>
 		</div>
-	</div>
-
-
-
-
-
-
-<h4>Omat projektit</h4>
+		<div class="media-right etusivu-kokonaistunnit">
+		<h1>50h</h1>
+		</div>
+		</div>
+		<div class="col-xs-4 etusivu-projektilista">
+		<h4>Omat projektit</h4>
 <p th:each="projekti : ${projektit}">
         <a th:href="@{'/projekti/' + ${projekti.id}}">
         <h5 th:text="${projekti.nimi}"></h5>
         </a>
         <h6 th:text="${projekti.kuvaus}"></h6>
 </p>
+</div>
+<div class="col-xs-8 etusivu-projektilista">
+	<h4>Tapahtumat</h4>
+<div class="etusivu-uutiset">
+  <div class="etusivu-merkinta">
+    <div class="teksti">25.10.2016 Jonni Aaltonen (SP1 Tuntikirjaus), 3h 25min</div>
+    <div class="pvm">Muunnosta Spring Bootille jotta saadaan Security käyttöön</div>
+  </div>
+  <div class="etusivu-merkinta">
+    <div class="pvm">25.10.2016 Nico Hagelberg (Toinen demoprojekti), 5h</div>
+    <div class="teksti">Tietokannan tuijottamista, projekti beanin teko ja projektin lisäämistä alotettu DAO:ssa</div>
+  </div>
+  <div class="etusivu-merkinta">
+    <div class="pvm">25.10.2016 Nico Hagelberg (Toinen demoprojekti), 5h</div>
+    <div class="teksti">Paginaatiota, tietokannat tukemaan useaa projektia, Bulman käyttöönottoa</div>
+  </div>
+  <div class="etusivu-merkinta">
+    <div class="pvm">25.10.2016</div>
+    <div class="teksti">Responded to need <a href="single-need.php">“In-Kind Opportunity”</a></div>
+  </div>
+  <div class="etusivu-merkinta">
+    <div class="pvm">25.10.2016</div>
+    <div class="teksti">Created need <a href="single-need.php">“Volunteer Opportunity”</a></div>
+  </div>
+  <div class="etusivu-merkinta">
+    <div class="pvm">25.10.2016</div>
+    <div class="teksti">Attending the event <a href="single-event.php">“Some New Event”</a></div>
+  </div>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
 
 </div>
 </div>

@@ -134,7 +134,82 @@ body {
 	list-style-type: none;
 	font-size: 16px;
 }
+/* Content etusivulla  */
+.etusivu-sisalto {
+	
+	float: none;
+	margin: 40px auto;
+	
+}
+.etusivu-main {
+	background-color: #fff;
+	margin-left: 20px;	
+	
+}
+.etusivu-otsikko {
+	border-bottom: 1px solid #dcdcdd;
+	margin-left: 20px;
+}
+.etusivu-kuva {
+	padding: 20px 20px 0 0;
+}
+.etusivu-profiili {
+	padding: 40px 0;
+}
+.etusivu-profiili h4 {
+	font-weight: bold;
+}
+.etusivu-kokonaistunnit {
+	padding: 40px 30px 0 30px;
+}
+.etusivu-jakaja {
+    width: 0;
+    height: 50px;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+}
+.etusivu-projektilista {
+	margin-top: 20px;
+}
 
+/* ETUSIVU PROJEKTIT */
+
+
+/* MERKINT횲EEDI */
+.etusivu-uutiset {
+  padding: 15px;
+}
+.etusivu-uutiset .etusivu-merkinta {
+  position: relative;
+  padding-bottom: 20px;
+  padding-left: 30px;
+  border-left: 2px solid #e4e8eb;
+}
+.etusivu-uutiset .etusivu-merkinta:last-child {
+  border-color: transparent;
+}
+.etusivu-uutiset .etusivu-merkinta:after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: -6px;
+  width: 10px;
+  height: 10px;
+  border-radius: 6px;
+  background: #fff;
+  border: 1px solid #4FC3F7;
+}
+.etusivu-uutiset .etusivu-merkinta .pvm {
+  position: relative;
+  top: -5px;
+  color: #8c96a3;
+  font-size: 13px;
+}
+.etusivu-uutiset .etusivu-merkinta .teksti {
+  position: relative;
+  top: -3px;
+}
 /* T채채 wrappaa sidebarin ja main contentin */
 .turbowrapperi {
 	margin: 0px;
@@ -155,7 +230,8 @@ body {
 
 /* Projektin p채채sivulla wrapper projektin nimelle, kuvaukselle ja yhteistunneille */
 .projekti-yhteenveto {
-	margin: 30px 0px;
+	margin: 30px;
+	
 }
 
 /* Projektin j채senten ja merkint철jen tyylit */
@@ -178,6 +254,11 @@ body {
 	width: 36px;
 	height: 36px;
 	border-radius: 50px;
+}
+.profiilikuva-iso {
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
 }
 
 .lisaysbtn {
@@ -284,3 +365,8 @@ body {
 	background: #2ebcfc !important;
 	border: #2ebcfc !important;
 }
+
+
+/* TESTIII */
+
+
