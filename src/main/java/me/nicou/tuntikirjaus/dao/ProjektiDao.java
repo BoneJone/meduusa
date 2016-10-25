@@ -9,9 +9,9 @@ public interface ProjektiDao {
 	
 	public List<Projekti> haeKayttajanProjektit(String sahkoposti);
 	
-	public Projekti haeProjektinTiedot(int projektiId, String sahkoposti);
+	public Projekti haeProjektinTiedot(int projektiId, String sahkoposti, int sivunumero);
 	
-	public Projekti haeProjektinTiedotKayttajalta(int projektiId, String sahkoposti, int kayttajaId);
+	public Projekti haeProjektinTiedotKayttajalta(int projektiId, String sahkoposti, int kayttajaId, int sivunumero);
 	
 	public int tallennaMerkinta(int projektiId, Merkinta merkinta);
 	

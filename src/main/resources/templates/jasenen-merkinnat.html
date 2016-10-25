@@ -1,134 +1,203 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Raleway:400,300,600" />
-<link rel="stylesheet" type="text/css" href="/css/normalize.css" th:href="@{/css/normalize.css}" />
-<link rel="stylesheet" type="text/css" href="/css/skeleton.css" th:href="@{/css/skeleton.css}" />
-<link rel="stylesheet" type="text/css" href="/css/style.css" th:href="@{/css/style.css}" />
-<link rel="stylesheet" type="text/css" href="/css/jquery.toast.min.css" th:href="@{/css/jquery.toast.min.css}" />
-<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
-<script type="text/javascript" src="/js/jquery.leanModal.min.js" th:src="@{/js/jquery.leanModal.min.js}"></script>
-<script type="text/javascript" src="/js/jquery.toast.min.js" th:src="@{/js/jquery.toast.min.js}"></script>
-<title th:text="${'Meduusa | ' + projekti.nimi}"></title>
-<script type="text/javascript">
-var ilmoitus = function(viesti) {
-	$.toast({
-		text: viesti,
-		heading: '<strong>Ilmoitus</strong>',
-		showHideTransition: 'fade',
-		allowToastClose: true,
-		hideAfter: 3000,
-		stack: 5,
-		position: 'bottom-right',
-		bgColor: '#1EAEDB',
-		textColor: '#FFF',
-		textAlign: 'left',
-		loader: false,
-		});
-	}
-</script>
-</head>
-<body>
+  <head th:include="common :: head"></head>
+  <head>
+    <title th:text="${'Meduusa | ' + projekti.nimi}"></title>
+  </head>
+  <body>
 
-<div class="container">
+    <!-- ylapalkki navbar, tulee hamburger menu mobiilissa -->
+    <div th:include="common :: navpalkki"></div>
+    
+    <!-- Sivupalkki navigaatio, katoaa mobiilissa -->
+    <div th:include="common :: sivupalkki"></div>
 
-<div class="row toppi alarivi" style="border-bottom: 1px solid #ddd;">
-<div class="nine columns">
+      <!-- Main contentti alkaa -->
+<div class="col-sm-12 col-lg-12">
+      
+    <div class="container-fluid">
+      <div class="row">      
+      
+      	<!-- Wrapperi joka antaa sidebarin verran marginia -->
+      	<div class="main-contentti">
+      	<div class="row">
+      	
+      	<!-- Mobiilin lisää merkintä -nappi -->
+        <div class="col-sm-12 hidden-lg-up">
+          <div class="row">
+            <div class="nappi">
+              <button type="button" class="btn btn-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i> Lisää merkintä</button>
+            </div>
+          </div>
+        </div>
 
-<h3 style="padding: 3px 0px; margin: 0px;" th:text="${projekti.nimi}"></h3>
-<h6 th:text="${projekti.kuvaus}" style="font-weight: bold;"></h6>
-<a th:href="@{/}">&lt; Kaikki projektit</a><br /><br />
+        <!-- Projektin nimi ja kuvaus -->
+        <div class="col-xs-12 projekti-yhteenveto">
+        	<h2 th:text="${projekti.nimi}"></h2>
+        	<h5 th:text="${projekti.kuvaus}"></h5>
+        	<h6><i class="fa fa-clock-o" aria-hidden="true"></i> 00h 00min</h6>
+        </div>
+        
+        <!-- Tiimin jäsenet -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 profiili">
+            <div class="list-group">
+              <li class="list-group-item active">Tiimin jäsenet</li>
+              <span th:each="merkinta : ${yhteistunnit}">
+	              <a th:href="@{'/projekti/' + ${projekti.id} + '/jasen/' + ${merkinta.kayttaja.id}}" class="list-group-item list-group-item-action">
+	              	<img src="/img/placeholder.jpg" th:src="@{/img/placeholder.jpg}" class="profiilikuva" alt="Profiilikuva" />
+	              	<span class="tag tag-default tag-pill pull-xs-right" th:text="${merkinta.tunnit + 'h'}"></span>
+	              	<span th:text="${merkinta.kayttaja.etunimi + ' ' + merkinta.kayttaja.sukunimi}"></span>
+	              </a>
+              </span>
+            </div>
+            <button type="button" class="btn btn-secondary btn-lg lisaysbtn">Lisää jäsen</button>
+            <a th:href="@{'/projekti/' + ${projekti.id}}" class="btn btn-secondary btn-lg lisaysbtn">Näytä kaikki</a>
+          </div>
+          
+          <!-- Tuntilista alkaa -->
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-9 col-xl-9 taulukko">
+          <div class="list-group">
+          <li class="list-group-item active">Tiimin jäsenen '<span th:text="${projekti.merkintaLista.merkinnat[0].kayttaja.etunimi + ' ' + projekti.merkintaLista.merkinnat[0].kayttaja.sukunimi}"></span>' merkinnät</li>
+          </div>
+            <div class="table-responsive tuntilista-wrapper">
+            <table class="table table-striped tuntilista">
+          <thead>
+            <tr>
+              <th>Tunnit</th>
+              <th>Henkilö</th>
+              <th>Kuvaus</th>
+              <th>Päivä</th>
+              <th>Muokkaa</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="merkinta : ${projekti.merkintaLista.merkinnat}">
+              <th scope="row" th:text="${merkinta.tunnit + 'h'}"></th>
+              <td th:text="${merkinta.kayttaja.etunimi + ' ' + merkinta.kayttaja.sukunimi}"></td>
+              <td><small class="text-muted" th:text="${merkinta.kuvaus}"></small></td>
+              <td><small class="text-muted" th:text="${#dates.format(merkinta.paivamaara, 'dd.MM.yyy')}"></small></td>
+              <td><button type="button" class="btn btn-primary muokkaabtn" data-toggle="modal" data-target="#myModal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+        
+        <!-- Merkintöjen paginaatio -->
+        <nav aria-label="..." class="paginaatio">
+          <ul class="pagination pagination-sm">
+            <li th:class="${projekti.merkintaLista.nykyinenSivu eq 1 ? 'page-item disabled' : 'page-item'}">
+              <a class="page-link" aria-label="Edellinen" th:href="@{/projekti/{id}/jasen/{kayttajaid}(p=1, id=${projekti.id}, kayttajaid=${projekti.merkintaLista.merkinnat[0].kayttaja.id})}">
+                <span aria-hidden="true">&laquo;</span>
+                <span class="sr-only">Edellinen</span>
+              </a>
+            </li>
+            <li th:each="sivu : ${#numbers.sequence(1, projekti.merkintaLista.sivujaYhteensa)}" th:class="${projekti.merkintaLista.nykyinenSivu eq sivu ? 'page-item active' : 'page-item'}">
+	            <a class="page-link" th:href="@{/projekti/{id}/jasen/{kayttajaid}(p=${sivu}, id=${projekti.id}, kayttajaid=${projekti.merkintaLista.merkinnat[0].kayttaja.id})}">
+	            <span th:text="${sivu}"></span>
+	            </a>
+            </li>
+            <li th:class="${projekti.merkintaLista.nykyinenSivu eq projekti.merkintaLista.sivujaYhteensa ? 'page-item disabled' : 'page-item'}">
+              <a class="page-link" aria-label="Seuraava" th:href="@{/projekti/{id}/jasen/{kayttajaid}(p=${projekti.merkintaLista.sivujaYhteensa}, id=${projekti.id}, kayttajaid=${projekti.merkintaLista.merkinnat[0].kayttaja.id})}">
+                <span aria-hidden="true">&raquo;</span>
+                <span class="sr-only">Seuraava</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        
+        </div>
+      </div>
+	</div>
+
+      <!-- muokkaabtn modaali -->
+      <div class="modal fade" id="myModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h4 class="modal-title">Merkinnän muokkaus</h4>
+            </div>
+            <div class="modal-body">
+              <p>Haluatko varmasti muokata merkintöjäsi?</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary">Säilytä</button>
+              <button type="button" class="btn btn-secondary">Poista</button>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+
+
+      <!-- Lisää merkintä nappulan modaali -->
+      <div class="modal fade" id="merkintaModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <form method="post" th:action="@{'/projekti/' + ${projekti.id} + '/lisaa'}">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h4 class="modal-title">Lisää merkintä</h4>
+            </div>
+            <div class="modal-body">
+              <div class="form-group row">
+                <div class="col-xs-6">
+                  <label><strong>Tunnit</strong></label>
+                  <select class="form-control" name="tunnit">
+                    <option value="0">0 tuntia</option>
+                    <option value="1" selected="selected">1 tuntia</option>
+                    <option value="2">2 tuntia</option>
+                    <option value="3">3 tuntia</option>
+                    <option value="4">4 tuntia</option>
+                    <option value="5">5 tuntia</option>
+                    <option value="6">6 tuntia</option>
+                    <option value="7">7 tuntia</option>
+                    <option value="8">8 tuntia</option>
+                    <option value="9">9 tuntia</option>
+                    <option value="10">10 tuntia</option>
+                    <option value="11">11 tuntia</option>
+                    <option value="12">12 tuntia</option>
+                  </select>
+                </div>
+                <div class="col-xs-6">
+                  <label><strong>Minuutit</strong></label>
+                  <select class="form-control" name="minuutit">
+                    <option value="0" selected="selected">0 minuuttia</option>
+                    <option value="15">15 minuuttia</option>
+                    <option value="30">30 minuuttia</option>
+                    <option value="45">45 minuuttia</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-xs-12">
+                  <label for="text"><strong>Mitä teit?</strong></label>
+                  <textarea class="form-control" id="exampleTextarea" rows="3" name="kuvaus"></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <div class="form-check slackbox pull-left">
+                <label class="form-check-label">
+                  <input type="checkbox" class="form-check-input" name="slack"/> Lähetä tieto myös Slackiin
+                </label>
+              </div>
+              <button type="submit" class="btn btn-secondary pull-right">Tallenna</button>
+            </div>
+          </div><!-- /.modal-content -->
+          </form>
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+
+    </div>
+	</div>
 </div>
-<div class="three columns">
 
-<form th:action="@{/logout}" method="post">
-	<button type="submit" class="button" style="float: right;">Kirjaudu ulos</button>
-</form>
-
-</div>
-</div>
-
-<div class="row">
-<div class="twelve">
-<h4>Tiimin jäsenet</h4>
-<table class="u-full-width">
-<thead>
-<tr>
-<th>Henkilö</th><th>Tunnit</th>
-</tr>
-</thead>
-<tbody>
-    <tr th:each="merkinta : ${yhteistunnit}">
-        <td><a th:href="@{'/projekti/' + ${projekti.id} + '/jasen/' + ${merkinta.kayttaja.id}}" th:text="${merkinta.kayttaja.etunimi + ' ' + merkinta.kayttaja.sukunimi}"></a></td>
-        <td th:text="${merkinta.tunnit + 'h'}"></td>
-    </tr>
-</tbody>
-</table>
-
-</div>
-
-</div>
-
-
-
-
-<div class="row">
-
-<div class="twelve columns">
-
-<h4>Jäsenen <strong th:text="${projekti.merkinnat[0].kayttaja.etunimi + ' ' + projekti.merkinnat[0].kayttaja.sukunimi}"></strong> merkinnät</h4>
-<a th:href="@{'/projekti/' + ${projekti.id}}">&lt; Näytä koko tiimin merkinnät</a><br /><br />
-<table class="u-full-width">
-<thead>
-<tr><th>Päivä</th><th>Tunnit</th><th>Kuvaus</th><th></th></tr>
-</thead>
-<tbody>
-    <tr th:each="merkinta : ${projekti.merkinnat}">
-        <td th:text="${#dates.format(merkinta.paivamaara, 'dd.MM.yyy')}"></td>
-        <td th:text="${merkinta.tunnit + 'h'}"></td>
-        <td th:text="${merkinta.kuvaus}"></td>
-        <td><a href="#modali" class="button poisto" th:onClick="'javascript:poisto(' + ${merkinta.id} + ')'" th:if="${kayttaja.id == merkinta.kayttaja.id}">Poista</a></td>
-    </tr>
-</tbody>
-</table>
-
-<div id="modali" class="center" th:if="${kayttaja.id == projekti.merkinnat[0].kayttaja.id}">
-<h4>Poistetaanko merkintä?</h4>
-Merkintä poistetaan tietokannasta lopullisesti.
-<br /><br />
-<button onClick="suljeModal()" class="button left">Säilytä</button> <a id="poistonappi" href="" class="button button-primary right">Poista</a>
-</div>
-
-</div>
-
-</div>
-
-
-
-</div>
-
-<script th:inline="javascript" th:if="${kayttaja.id == projekti.merkinnat[0].kayttaja.id}">
-  $(".poisto").leanModal();
-  var projektiId = [[${projekti.id}]];
-  var kayttajaId = [[${kayttaja.id}]];
-  var rootUrl = [[@{/}]];
-  var poisto = function(id) {
-	  $("#poistonappi").attr("href", rootUrl + "/projekti/" + projektiId + "/jasen/" + kayttajaId + "/poista/" + id);
-  }
-  var suljeModal = function() {
-	  $("#lean_overlay").trigger("click");
-  }
-</script>
-
-<div th:if="${not #lists.isEmpty(viesti)}">
-<div id="viestidiv" th:text="${viesti}" style="display: none;"></div>
-<script type="text/javascript">
-	ilmoitus($('#viestidiv').html());
-</script>
-</div>
-
-</body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/js/bootstrap.min.js"></script>
+  </body>
 </html>

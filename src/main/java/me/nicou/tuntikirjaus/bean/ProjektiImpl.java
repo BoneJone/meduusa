@@ -1,7 +1,6 @@
 package me.nicou.tuntikirjaus.bean;
 
 import java.util.Date;
-import java.util.List;
 
 public class ProjektiImpl implements Projekti {
 
@@ -9,20 +8,20 @@ public class ProjektiImpl implements Projekti {
 	String nimi;
 	String kuvaus;
 	Date luontipaiva;
-	List<Merkinta> merkinnat;
+	MerkintaLista merkintaLista;
 
 	public ProjektiImpl() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	public ProjektiImpl(int id, String nimi, String kuvaus, Date luontipaiva, List<Merkinta> merkinnat) {
+	public ProjektiImpl(int id, String nimi, String kuvaus, Date luontipaiva,
+			MerkintaLista merkintaLista) {
 		super();
 		this.id = id;
 		this.nimi = nimi;
 		this.kuvaus = kuvaus;
 		this.luontipaiva = luontipaiva;
-		this.merkinnat = merkinnat;
+		this.merkintaLista = merkintaLista;
 	}
 
 	public int getId() {
@@ -57,18 +56,19 @@ public class ProjektiImpl implements Projekti {
 		this.luontipaiva = luontipaiva;
 	}
 
-	public List<Merkinta> getMerkinnat() {
-		return merkinnat;
+	public MerkintaLista getMerkintaLista() {
+		return merkintaLista;
 	}
 
-	public void setMerkinnat(List<Merkinta> merkinnat) {
-		this.merkinnat = merkinnat;
+	public void setMerkintaLista(MerkintaLista merkintaLista) {
+		this.merkintaLista = merkintaLista;
 	}
 
 	@Override
 	public String toString() {
-		return "ProjektiImpl [id=" + id + ", nimi=" + nimi + ", kuvaus=" + kuvaus + ", luontipaiva=" + luontipaiva
-				+ ", merkinnat=" + merkinnat + "]";
+		return "ProjektiImpl [id=" + id + ", nimi=" + nimi + ", kuvaus="
+				+ kuvaus + ", luontipaiva=" + luontipaiva + ", merkintaLista="
+				+ merkintaLista + "]";
 	}
 
 }

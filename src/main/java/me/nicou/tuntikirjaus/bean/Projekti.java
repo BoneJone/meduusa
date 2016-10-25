@@ -1,7 +1,6 @@
 package me.nicou.tuntikirjaus.bean;
 
 import java.util.Date;
-import java.util.List;
 
 public interface Projekti {
 	
@@ -17,7 +16,7 @@ public interface Projekti {
 	public abstract String getKuvaus();
 	public abstract void setKuvaus(String kuvaus);
 	
-	public abstract List<Merkinta> getMerkinnat();
-	public abstract void setMerkinnat(List<Merkinta> merkinnat);
+	public abstract MerkintaLista getMerkintaLista();
+	public abstract void setMerkintaLista(MerkintaLista merkintaLista);
 
 }
