@@ -387,5 +387,15 @@ body {
 
 /* TESTIII */
 
+.pyorita {
+	-transition: all 1s linear;
+	-moz-transition: all 1s linear;
+	-webkit-transition: all 1s linear;
+}
+.pyorita.alas {
+	-moz-transform:rotate(18S0deg);
+	-webkit-transition: rotate(180deg);
+	-transition: rotate(180deg);
+}
 
 
