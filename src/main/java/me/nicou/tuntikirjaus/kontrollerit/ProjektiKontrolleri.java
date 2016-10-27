@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import me.nicou.tuntikirjaus.bean.EtusivunMerkinta;
 import me.nicou.tuntikirjaus.bean.Kayttaja;
 import me.nicou.tuntikirjaus.bean.KayttajaImpl;
 import me.nicou.tuntikirjaus.bean.Merkinta;
@@ -40,8 +41,10 @@ public class ProjektiKontrolleri {
 	public String haeKayttajanProjektit(Model model, Principal principal) {
 		Kayttaja kayttaja = kayttajaDao.haeKayttajaSahkopostilla(principal.getName());
 		List<Projekti> projektit = projektiDao.haeKayttajanProjektit(principal.getName());
+		List<EtusivunMerkinta> merkinnat = kayttajaDao.haeEtusivunMerkinnat(principal.getName());
 		model.addAttribute("kayttaja", kayttaja);
 		model.addAttribute("projektit", projektit);
+		model.addAttribute("merkinnat", merkinnat);
 	return "yleiskatsaus";
 	}
 	
