@@ -39,11 +39,12 @@ public class KayttajaDaoImpl implements KayttajaDao {
 	}
 	
 	public List<EtusivunMerkinta> haeEtusivunMerkinnat(String sahkoposti) {
-		String sql = "SELECT k.etunimi, k.sukunimi, paivamaara, p.id, p.nimi, m.tunnit, m.kuvaus FROM Merkinnat m RIGHT JOIN ProjektinJasenet pj USING (projekti_id) JOIN Kayttajat k ON m.kayttaja_id = k.id JOIN Projektit p ON m.projekti_id = p.id WHERE pj.kayttaja_id = (SELECT id FROM Kayttajat WHERE sahkoposti = ?) ORDER BY m.paivamaara DESC LIMIT 10;";
+		final int haettavatMerkinnat = 8;
+		String sql = "SELECT k.etunimi, k.sukunimi, paivamaara, p.id, p.nimi, m.tunnit, m.kuvaus FROM Merkinnat m RIGHT JOIN ProjektinJasenet pj USING (projekti_id) JOIN Kayttajat k ON m.kayttaja_id = k.id JOIN Projektit p ON m.projekti_id = p.id WHERE pj.kayttaja_id = (SELECT id FROM Kayttajat WHERE sahkoposti = ?) ORDER BY m.paivamaara DESC LIMIT ?;";
 		List<EtusivunMerkinta> merkinnat = new ArrayList<>();
 		try {
 			RowMapper<EtusivunMerkinta> mapper = new EtusivunMerkintaRowMapper();
-			merkinnat = jdbcTemplate.query(sql, new Object[] { sahkoposti }, mapper);
+			merkinnat = jdbcTemplate.query(sql, new Object[] { sahkoposti, haettavatMerkinnat }, mapper);
 		} catch (Exception ex) {
 			logger.error("Käyttäjän " + sahkoposti + " missään projektissa ei ole merkintöjä");
 		}
