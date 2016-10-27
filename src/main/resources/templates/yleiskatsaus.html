@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head th:replace="common :: head"></head>
 <head>
-<title>Meduusa | Yleiskatsaus</title>
+<title>Meduusa</title>
 <script type="text/javascript">
 var ilmoitus = function(viesti) {
 	$.toast({
@@ -50,7 +50,7 @@ var ilmoitus = function(viesti) {
 		</div>
 		</div>
 		<div class="col-xs-4 etusivu-projektilista">
-		<h4>Omat projektit</h4>
+		<h4><span th:text="#{kayt.yleiskatsaus.projektit}"></span></h4>
 <p th:each="projekti : ${projektit}">
         <a th:href="@{'/projekti/' + ${projekti.id}}">
         <h5 th:text="${projekti.nimi}"></h5>
@@ -59,7 +59,7 @@ var ilmoitus = function(viesti) {
 </p>
 </div>
 <div class="col-xs-8 etusivu-projektilista">
-	<h4>Tapahtumat</h4>
+	<h4><span th:text="#{kayt.yleiskatsaus.tapahtumat}"></span></h4>
 <div class="etusivu-uutiset">
   <div class="etusivu-merkinta">
     <div class="teksti">25.10.2016 Jonni Aaltonen (SP1 Tuntikirjaus), 3h 25min</div>
