@@ -64,18 +64,16 @@
             <tr>
               <th class="col-md-1"><span th:text="#{proj.projekti.tunnit}"></span></th>
               <th class="col-md-2"><span th:text="#{proj.projekti.henk}"></span></th>
-              <th class="col-md-7"><span th:text="#{proj.projekti.kuvaus}"></span></th>
               <th class="col-md-1"><span th:text="#{proj.projekti.paiva}"></span></th>
-              <th class="col-md-1"><span th:text="#{proj.projekti.muokkaus}"></span></th>
+              <th class="col-md-8"><span th:text="#{proj.projekti.kuvaus}"></span></th>
             </tr>
           </thead>
           <tbody>
             <tr th:each="merkinta : ${projekti.merkintaLista.merkinnat}">
               <td class="col-md-1" scope="row"><strong th:text="${merkinta.tunnit + 'h'}"></strong></td>
               <td class="col-md-2" th:text="${merkinta.kayttaja.etunimi + ' ' + merkinta.kayttaja.sukunimi}"></td>
-              <td class="col-md-7"><small class="text-muted" th:text="${merkinta.kuvaus}"></small></td>
               <td class="col-md-1"><small class="text-muted" th:text="${#dates.format(merkinta.paivamaara, 'dd.MM.yyy')}"></small></td>
-              <td class="col-md-1"><button type="button" class="btn btn-primary muokkaabtn" data-toggle="modal" data-target="#myModal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></td>
+              <td class="col-md-8"><small class="text-muted" th:text="${merkinta.kuvaus}"></small></td>
             </tr>
           </tbody>
         </table>
