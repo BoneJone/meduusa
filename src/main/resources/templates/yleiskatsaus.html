@@ -51,12 +51,41 @@ var ilmoitus = function(viesti) {
 		</div>
 		<div class="col-xs-4 etusivu-projektilista">
 		<h4>Omat projektit</h4>
-<p th:each="projekti : ${projektit}">
-        <a th:href="@{'/projekti/' + ${projekti.id}}">
+		<!--  <div id="accordion" role="tablist" aria-multiselectable="true">
+		
+		<div class="card" th:each="projekti : ${projektit}">
+		<div class="card-header" role="tab" id="headingOne">
+		<h5 class="mb-0">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" th:href="@{'/projekti/' + ${projekti.id}}">
         <h5 th:text="${projekti.nimi}"></h5>
         </a>
+        </h5>
+        
+        <div id="collapseOne" class="collapse in" role="tabpanel" aria-labelledby="headingOne">
+        <div class="card-block">
         <h6 th:text="${projekti.kuvaus}"></h6>
-</p>
+        </div>
+        </div>
+</div>
+</div>
+</div>
+-->
+<div id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="card" th:each="projekti : ${projektit}">
+    <div class="card-header" role="tab" th:id="${projekti.id} + '-card'">
+      <h5 class="mb-0">
+        <a data-toggle="collapse" data-parent="#accordion" th:href="'#' + ${projekti.id} + '-card'" aria-expanded="true">
+          <span th:text="${projekti.nimi}"></span>
+        </a>
+      </h5>
+    </div>
+
+    <div th:id="${projekti.id} + '-card'" class="collapse in" role="tabpanel" aria-labelledby="headingOne">
+      <div class="card-block">
+        <p th:text="${projekti.kuvaus}"></p></div>
+    </div>
+  </div>
+  </div>
 </div>
 <div class="col-xs-8 etusivu-projektilista">
 	<h4>Tapahtumat</h4>
