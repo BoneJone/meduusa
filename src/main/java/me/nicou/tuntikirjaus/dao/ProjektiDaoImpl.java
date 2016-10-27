@@ -162,13 +162,13 @@ public class ProjektiDaoImpl implements ProjektiDao {
 	}
 	
 	public void lisaaProjekti (Projekti projekti) {
-				 String sql = "INSERT INTO Projektit (nimi, kuvaus) VALUES(?, ?)";
-				 Object[] parametrit = { projekti.getNimi(), projekti.getKuvaus() };
-			  	try {
-			  	  jdbcTemplate.update(sql, parametrit);
-			  	}	catch (EmptyResultDataAccessException ex) {
-			  			logger.error("Projektia lisätessä tapahtui virhe");
-			  	}	
-			 }
+		 String sql = "INSERT INTO Projektit (nimi, kuvaus) VALUES(?, ?)";
+		 Object[] parametrit = { projekti.getNimi(), projekti.getKuvaus() };
+	  	try {
+	  	  jdbcTemplate.update(sql, parametrit);
+	  	}	catch (EmptyResultDataAccessException ex) {
+	  			logger.error("Projektia lisätessä tapahtui virhe");
+	  	}	
+	 }
 
 }
