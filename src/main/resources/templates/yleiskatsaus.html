@@ -52,21 +52,24 @@ var ilmoitus = function(viesti) {
 		<div class="col-xs-4 etusivu-projektilista">
 		<h4>Omat projektit</h4>
 
-  <div class="card" th:each="projekti : ${projektit}">
-    <div class="card-header" role="tab" th:id="${projekti.id} + '-card'">
-      <h5 class="mb-0">
+  <div class="card card-block" th:each="projekti : ${projektit}">
+    <div class="card-title" th:id="${projekti.id} + '-card'">
+      <h5 class="card-text">
         <a th:href="@{'/projekti/' + ${projekti.id}}">
           <span th:text="${projekti.nimi}"></span>
         </a>
+        <a class="projektiCollapse" data-toggle="collapse" th:href="'#collapse' + ${projekti.id}" aria-expanded="false" aria-controls="collapseExample">
+    <i class="fa fa-angle-double-down" aria-hidden="true"></i>
+  </a>
       </h5>
+        
     </div>
+    
+   
 
-    <div th:id="${projekti.id} + '-card'">
-      <div class="card-block">
-        <p th:text="${projekti.kuvaus}"></p></div>
-       	<a th:href="@{'/projekti/' + ${projekti.id}}">
-       	
-       	</a>
+    <div class="collapse" th:id="'collapse' + ${projekti.id}">
+      <div class="card card-block">
+        <a th:text="${projekti.kuvaus}"></a></div>
     </div>
   </div>
 

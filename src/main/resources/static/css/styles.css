@@ -381,13 +381,11 @@ body {
 	background-color: #0389c2;
 	border-color: #0389c2;
 }
-
+.projektiCollapse {
+	float:right;
+}
 
 /* TESTIII */
-.testi {
-	padding-left: 0px !important;
-}
-.etusivu h4 {
-margin-bottom: 20px;	
-}
+
+
 
