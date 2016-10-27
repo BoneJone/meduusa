@@ -51,71 +51,40 @@ var ilmoitus = function(viesti) {
 		</div>
 		<div class="col-xs-4 etusivu-projektilista">
 		<h4>Omat projektit</h4>
-		<!--  <div id="accordion" role="tablist" aria-multiselectable="true">
-		
-		<div class="card" th:each="projekti : ${projektit}">
-		<div class="card-header" role="tab" id="headingOne">
-		<h5 class="mb-0">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" th:href="@{'/projekti/' + ${projekti.id}}">
-		<h4><span th:text="#{kayt.yleiskatsaus.projektit}"></span></h4>
-<p th:each="projekti : ${projektit}">
-        <a th:href="@{'/projekti/' + ${projekti.id}}">
-        <h5 th:text="${projekti.nimi}"></h5>
-        </a>
-        </h5>
-        
-        <div id="collapseOne" class="collapse in" role="tabpanel" aria-labelledby="headingOne">
-        <div class="card-block">
-        <h6 th:text="${projekti.kuvaus}"></h6>
-        </div>
-        </div>
-		</div>
-		</div>
-		</div>
-		-->
-<div id="accordion" role="tablist" aria-multiselectable="true">
+
   <div class="card" th:each="projekti : ${projektit}">
     <div class="card-header" role="tab" th:id="${projekti.id} + '-card'">
       <h5 class="mb-0">
-        <a data-toggle="collapse" data-parent="#accordion" th:href="'#' + ${projekti.id} + '-card'" aria-expanded="true">
+        <a th:href="@{'/projekti/' + ${projekti.id}}">
           <span th:text="${projekti.nimi}"></span>
         </a>
       </h5>
     </div>
 
-    <div th:id="${projekti.id} + '-card'" class="collapse in" role="tabpanel" aria-labelledby="headingOne">
+    <div th:id="${projekti.id} + '-card'">
       <div class="card-block">
         <p th:text="${projekti.kuvaus}"></p></div>
+       	<a th:href="@{'/projekti/' + ${projekti.id}}">
+       	
+       	</a>
     </div>
   </div>
-  </div>
+
 </div>
 <div class="col-xs-8 etusivu-projektilista">
 	<h4><span th:text="#{kayt.yleiskatsaus.tapahtumat}"></span></h4>
 <div class="etusivu-uutiset">
-  <div class="etusivu-merkinta">
-    <div class="teksti">25.10.2016 Jonni Aaltonen (SP1 Tuntikirjaus), 3h 25min</div>
-    <div class="pvm">Muunnosta Spring Bootille jotta saadaan Security käyttöön</div>
-  </div>
-  <div class="etusivu-merkinta">
-    <div class="pvm">25.10.2016 Nico Hagelberg (Toinen demoprojekti), 5h</div>
-    <div class="teksti">Tietokannan tuijottamista, projekti beanin teko ja projektin lisäämistä alotettu DAO:ssa</div>
-  </div>
-  <div class="etusivu-merkinta">
-    <div class="pvm">25.10.2016 Nico Hagelberg (Toinen demoprojekti), 5h</div>
-    <div class="teksti">Paginaatiota, tietokannat tukemaan useaa projektia, Bulman käyttöönottoa</div>
-  </div>
-  <div class="etusivu-merkinta">
-    <div class="pvm">25.10.2016</div>
-    <div class="teksti">Responded to need <a href="single-need.php">“In-Kind Opportunity”</a></div>
-  </div>
-  <div class="etusivu-merkinta">
-    <div class="pvm">25.10.2016</div>
-    <div class="teksti">Created need <a href="single-need.php">“Volunteer Opportunity”</a></div>
-  </div>
-  <div class="etusivu-merkinta">
-    <div class="pvm">25.10.2016</div>
-    <div class="teksti">Attending the event <a href="single-event.php">“Some New Event”</a></div>
+  <div class="etusivu-merkinta" th:each="merkinta : ${merkinnat}">
+    <div class="teksti">
+    <span th:text="${#dates.format(merkinta.paivamaara, 'dd.MM.yyy')}"></span>
+    <span th:text="${merkinta.kayttajaNimi}"></span>
+    <span th:text="'(' + ${merkinta.projektiNimi} + ')'"></span>
+    <span th:text="${merkinta.tunnit} + 'h'"></span>
+    </div>
+    <div class="pvm" th:text="${merkinta.kuvaus}"></div>
+    
+    
+    
   </div>
 </div>
 
