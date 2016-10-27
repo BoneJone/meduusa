@@ -3,10 +3,14 @@ package me.nicou.tuntikirjaus.bean;
 import java.util.List;
 
 public class MerkintaListaImpl implements MerkintaLista {
+	
+	final int naytettavatSivunumerot = 7;
 
 	int nykyinenSivu;
 	int sivujaYhteensa;
 	int merkintojaPerSivu;
+	int ensimmainenSivunumero;
+	int viimeinenSivunumero;
 	List<Merkinta> merkinnat;
 
 	public MerkintaListaImpl() {
@@ -20,6 +24,27 @@ public class MerkintaListaImpl implements MerkintaLista {
 		this.sivujaYhteensa = sivujaYhteensa;
 		this.merkintojaPerSivu = merkintojaPerSivu;
 		this.merkinnat = merkinnat;
+	}
+	
+	public void laskeRenderoitavatSivunumerot() {
+		int sivunumerotMolemminPuolin = (int)(((double) Math.round((this.naytettavatSivunumerot - 1) / 2)));
+		int ekaSivu, vikaSivu;
+		if (this.sivujaYhteensa <= this.naytettavatSivunumerot) {
+			ekaSivu = 1;
+			vikaSivu = this.sivujaYhteensa;
+		} else if (this.nykyinenSivu + sivunumerotMolemminPuolin >= this.sivujaYhteensa) {
+			ekaSivu = this.sivujaYhteensa - this.naytettavatSivunumerot + 1;
+			vikaSivu = this.sivujaYhteensa;
+		} else {
+			if (this.nykyinenSivu - sivunumerotMolemminPuolin < 1) {
+				ekaSivu = 1;
+			} else {
+				ekaSivu = this.nykyinenSivu - sivunumerotMolemminPuolin;
+			}
+			vikaSivu = ekaSivu + naytettavatSivunumerot - 1;
+		}
+		this.ensimmainenSivunumero = ekaSivu;
+		this.viimeinenSivunumero = vikaSivu;
 	}
 
 	public int getNykyinenSivu() {
@@ -52,6 +77,28 @@ public class MerkintaListaImpl implements MerkintaLista {
 
 	public void setMerkinnat(List<Merkinta> merkinnat) {
 		this.merkinnat = merkinnat;
+	}
+	
+	
+
+	public int getEnsimmainenSivunumero() {
+		return ensimmainenSivunumero;
+	}
+
+	public void setEnsimmainenSivunumero(int ensimmainenSivunumero) {
+		this.ensimmainenSivunumero = ensimmainenSivunumero;
+	}
+
+	public int getViimeinenSivunumero() {
+		return viimeinenSivunumero;
+	}
+
+	public void setViimeinenSivunumero(int viimeinenSivunumero) {
+		this.viimeinenSivunumero = viimeinenSivunumero;
+	}
+
+	public int getNaytettavatSivunumerot() {
+		return naytettavatSivunumerot;
 	}
 
 	@Override

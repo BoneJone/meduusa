@@ -77,6 +77,7 @@ public class ProjektiDaoImpl implements ProjektiDao {
 			
 			RowMapper<Merkinta> mapper = new MerkintaRowMapper();
 			merkintaLista.setMerkinnat(jdbcTemplate.query(sql, new Object[] { projektiId, MERKINNAT_PER_SIVU, offset }, mapper));
+			merkintaLista.laskeRenderoitavatSivunumerot();
 			projekti.setMerkintaLista(merkintaLista);
 		} catch (EmptyResultDataAccessException ex) {
 			logger.debug("Haettiin tiedot projektista jolla ei ole vielä merkintöjä");
@@ -117,6 +118,7 @@ public class ProjektiDaoImpl implements ProjektiDao {
 			RowMapper<Merkinta> mapper = new MerkintaRowMapper();
 			sql = "SELECT k.id AS kayttaja_id, m.id AS merkinta_id, sahkoposti, etunimi, sukunimi, paivamaara, tunnit, kuvaus FROM Merkinnat m JOIN Kayttajat k ON m.kayttaja_id = k.id WHERE m.projekti_id = ? AND m.kayttaja_id = ? ORDER BY m.paivamaara DESC LIMIT ? OFFSET ?";
 			merkintaLista.setMerkinnat(jdbcTemplate.query(sql, new Object[] { projektiId, kayttajaId, MERKINNAT_PER_SIVU, offset }, mapper));
+			merkintaLista.laskeRenderoitavatSivunumerot();
 			projekti.setMerkintaLista(merkintaLista);
 		} catch (EmptyResultDataAccessException ex) {
 			logger.debug("Haettiin tiedot projektista jolla ei ole vielä merkintöjä");

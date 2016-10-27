@@ -90,7 +90,7 @@
                 <span class="sr-only">Edellinen</span>
               </a>
             </li>
-            <li th:each="sivu : ${#numbers.sequence(1, projekti.merkintaLista.sivujaYhteensa)}" th:class="${projekti.merkintaLista.nykyinenSivu eq sivu ? 'page-item active' : 'page-item'}">
+            <li th:each="sivu : ${#numbers.sequence(projekti.merkintaLista.ensimmainenSivunumero, projekti.merkintaLista.viimeinenSivunumero)}" th:class="${projekti.merkintaLista.nykyinenSivu eq sivu ? 'page-item active' : 'page-item'}">
 	            <a class="page-link" th:href="@{/projekti/{id}(p=${sivu}, id=${projekti.id})}">
 	            <span th:text="${sivu}"></span>
 	            </a>
