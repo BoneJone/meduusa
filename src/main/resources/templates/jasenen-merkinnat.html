@@ -26,7 +26,7 @@
         <div class="col-sm-12 hidden-lg-up">
           <div class="row">
             <div class="nappi">
-              <button type="button" class="btn btn-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i> Lisää merkintä</button>
+              <button type="button" class="btn btn-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i> <span th:text="#{proj.projekti.lisaamerkinta}"></span></button>
             </div>
           </div>
         </div>
@@ -41,7 +41,7 @@
         <!-- Tiimin jäsenet -->
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 profiili">
             <div class="list-group">
-              <li class="list-group-item active">Tiimin jäsenet</li>
+              <li class="list-group-item active"><span th:text="#{proj.projekti.jasenet}"></span></li>
               <span th:each="merkinta : ${yhteistunnit}">
 	              <a th:href="@{'/projekti/' + ${projekti.id} + '/jasen/' + ${merkinta.kayttaja.id}}" class="list-group-item list-group-item-action">
 	              	<img src="/img/placeholder.jpg" th:src="@{/img/placeholder.jpg}" class="profiilikuva" alt="Profiilikuva" />
@@ -50,24 +50,24 @@
 	              </a>
               </span>
             </div>
-            <button type="button" class="btn btn-secondary btn-lg lisaysbtn">Lisää jäsen</button>
-            <a th:href="@{'/projekti/' + ${projekti.id}}" class="btn btn-secondary btn-lg lisaysbtn">Näytä kaikki</a>
+            <button type="button" class="btn btn-secondary btn-lg lisaysbtn"><span th:text="#{proj.projekti.lisaajasen}"></span></button>
+            <a th:href="@{'/projekti/' + ${projekti.id}}" class="btn btn-secondary btn-lg lisaysbtn"><span th:text="#{proj.projekti.naytakaikki}"></span></a>
           </div>
           
           <!-- Tuntilista alkaa -->
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-9 col-xl-9 taulukko">
           <div class="list-group">
-          <li class="list-group-item active">Tiimin jäsenen '<span th:text="${projekti.merkintaLista.merkinnat[0].kayttaja.etunimi + ' ' + projekti.merkintaLista.merkinnat[0].kayttaja.sukunimi}"></span>' merkinnät</li>
+          <li class="list-group-item active"><span th:text="#{proj.projekti.kaytmerkinnat}"></span> <span th:text="${projekti.merkintaLista.merkinnat[0].kayttaja.etunimi + ' ' + projekti.merkintaLista.merkinnat[0].kayttaja.sukunimi}"></span></li>
           </div>
             <div class="table-responsive tuntilista-wrapper">
             <table class="table table-striped tuntilista">
           <thead>
             <tr>
-              <th>Tunnit</th>
-              <th>Henkilö</th>
-              <th>Kuvaus</th>
-              <th>Päivä</th>
-              <th>Muokkaa</th>
+              <th><span th:text="#{proj.projekti.tunnit}"></span></th>
+              <th><span th:text="#{proj.projekti.henk}"></span></th>
+              <th><span th:text="#{proj.projekti.kuvaus}"></span></th>
+              <th><span th:text="#{proj.projekti.paiva}"></span></th>
+              <th><span th:text="#{proj.projekti.muokkaus}"></span></th>
             </tr>
           </thead>
           <tbody>
@@ -91,8 +91,8 @@
                 <span class="sr-only">Edellinen</span>
               </a>
             </li>
-            <li th:each="sivu : ${#numbers.sequence(1, projekti.merkintaLista.sivujaYhteensa)}" th:class="${projekti.merkintaLista.nykyinenSivu eq sivu ? 'page-item active' : 'page-item'}">
-	            <a class="page-link" th:href="@{/projekti/{id}/jasen/{kayttajaid}(p=${sivu}, id=${projekti.id}, kayttajaid=${projekti.merkintaLista.merkinnat[0].kayttaja.id})}">
+            <li th:each="sivu : ${#numbers.sequence(projekti.merkintaLista.ensimmainenSivunumero, projekti.merkintaLista.viimeinenSivunumero)}" th:class="${projekti.merkintaLista.nykyinenSivu eq sivu ? 'page-item active' : 'page-item'}">
+	            <a class="page-link" th:href="@{/projekti/{id}(p=${sivu}, id=${projekti.id})}">
 	            <span th:text="${sivu}"></span>
 	            </a>
             </li>
@@ -117,14 +117,14 @@
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
-              <h4 class="modal-title">Merkinnän muokkaus</h4>
+              <h4 class="modal-title"><span th:text="#{proj.projekti.merkmuokkaus}"></span></h4>
             </div>
             <div class="modal-body">
-              <p>Haluatko varmasti muokata merkintöjäsi?</p>
+              <p th:text="#{proj.projekti.varmistus}"></p>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary">Säilytä</button>
-              <button type="button" class="btn btn-secondary">Poista</button>
+              <button type="button" class="btn btn-secondary"><span th:text="#{proj.projekti.sailyta}"></span></button>
+              <button type="button" class="btn btn-secondary"><span th:text="#{proj.projekti.poista}"></span></button>
             </div>
           </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -140,41 +140,41 @@
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
-              <h4 class="modal-title">Lisää merkintä</h4>
+              <h4 class="modal-title"><span th:text="#{proj.projekti.lisaamerkinta}"></span></h4>
             </div>
             <div class="modal-body">
               <div class="form-group row">
                 <div class="col-xs-6">
-                  <label><strong>Tunnit</strong></label>
+                  <label><strong><span th:text="#{proj.projekti.tunnit}"></span></strong></label>
                   <select class="form-control" name="tunnit">
-                    <option value="0">0 tuntia</option>
-                    <option value="1" selected="selected">1 tuntia</option>
-                    <option value="2">2 tuntia</option>
-                    <option value="3">3 tuntia</option>
-                    <option value="4">4 tuntia</option>
-                    <option value="5">5 tuntia</option>
-                    <option value="6">6 tuntia</option>
-                    <option value="7">7 tuntia</option>
-                    <option value="8">8 tuntia</option>
-                    <option value="9">9 tuntia</option>
-                    <option value="10">10 tuntia</option>
-                    <option value="11">11 tuntia</option>
-                    <option value="12">12 tuntia</option>
+                    <option value="0">0 h</option>
+                    <option value="1" selected="selected">1 h</option>
+                    <option value="2">2 h</option>
+                    <option value="3">3 h</option>
+                    <option value="4">4 h</option>
+                    <option value="5">5 h</option>
+                    <option value="6">6 h</option>
+                    <option value="7">7 h</option>
+                    <option value="8">8 h</option>
+                    <option value="9">9 h</option>
+                    <option value="10">10 h</option>
+                    <option value="11">11 h</option>
+                    <option value="12">12 h</option>
                   </select>
                 </div>
                 <div class="col-xs-6">
-                  <label><strong>Minuutit</strong></label>
+                  <label><strong><span th:text="#{proj.projekti.minuutit}"></span></strong></label>
                   <select class="form-control" name="minuutit">
-                    <option value="0" selected="selected">0 minuuttia</option>
-                    <option value="15">15 minuuttia</option>
-                    <option value="30">30 minuuttia</option>
-                    <option value="45">45 minuuttia</option>
+                    <option value="0" selected="selected">0 min</option>
+                    <option value="15">15 min</option>
+                    <option value="30">30 min</option>
+                    <option value="45">45 min</option>
                   </select>
                 </div>
               </div>
               <div class="form-group row">
                 <div class="col-xs-12">
-                  <label for="text"><strong>Mitä teit?</strong></label>
+                  <label for="text"><strong><span th:text="#{proj.projekti.kuvaus}"></span></strong></label>
                   <textarea class="form-control" id="exampleTextarea" rows="3" name="kuvaus"></textarea>
                 </div>
               </div>
@@ -182,10 +182,10 @@
             <div class="modal-footer">
               <div class="form-check slackbox pull-left">
                 <label class="form-check-label">
-                  <input type="checkbox" class="form-check-input" name="slack"/> Lähetä tieto myös Slackiin
+                  <input type="checkbox" class="form-check-input" name="slack"/> <span th:text="#{proj.slack}"></span>
                 </label>
               </div>
-              <button type="submit" class="btn btn-secondary pull-right">Tallenna</button>
+              <button type="submit" class="btn btn-secondary pull-right"><span th:text="#{proj.projekti.tallenna}"></span></button>
             </div>
           </div><!-- /.modal-content -->
           </form>
