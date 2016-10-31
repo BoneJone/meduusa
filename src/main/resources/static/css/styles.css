@@ -392,10 +392,12 @@ body {
 	-moz-transition: all 1s linear;
 	-webkit-transition: all 1s linear;
 }
-.pyorita.alas {
-	-moz-transform:rotate(18S0deg);
-	-webkit-transition: rotate(180deg);
-	-transition: rotate(180deg);
+.alas {
+	 -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
 }
 
 
