@@ -378,9 +378,9 @@ body {
 	width: 100%;
 	background: #2ebcfc !important;
 	border-color: #2ebcfc !important;
-	-transition: all 0.4s ease-in-out;
-	-moz-transition: all 0.4s ease-in-out;
-	-webkit-transition: all 0.4s ease-in-out;
+	-transition: all 0.3s linear;
+	-moz-transition: all 0.3s linear;
+	-webkit-transition: all 0.3s linear;
 }
 .loginbtn:hover {
 	background: #fff !important;
@@ -449,15 +449,21 @@ body {
 	bottom:12px;
 	left: 23px;
 	color: rgba(0,0,0,.15);
+	-transition: all 0.3s ease-in-out;
+	-moz-transition: all 0.3s ease-in-out;
+	-webkit-transition: all 0.3s ease-in-out;
 }
 .logininput {
 	padding-left: 30px;
-	-transition: all 0.5s ease-in-out;
-	-moz-transition: all 0.5s ease-in-out;
-	-webkit-transition: all 0.5s ease-in-out;
+	-transition: all 0.3s ease-in-out;
+	-moz-transition: all 0.3s ease-in-out;
+	-webkit-transition: all 0.3s ease-in-out;
 }
 .logininput:focus {
 	border: 1px solid #2ebcfc;
+}
+.logininput:focus + .loginikoni{
+	color: #2ebcfc;
 }
 
 /* Napeista ja linkeistä ärsyttävät borderit pois Firefoxilla */
