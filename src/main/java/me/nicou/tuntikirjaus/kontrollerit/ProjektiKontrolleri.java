@@ -153,6 +153,32 @@ public class ProjektiKontrolleri {
 		return haeProjektinTiedot(projektiId, 1, model, principal);
 	}
 	
+	// Toinen workaround
+	@RequestMapping(value = "projekti/{projektiId}/lisaajasen", method = RequestMethod.GET)
+	public String lisaaProjektiinJasen(Model model,@PathVariable Integer projektiId, Principal principal) {
+		return haeProjektinTiedot(projektiId, 1, model, principal);
+	}
+	
+	@RequestMapping(value = "projekti/{projektiId}/lisaajasen", method = RequestMethod.POST)
+	public String lisaaProjektiinJasen(
+			Model model,
+			@PathVariable Integer projektiId,
+			@RequestParam(value = "sahkoposti", required = true) String sahkoposti,
+			Principal principal
+			) {
+		
+		boolean success = projektiDao.lisaaJasenProjektiin(projektiId, sahkoposti.trim(), principal.getName());
+		
+		if (success) {
+			logger.info("Käyttäjä " + sahkoposti + " lisätty projektiin " + projektiId);
+		} else {
+			logger.info("Käyttäjän " + sahkoposti + " lisäys projektiin " + projektiId + " ei onnistunut");
+		}
+		
+		// @TODO: Success / Error viestin välitys käyttäjälle
+		return haeProjektinTiedot(projektiId, 1, model, principal);
+	}
+	
 	@RequestMapping(value = "/projekti/{projektiId}/lisaa", method = RequestMethod.POST)
 	public String lisaaMerkinta(
 			Model model,
