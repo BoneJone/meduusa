@@ -147,6 +147,12 @@ public class ProjektiKontrolleri {
 		return "jasenen-merkinnat";
 	}
 	
+	// Workaround siihen, että merkinnän lisäyksen jälkeen toimii kielen vaihto
+	@RequestMapping(value = "/projekti/{projektiId}/lisaa", method = RequestMethod.GET)
+	public String lisaysRedirect(Model model, @PathVariable Integer projektiId, Principal principal) {
+		return haeProjektinTiedot(projektiId, 1, model, principal);
+	}
+	
 	@RequestMapping(value = "/projekti/{projektiId}/lisaa", method = RequestMethod.POST)
 	public String lisaaMerkinta(
 			Model model,
