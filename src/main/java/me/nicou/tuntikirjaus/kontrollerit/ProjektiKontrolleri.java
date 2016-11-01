@@ -279,5 +279,18 @@ public class ProjektiKontrolleri {
 		return "projekti";
 		
 	}
+	@RequestMapping(value = "/lisaa-projekti", method = RequestMethod.GET)
+	public String lisaaProjekti(Model model, Principal principal) {
+		Kayttaja kayttaja = kayttajaDao.haeKayttajaSahkopostilla(principal.getName());
+		List<Projekti> projektit = projektiDao.haeKayttajanProjektit(principal.getName());
+		List<EtusivunMerkinta> merkinnat = kayttajaDao.haeEtusivunMerkinnat(principal.getName());
+		model.addAttribute("kayttaja", kayttaja);
+		model.addAttribute("projektit", projektit);
+		model.addAttribute("merkinnat", merkinnat);
+	return "projektinlisays";
+	}
+
+
+
 	
 }

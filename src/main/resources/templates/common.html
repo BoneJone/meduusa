@@ -73,8 +73,8 @@
 	                <ul th:each="projekti : ${projektit}">
 	                  <li><a th:href="@{'/projekti/' + ${projekti.id}}" th:text="${projekti.nimi}"></a></li>
 	                </ul>
-	                <ul>
-	                <li style="margin-top: 10px;"><a href="#"><i class="fa fa-plus" aria-hidden="true"></i> <span th:text="#{proj.common.luoprojekti}"></span></a></li>
+	               	<ul>
+	                <li style="margin-top: 10px;"><a th:href="@{/lisaa-projekti}"><i class="fa fa-plus" aria-hidden="true"></i> <span th:text="#{proj.common.luoprojekti}"></span></a></li>
 	                </ul>
 	              </div>
 	            </div>
