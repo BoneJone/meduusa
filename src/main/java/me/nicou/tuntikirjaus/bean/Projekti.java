@@ -18,5 +18,8 @@ public interface Projekti {
 	
 	public abstract MerkintaLista getMerkintaLista();
 	public abstract void setMerkintaLista(MerkintaLista merkintaLista);
+	
+	public abstract double getYhteistunnit();
+	public abstract void setYhteistunnit(double yhteistunnit);
 
 }

@@ -33,7 +33,7 @@ public class ProjektiDaoImpl implements ProjektiDao {
 	
 	public List<Projekti> haeKayttajanProjektit(String sahkoposti) {
 		List<Projekti> projektit = new ArrayList<Projekti>();
-		String sql = "SELECT id, nimi, kuvaus, luontipaiva FROM Projektit p JOIN ProjektinJasenet pj ON p.id = pj.projekti_id WHERE pj.kayttaja_id = (SELECT id FROM Kayttajat WHERE sahkoposti = ?) ORDER BY id ASC";
+		String sql = "SELECT id, nimi, kuvaus, luontipaiva, (SELECT 0) AS yhteistunnit FROM Projektit p JOIN ProjektinJasenet pj ON p.id = pj.projekti_id WHERE pj.kayttaja_id = (SELECT id FROM Kayttajat WHERE sahkoposti = ?) ORDER BY id ASC";
 		try {
 			RowMapper<Projekti> mapper = new ProjektiListaRowMapper();
 			projektit = jdbcTemplate.query(sql, new Object[] { sahkoposti }, mapper);
@@ -47,12 +47,12 @@ public class ProjektiDaoImpl implements ProjektiDao {
 		Projekti projekti = new ProjektiImpl();
 		projekti.setMerkintaLista(new MerkintaListaImpl());
 		projekti.getMerkintaLista().setMerkinnat(new ArrayList<Merkinta>());
-		String sql = "SELECT id, nimi, kuvaus, luontipaiva FROM Projektit p JOIN ProjektinJasenet pj ON p.id = pj.projekti_id WHERE pj.kayttaja_id = (SELECT id FROM Kayttajat WHERE sahkoposti = ?) AND p.id = ? ORDER BY id DESC";
+		String sql = "SELECT p.id, p.nimi, p.kuvaus, p.luontipaiva, SUM(m.tunnit) AS yhteistunnit FROM Projektit p JOIN ProjektinJasenet pj ON p.id = pj.projekti_id JOIN Merkinnat m ON p.id = m.projekti_id WHERE pj.kayttaja_id = (SELECT id FROM Kayttajat WHERE sahkoposti = ?) AND p.id = ? ORDER BY id DESC";
 		try {
 			RowMapper<Projekti> mapper = new ProjektiListaRowMapper();
 			projekti = jdbcTemplate.queryForObject(sql, new Object[] { sahkoposti, projektiId }, mapper);
 		} catch (EmptyResultDataAccessException ex) {
-			logger.debug("Käyttäjä yritti hakea projekti jota ei löytynyt tai johon ei kuulu");
+			logger.debug("Käyttäjä yritti hakea projektia jota ei löytynyt tai johon ei kuulu");
 			return projekti;
 		}
 
@@ -88,7 +88,7 @@ public class ProjektiDaoImpl implements ProjektiDao {
 	
 	public Projekti haeProjektinTiedotKayttajalta(int projektiId, String sahkoposti, int kayttajaId, int sivunumero) {
 		Projekti projekti = new ProjektiImpl();
-		String sql = "SELECT id, nimi, kuvaus, luontipaiva FROM Projektit p JOIN ProjektinJasenet pj ON p.id = pj.projekti_id WHERE pj.kayttaja_id = (SELECT id FROM Kayttajat WHERE sahkoposti = ?) AND p.id = ? ORDER BY id DESC";
+		String sql = "SELECT p.id, p.nimi, p.kuvaus, p.luontipaiva, SUM(m.tunnit) AS yhteistunnit FROM Projektit p JOIN ProjektinJasenet pj ON p.id = pj.projekti_id JOIN Merkinnat m ON p.id = m.projekti_id WHERE pj.kayttaja_id = (SELECT id FROM Kayttajat WHERE sahkoposti = ?) AND p.id = ? ORDER BY id DESC";
 		try {
 			RowMapper<Projekti> mapper = new ProjektiListaRowMapper();
 			projekti = jdbcTemplate.queryForObject(sql, new Object[] { sahkoposti, projektiId }, mapper);

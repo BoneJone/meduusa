@@ -9,19 +9,29 @@ public class ProjektiImpl implements Projekti {
 	String kuvaus;
 	Date luontipaiva;
 	MerkintaLista merkintaLista;
+	double yhteistunnit;
 
 	public ProjektiImpl() {
 		super();
 	}
 
 	public ProjektiImpl(int id, String nimi, String kuvaus, Date luontipaiva,
-			MerkintaLista merkintaLista) {
+			MerkintaLista merkintaLista, double yhteistunnit) {
 		super();
 		this.id = id;
 		this.nimi = nimi;
 		this.kuvaus = kuvaus;
 		this.luontipaiva = luontipaiva;
 		this.merkintaLista = merkintaLista;
+		this.yhteistunnit = yhteistunnit;
+	}
+
+	public double getYhteistunnit() {
+		return yhteistunnit;
+	}
+
+	public void setYhteistunnit(double yhteistunnit) {
+		this.yhteistunnit = yhteistunnit;
 	}
 
 	public int getId() {
@@ -68,7 +78,6 @@ public class ProjektiImpl implements Projekti {
 	public String toString() {
 		return "ProjektiImpl [id=" + id + ", nimi=" + nimi + ", kuvaus="
 				+ kuvaus + ", luontipaiva=" + luontipaiva + ", merkintaLista="
-				+ merkintaLista + "]";
+				+ merkintaLista + ", yhteistunnit=" + yhteistunnit + "]";
 	}
-
 }
