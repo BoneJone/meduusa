@@ -177,7 +177,7 @@ body {
 /* ETUSIVU PROJEKTIT */
 
 
-/* MERKINT�FEEDI */
+/* MERKINT�FEEDI */
 .etusivu-uutiset {
   padding: 15px;
 }
@@ -418,8 +418,10 @@ body {
 	padding-left: 30px;
 }
 .lisaaprojekti {
-	margin-top: 50px;
-	padding-left: 20px;
+	margin-top: 40px;
+	margin-left: 35px;
+	background-color: #fff;
+	padding: 25px;
 }
 .pyorita {
 	-transition: all 0.4s linear;
@@ -434,4 +436,29 @@ body {
     transform: rotate(180deg);
 }
 
+/* Napeista ja linkeistä ärsyttävät borderit pois Firefoxilla */
+a, a:active, a:focus, button, button:active, button:focus  {
+	outline: 0;
+}
 
+/* Projekti-sivulla tiimin jäsenissä yhteistuntien tagi */
+.tagi-yhteistunnit {
+	font-size: 1em;
+	vertical-align: middle;
+	margin: auto;
+}
+
+/* Yleinen kiva varjo jonka voi antaa bokseille */
+.boksivarjo {
+	box-shadow: 2px 2px 8px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Voidaan antaa textareoille jos ei haluta että on resizable */
+.noresize {
+	resize: none;
+}
+
+/* Vasemmanpuoleisille modalin napeille right margin */
+.nappi-oikea {
+	margin-left: 10px;
+}
