@@ -25,7 +25,9 @@ body {
 	-ms-transition: background-color 0.2s linear;
 	transition: background-color 0.2s linear;
 }
-
+.lisaamerkintabtn {
+	width: 170px;
+}
 .ylapalkki button:focus {
 	outline: 0;
 	border: 1px solid white;
@@ -396,7 +398,18 @@ body {
 
 /* TESTIII */
 
-
+.kielivalinta {
+	margin: 15px 5px 15px 5px;
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	-transition: all 0.2s ease-in-out;
+	-moz-transition: all 0.2s ease-in-out;
+	-webkit-transition: all 0.2s ease-in-out;
+}
+.kielivalinta:hover {
+	border-radius: 0%;
+}
 
 .pyorita {
 	-transition: all 0.4s linear;
