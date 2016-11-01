@@ -1,10 +1,13 @@
-INSERT INTO `Kayttajat` VALUES (1,'Nico','Nico','Hagelberg');
-INSERT INTO `Kayttajat` VALUES (2,'Jonni','Jonni','Aaltonen');
-INSERT INTO `Kayttajat` VALUES (3,'Eetu','Eetu','Halinen');
-INSERT INTO `Kayttajat` VALUES (4,'Matias','Matias','Hedenstam');
-INSERT INTO `Kayttajat` VALUES (5,'Pasi','Pasi','Pesonen');
+INSERT INTO `Kayttajat` VALUES (1,'nicou','Nico','Hagelberg','$2a$10$CJeGLH.fhQZ2ea8U5X2NZOaiMbGIyOTa555QPvS1FwzniAD7ay4su');
+INSERT INTO `Kayttajat` VALUES (2,'jonni@gmail.com','Jonni','Aaltonen','$2a$10$CJeGLH.fhQZ2ea8U5X2NZOaiMbGIyOTa555QPvS1FwzniAD7ay4su');
+INSERT INTO `Kayttajat` VALUES (3,'eetu','Eetu','Halinen','$2a$10$CJeGLH.fhQZ2ea8U5X2NZOaiMbGIyOTa555QPvS1FwzniAD7ay4su');
+INSERT INTO `Kayttajat` VALUES (4,'matias','Matias','Hedenstam','$2a$10$CJeGLH.fhQZ2ea8U5X2NZOaiMbGIyOTa555QPvS1FwzniAD7ay4su');
+INSERT INTO `Kayttajat` VALUES (5,'pasi','Pasi','Pesonen','$2a$10$CJeGLH.fhQZ2ea8U5X2NZOaiMbGIyOTa555QPvS1FwzniAD7ay4su');
+INSERT INTO `Kayttajat` VALUES (6,'demo','Demo','Käyttäjä','$2a$10$CJeGLH.fhQZ2ea8U5X2NZOaiMbGIyOTa555QPvS1FwzniAD7ay4su')
 
 INSERT INTO `Projektit` VALUES (1,'SP1 Tuntisovellus', 'SP1 Tuntisovelluksen webbisivun ja mobiiliappin koodausprojekti', '2016-08-25 08:00:00');
+INSERT INTO `Projektit` VALUES (2,'Toinen demoprojekti', 'Projekti demoamaan usean projektin tukea', '2016-09-01 08:00:00'); 
+
 
 INSERT INTO `Roolit` VALUES (1,'siteadmin');
 INSERT INTO `Roolit` VALUES (2,'projectadmin');
@@ -14,11 +17,18 @@ INSERT INTO `Statukset` VALUES (1,'kutsuttu');
 INSERT INTO `Statukset` VALUES (2,'aktiivinen');
 INSERT INTO `Statukset` VALUES (3,'poistunut');
 
-INSERT INTO `ProjektinJasenet` VALUES (1,1,1,2);
-INSERT INTO `ProjektinJasenet` VALUES (2,1,1,2);
-INSERT INTO `ProjektinJasenet` VALUES (3,1,1,2);
-INSERT INTO `ProjektinJasenet` VALUES (4,1,1,2);
-INSERT INTO `ProjektinJasenet` VALUES (5,1,1,2);
+INSERT INTO `ProjektinJasenet` VALUES (1,1,1,1,2);
+INSERT INTO `ProjektinJasenet` VALUES (2,2,1,1,2);
+INSERT INTO `ProjektinJasenet` VALUES (3,3,1,1,2);
+INSERT INTO `ProjektinJasenet` VALUES (4,4,1,1,2);
+INSERT INTO `ProjektinJasenet` VALUES (5,5,1,1,2);
+INSERT INTO `ProjektinJasenet` VALUES (6,6,1,3,2);
+INSERT INTO `ProjektinJasenet` VALUES (7,1,2,1,2);
+INSERT INTO `ProjektinJasenet` VALUES (8,2,2,1,2);
+INSERT INTO `ProjektinJasenet` VALUES (9,3,2,1,2);
+INSERT INTO `ProjektinJasenet` VALUES (10,4,2,1,2);
+INSERT INTO `ProjektinJasenet` VALUES (11,5,2,1,2);
+INSERT INTO `ProjektinJasenet` VALUES (12,6,2,1,2);
 
 INSERT INTO `Merkinnat` VALUES (1,1,1,'2016-08-25 08:52:00',1.00,'Koodasin lujaa prototyyppiä');
 INSERT INTO `Merkinnat` VALUES (2,3,1,'2016-08-25 09:35:40',1.00,'Opiskelin Nicon lujaa koodausta');
