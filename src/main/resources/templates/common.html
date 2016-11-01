@@ -25,17 +25,21 @@
       <a href="?lang=en">
       <img class="kielivalinta pull-xs-right" src="/img/uk32.png" th:src="@{/img/uk32.png}" alt="English" />
       </a>
-      <div class="collapse navbar-toggleable-md hidden-lg-up" id="exCollapsingNavbar2">
+      <div class="collapse navbar-toggleable-md hidden-lg-up navtesti" id="exCollapsingNavbar2">
         <ul class="nav navbar-nav">
+        <li class="nav-item active">
+            <a class="nav-link" th:href="@{'/'}"><span th:text="#{kayt.common.etusivu}"></span><span class="sr-only">(current)</span></a>
+          </li>
           <li class="nav-item">
             <a class="nav-link" href="#"><span th:text="#{proj.common.profiili}"></span></a>
           </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="#"><span th:text="#{kayt.common.etusivu}"></span><span class="sr-only">(current)</span></a>
-          </li>
+          
           <li class="nav-item">
-            <a class="nav-link" href="#"><span th:text="#{kayt.yleiskatsaus.projektit}"></span></a>
+            <span class="nav-link" th:text="#{kayt.yleiskatsaus.projektit}"></span>
+            <hr></hr>
           </li>
+	      <li class="nav-item mobiiliprojektitnav" th:each="projekti : ${projektit}"><a class="nav-link" th:href="@{'/projekti/' + ${projekti.id}}" th:text="${projekti.nimi}"></a></li>
+	    
         </ul>
         
       </div>
