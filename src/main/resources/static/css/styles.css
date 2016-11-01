@@ -354,11 +354,12 @@ body {
 .logini {
 	margin: 0 auto;
 	float: none;
-	text-align: center;
 }
 
 .logini img {
 	max-width: 100%;
+	margin: 0 auto;
+	display: block;
 }
 
 .sposti {
@@ -366,7 +367,7 @@ body {
 }
 
 .salasana {
-	margin-top: 20px;
+	margin-top: 10px;
 }
 
 .muistaminut {
@@ -376,7 +377,15 @@ body {
 .loginbtn {
 	width: 100%;
 	background: #2ebcfc !important;
-	border: #2ebcfc !important;
+	border-color: #2ebcfc !important;
+	-transition: all 0.4s ease-in-out;
+	-moz-transition: all 0.4s ease-in-out;
+	-webkit-transition: all 0.4s ease-in-out;
+}
+.loginbtn:hover {
+	background: #fff !important;
+	color: #2ebcfc !important;
+	border-color: #2ebcfc !important;
 }
 .page-link {
 	color: #2ebcfc;
@@ -434,6 +443,21 @@ body {
     -o-transform: rotate(180deg);
     -ms-transform: rotate(180deg);
     transform: rotate(180deg);
+}
+.loginikoni{
+	position:absolute;
+	bottom:12px;
+	left: 23px;
+	color: rgba(0,0,0,.15);
+}
+.logininput {
+	padding-left: 30px;
+	-transition: all 0.5s ease-in-out;
+	-moz-transition: all 0.5s ease-in-out;
+	-webkit-transition: all 0.5s ease-in-out;
+}
+.logininput:focus {
+	border: 1px solid #2ebcfc;
 }
 
 /* Napeista ja linkeistä ärsyttävät borderit pois Firefoxilla */
