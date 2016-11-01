@@ -42,9 +42,11 @@ public class ProjektiKontrolleri {
 		Kayttaja kayttaja = kayttajaDao.haeKayttajaSahkopostilla(principal.getName());
 		List<Projekti> projektit = projektiDao.haeKayttajanProjektit(principal.getName());
 		List<EtusivunMerkinta> merkinnat = kayttajaDao.haeEtusivunMerkinnat(principal.getName());
+		double kuukaudenYhteistunnit = kayttajaDao.haeKayttajanKuukaudenYhteistunnit(principal.getName());
 		model.addAttribute("kayttaja", kayttaja);
 		model.addAttribute("projektit", projektit);
 		model.addAttribute("merkinnat", merkinnat);
+		model.addAttribute("yhteistunnit", kuukaudenYhteistunnit);
 	return "yleiskatsaus";
 	}
 	

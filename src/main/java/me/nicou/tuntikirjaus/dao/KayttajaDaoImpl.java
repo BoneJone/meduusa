@@ -50,5 +50,15 @@ public class KayttajaDaoImpl implements KayttajaDao {
 		}
 		return merkinnat;
 	}
+	
+	public double haeKayttajanKuukaudenYhteistunnit(String sahkoposti) {
+		String sql = "SELECT SUM(tunnit) FROM Merkinnat WHERE kayttaja_id = (SELECT id FROM Kayttajat WHERE sahkoposti = ?) AND (UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(Merkinnat.paivamaara) < 2678400)";
+		try {
+			return jdbcTemplate.queryForObject(sql, new Object[] { sahkoposti }, Double.class);
+		} catch (Exception ex) {
+			logger.error("Käyttäjän " + sahkoposti + " yhteistuntien haussa tapahtui virhe");
+		}
+		return 0;
+	}
 
 }
