@@ -40,7 +40,7 @@
               <span th:each="merkinta : ${yhteistunnit}">
 	              <a th:href="@{'/projekti/' + ${projekti.id} + '/jasen/' + ${merkinta.kayttaja.id}}" class="list-group-item list-group-item-action">
 	              	<img src="/img/placeholder.jpg" th:src="@{/img/placeholder.jpg}" class="profiilikuva" alt="Profiilikuva" />
-	              	<span class="tag tag-default tag-pill pull-xs-right" th:text="${merkinta.tunnit + 'h'}"></span>
+	              	<span class="tag tag-success tag-pill pull-xs-right tagi-yhteistunnit" th:text="${merkinta.tunnit + 'h'}"></span>
 	              	<span th:text="${merkinta.kayttaja.etunimi + ' ' + merkinta.kayttaja.sukunimi}"></span>
 	              </a>
               </span>
@@ -62,7 +62,7 @@
               <th class="col-md-2"><span th:text="#{proj.projekti.henk}"></span></th>
               <th class="col-md-1"><span th:text="#{proj.projekti.paiva}"></span></th>
               <th class="col-md-7"><span th:text="#{proj.projekti.kuvaus}"></span></th>
-              <th class="col-md-1"><span th:text="#{proj.projekti.muokkaus}"></span></th>
+              <th class="col-md-1">&nbsp;</th>
             </tr>
           </thead>
           <tbody>
@@ -71,7 +71,7 @@
               <td class="col-md-2" th:text="${merkinta.kayttaja.etunimi + ' ' + merkinta.kayttaja.sukunimi}"></td>
               <td class="col-md-1"><small class="text-muted" th:text="${#dates.format(merkinta.paivamaara, 'dd.MM.yyy')}"></small></td>
               <td class="col-md-7"><small class="text-muted" th:text="${merkinta.kuvaus}"></small></td>
-              <td class="col-md-1"><button th:if="${merkinta.kayttaja.id == kayttaja.id}" type="button" class="btn btn-primary muokkaabtn" data-toggle="modal" data-target="#myModal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></td>
+              <td class="col-md-1"><button th:if="${merkinta.kayttaja.id == kayttaja.id}" type="button" class="btn btn-primary btn-sm muokkaabtn" data-toggle="modal" data-target="#myModal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></td>
             </tr>
           </tbody>
         </table>

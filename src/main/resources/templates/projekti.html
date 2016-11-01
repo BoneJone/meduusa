@@ -40,7 +40,7 @@
               <span th:each="merkinta : ${yhteistunnit}">
 	              <a th:href="@{'/projekti/' + ${projekti.id} + '/jasen/' + ${merkinta.kayttaja.id}}" class="list-group-item list-group-item-action">
 	              	<img src="/img/placeholder.jpg" th:src="@{/img/placeholder.jpg}" class="profiilikuva" alt="Profiilikuva" />
-	              	<span class="tag tag-default tag-pill pull-xs-right" th:text="${merkinta.tunnit + 'h'}"></span>
+	              	<span class="tag tag-success tag-pill pull-xs-right tagi-yhteistunnit" th:text="${merkinta.tunnit + 'h'}"></span>
 	              	<span th:text="${merkinta.kayttaja.etunimi + ' ' + merkinta.kayttaja.sukunimi}"></span>
 	              </a>
               </span>
