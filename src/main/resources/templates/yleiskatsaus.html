@@ -50,7 +50,7 @@ var ilmoitus = function(viesti) {
 		</div>
 		</div>
 <div class="col-xs-12 col-md-4 etusivu-projektilista">
-		<h4>Omat projektit</h4>
+		<h4 th:text="#{kayt.yleiskatsaus.projektit}">Omat projektit</h4>
 
   <div class="card card-block" th:each="projekti : ${projektit}">
     <div class="card-title" th:id="${projekti.id} + '-card'">
