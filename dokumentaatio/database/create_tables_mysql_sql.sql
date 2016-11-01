@@ -3,6 +3,7 @@ CREATE TABLE Kayttajat (
 	sahkoposti VARCHAR(60) NOT NULL,
 	etunimi VARCHAR(30) NOT NULL,
 	sukunimi VARCHAR(30) NOT NULL,
+	salasana VARCHAR(60) NOT NULL,
 	PRIMARY KEY (id, sahkoposti)
 )Engine=InnoDB;
 
@@ -27,11 +28,12 @@ CREATE TABLE Statukset (
 )Engine=InnoDB;
 
 CREATE TABLE ProjektinJasenet (
+	jasen_id INT AUTO_INCREMENT NOT NULL,
 	kayttaja_id INT NOT NULL,
 	projekti_id INT NOT NULL,
 	rooli_id INT NOT NULL,
 	status_id INT NOT NULL,
-	PRIMARY KEY (kayttaja_id, projekti_id),
+	PRIMARY KEY (jasen_id),
 	FOREIGN KEY (kayttaja_id) REFERENCES Kayttajat(id),
 	FOREIGN KEY (projekti_id) REFERENCES Projektit(id),
 	FOREIGN KEY (rooli_id) REFERENCES Roolit(id),
