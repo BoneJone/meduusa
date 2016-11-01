@@ -417,7 +417,10 @@ body {
 .mobiiliprojektitnav {
 	padding-left: 30px;
 }
-
+.lisaaprojekti {
+	margin-top: 50px;
+	padding-left: 20px;
+}
 .pyorita {
 	-transition: all 0.4s linear;
 	-moz-transition: all 0.4s linear;

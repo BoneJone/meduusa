@@ -12,27 +12,24 @@
     <!-- Sivupalkki navigaatio, katoaa mobiilissa -->
  <div th:include="common :: sivupalkki"></div>
 
-  <div class="container">
-  <div class="row">
-  <div class="col-sm-12">
+  <!-- MAIN CONTENT -->
   
-	<h1>template projektin lisäys formille</h1>
-	<div>
-	<form action="">
-	projektin nimi
-	<br />
-	<input type="text" name="firstname" />
-	<br />
-	<br />
-	kuvaus
-	<textarea class="form-control" id="exampleTextarea" rows="3" name="kuvaus"></textarea>
-	<br />
-	<input type="submit" value="Submit" />
-	</form>
-	</div>
-	
+  <div class="main-contentti lisaaprojekti">
+  
+  <div class="col-xs-12 col-md-6">
+  <h1>Luo uusi projekti</h1><br />
+<form>
+  <div class="form-group">
+    <label for="text">Projektin nimi</label>
+    <input type="text" class="form-control" id="text" />
   </div>
+  <div class="form-group">
+    <label for="projektinKuvaus">Projektin kuvaus</label>
+    <textarea type="text" class="form-control" id="projektinKuvaus"></textarea>
   </div>
+  <button type="submit" class="btn btn-default pull-xs-right">Luo projekti</button>
+</form>
+</div>
   </div>
 
     <!-- jQuery first, then Tether, then Bootstrap JS. -->
