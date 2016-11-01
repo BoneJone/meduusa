@@ -25,7 +25,7 @@ public class Internationalization_i18nConfig extends WebMvcConfigurerAdapter {
     @Bean
     public LocaleResolver localeResolver() {
         SessionLocaleResolver slr = new SessionLocaleResolver();
-        slr.setDefaultLocale(Locale.getDefault());
+        slr.setDefaultLocale(new Locale("fi"));
         return slr;
     }
  
