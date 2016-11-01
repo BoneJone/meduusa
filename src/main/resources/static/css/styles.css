@@ -227,6 +227,15 @@ body {
 		margin-left: 250px;
 	}
 }
+@media (max-width: 992px){
+	.main-contentti {
+	margin-left: 10px;
+	margin-right: 10px;
+	}
+	.profiili {
+	padding: 0px;}
+}
+
 
 /* Projektin pääsivulla wrapper projektin nimelle, kuvaukselle ja yhteistunneille */
 .projekti-yhteenveto {
@@ -386,6 +395,9 @@ body {
 }
 
 /* TESTIII */
+
+
+
 .pyorita {
 	-transition: all 0.4s linear;
 	-moz-transition: all 0.4s linear;
