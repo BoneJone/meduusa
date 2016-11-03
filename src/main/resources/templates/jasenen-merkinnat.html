@@ -68,7 +68,10 @@
           <tbody>
          																																							 <!-- /projekti/{projektiId}/jasen/{kayttajaId}/poista/{merkintaId} -->
             <tr th:each="merkinta : ${projekti.merkintaLista.merkinnat}">
-              <td class="col-md-1" scope="row"><strong th:text="${merkinta.tunnit + 'h'}"></strong></td>
+              <td class="col-md-1" scope="row">
+             	<strong th:text="${#numbers.formatDecimal(T(Math).floor(merkinta.tunnit), 0, 0) + 'h'}"></strong>
+              	<strong th:text="${#numbers.formatDecimal((merkinta.tunnit - T(Math).floor(merkinta.tunnit)) * 60, 0, 0) + 'min'}"></strong>
+              </td>
               <td class="col-md-2" th:text="${merkinta.kayttaja.etunimi + ' ' + merkinta.kayttaja.sukunimi}"></td>
               <td class="col-md-1"><small class="text-muted" th:text="${#dates.format(merkinta.paivamaara, 'dd.MM.yyy')}"></small></td>
               <td class="col-md-7"><small class="text-muted" th:text="${merkinta.kuvaus}"></small></td>

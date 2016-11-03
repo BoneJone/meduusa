@@ -65,7 +65,9 @@
     <span th:text="${#dates.format(merkinta.paivamaara, 'dd.MM.yyy')}"></span>
     <strong th:text="${merkinta.kayttajaNimi}"></strong>
     <span th:text="#{kayt.yleiskatsaus.kirjasi}"></span>
-    <strong th:text="${merkinta.tunnit}"></strong>
+    <span th:if="${T(Math).floor(merkinta.tunnit) > 0}"><strong th:text="${#numbers.formatDecimal(T(Math).floor(merkinta.tunnit), 0, 0)}"></strong> <span th:text="#{proj.aika.tuntia}"></span></span>
+    <span th:if="${T(Math).floor(merkinta.tunnit) > 0 and (merkinta.tunnit - T(Math).floor(merkinta.tunnit) > 0)}" th:text="#{common.ja}"></span>
+    <span th:if="${merkinta.tunnit - T(Math).floor(merkinta.tunnit) > 0}"><strong th:text="${#numbers.formatDecimal((merkinta.tunnit - T(Math).floor(merkinta.tunnit)) * 60, 0, 0)}"></strong> <span th:text="#{proj.aika.minuuttia}"></span></span>
     <span th:text="#{kayt.yleiskatsaus.tyota}"></span>
     <a th:href="@{'/projekti/' + ${merkinta.projektiId}}">
     	(<span th:text="${merkinta.projektiNimi}"></span>)
