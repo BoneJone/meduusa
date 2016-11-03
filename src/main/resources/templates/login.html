@@ -16,9 +16,19 @@
 
 
   <div class="container">
+  <!-- Kielivalinnat loginsivulle -->
+   <div class="kielivalinnat">
+  	 <a href="?lang=en">
+  	 <img class="kielivalinta" src="/img/uk32.png" th:src="@{/img/uk32.png}" alt="English" />
+  	 </a> 
+ 	 <a href="?lang=fi">
+   	 <img class="kielivalinta" src="/img/finland32.png" th:src="@{/img/finland32.png}" alt="Finnish" />
+  	 </a>
+   </div>
+   
   <div class="row">
   <div class="col-sm-12 col-md-8 col-lg-5 logini">
-  
+ 
         <img src="/img/logo-iso.png" th:src="@{/img/logo-iso.png}" alt="Meduusa logo"/>
       <form method="post" th:action="@{/kirjaudu}">
 	      <div class="from-group row">
@@ -49,8 +59,9 @@
       <div style="text-align: center; margin-top: 30px;">
       		<div th:if="${param.error}" style="color: #f00;"><strong>Virheelliset käyttäjätiedot!</strong><br /><br /></div>
 			<div th:if="${param.logout}" style="color: #0a0;"><strong>Sinut kirjattiin ulos onnistuneesti!</strong><br /><br /></div>
-      	<a href="#" data-toggle="modal" data-target="#rekisteroidyModal" style="color: #999; font-size: 11pt;">Rekisteröidy täältä</a>
+      	<a href="#" data-toggle="modal" data-target="#rekisteroidyModal" style="color: #999; font-size: 11pt;">Rekisteröidy täältä</a>     
       </div>
+      
   <div th:include="common :: rekisteroidy"></div>
   </div>
   </div>
