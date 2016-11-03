@@ -18,7 +18,7 @@
   
   <div class="col-xs-12 col-md-6 lisaaprojekti boksivarjo">
   <h1 th:text="#{proj.common.luoprojekti}"></h1><br />
-<form>
+<form method="post" th:action="@{'/lisaa-projekti'}">
   <div class="form-group">
     <label for="nimi" th:text="#{proj.common.projektinimi}"></label>
     <input type="text" class="form-control" id="nimi" name="nimi"/>
