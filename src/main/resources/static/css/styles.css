@@ -57,13 +57,16 @@ body {
 	display: block;
 	width: 250px;
 	z-index: 100;
+	padding:0px;
 }
 
 .sivupalkki ul {
 	padding-top: 10px;
 }
 
+
 .sivupalkki ul li a {
+	padding-left: 10px;
 	font-weight: bold;
 	color: #738c98 !important;
 	line-height: 2;
@@ -81,20 +84,23 @@ body {
 .sivupalkki ul li a:hover {
 	text-decoration: none;
 	color: #adbcc4 !important;
-	
-	
+	background: #151b1e;
 }
 
 .sivupalkki .fa-chevron-down {
 	float: right;
-	margin-top: 8px;
+	margin-top: 9px;
+	margin-right: 15px;
 }
 
 /* Sivupalkki - Käyttäjän nimi ja profiilikuva */
 .kayttaja {
 	margin-top: 30px;
+	margin-left: 10px;
 }
-
+.kayttaja p {
+	display:table;
+}
 .kayttaja img {
 	width: 36px;
 	height: 36px;
@@ -103,7 +109,10 @@ body {
 }
 
 .kayttaja span {
-	font-size: 14pt;
+	font-size: 20px;
+	margin-top: 50px;
+	display:table-cell;
+	vertical-align: middle;
 }
 
 .kayttaja p {
@@ -136,6 +145,14 @@ body {
 .projektisisalto ul li a {
 	list-style-type: none;
 	font-size: 16px;
+	font-weight: normal;
+}
+.projektisisalto ul li a:hover {
+	background: none;
+}
+.projektisisalto span {
+	font-weight: bold;
+	
 }
 /* Content etusivulla  */
 .etusivu-sisalto {
