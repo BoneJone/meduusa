@@ -48,6 +48,7 @@ public class ProjektiKontrolleri {
 		model.addAttribute("projektit", projektit);
 		model.addAttribute("merkinnat", merkinnat);
 		model.addAttribute("yhteistunnit", kuukaudenYhteistunnit);
+		model.addAttribute("active", "yleiskatsaus");
 	return "yleiskatsaus";
 	}
 	

@@ -86,6 +86,12 @@ body {
 	color: #adbcc4 !important;
 	background: #151b1e;
 }
+.sivupalkki .active {
+	background:#151b1e;
+}
+.sivupalkki .active a {
+	color: #adbcc4 !important;
+}
 
 .sivupalkki .fa-chevron-down {
 	float: right;
