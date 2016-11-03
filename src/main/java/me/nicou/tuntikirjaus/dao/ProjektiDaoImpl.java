@@ -161,7 +161,7 @@ public class ProjektiDaoImpl implements ProjektiDao {
 	}
 	
 	public List<Merkinta> haeProjektinJasenet(int projektiId, String sahkoposti) {
-		String sql = "SELECT 0 AS merkinta_id, null AS paivamaara, null AS kuvaus, k.id AS kayttaja_id, sahkoposti, etunimi, sukunimi, (SELECT SUM(tunnit) FROM Merkinnat WHERE kayttaja_id = pj.kayttaja_id AND projekti_id = pj.projekti_id) AS tunnit FROM ProjektinJasenet pj JOIN Kayttajat k ON pj.kayttaja_id = k.id WHERE pj.projekti_id = ? AND (SELECT 1 FROM ProjektinJasenet pj JOIN Kayttajat k ON pj.kayttaja_id = k.id WHERE projekti_id = ? AND k.sahkoposti = ?) = 1";
+		String sql = "SELECT 0 AS merkinta_id, null AS paivamaara, null AS kuvaus, k.id AS kayttaja_id, sahkoposti, etunimi, sukunimi, (SELECT SUM(tunnit) FROM Merkinnat WHERE kayttaja_id = pj.kayttaja_id AND projekti_id = pj.projekti_id) AS tunnit FROM ProjektinJasenet pj JOIN Kayttajat k ON pj.kayttaja_id = k.id WHERE pj.projekti_id = ? AND (SELECT 1 FROM ProjektinJasenet pj JOIN Kayttajat k ON pj.kayttaja_id = k.id WHERE projekti_id = ? AND k.sahkoposti = ?) = 1 ORDER BY tunnit DESC";
 		List<Merkinta> merkinnat = new ArrayList<>();
 		try {
 			RowMapper<Merkinta> mapper = new MerkintaRowMapper();
