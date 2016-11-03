@@ -172,13 +172,14 @@ public class ProjektiDaoImpl implements ProjektiDao {
 	 }
 	
 	public boolean lisaaJasenProjektiin(int projektiId, String lisattavaSahkoposti, String sahkoposti) {
-		// Validoidaan että kutsuva henkilö kuuluu projektiin ja että kutsuttava ei vielä ole projektin jäsen
-		String sql = "SELECT COUNT(*) FROM ProjektinJasenet WHERE kayttaja_id = (SELECT id FROM Kayttajat WHERE sahkoposti = ?) AND projekti_id = ?";
+		// Validoidaan että kutsuva henkilö kuuluu projektiin roolilla siteadmin tai projectadmin
+		String sql = "SELECT COUNT(*) FROM ProjektinJasenet WHERE kayttaja_id = (SELECT id FROM Kayttajat WHERE sahkoposti = ?) AND projekti_id = ? AND rooli_id IN (1, 2)";
 		try {
 			if (jdbcTemplate.queryForObject(sql, new Object[] { sahkoposti, projektiId }, Integer.class) == 0) {
-				logger.debug("Käyttäjä yritti lisätä jäsentä projektiin johon ei itse kuulu");
+				logger.debug("Käyttäjä yritti lisätä jäsentä projektiin johon ei itse kuulu adminina");
 				return false;
 			};
+			// Validoidaan että kutsuttava jäsen ei jo kuulu projektiin
 			sql = "SELECT COUNT(*) FROM ProjektinJasenet WHERE kayttaja_id = (SELECT id FROM Kayttajat WHERE sahkoposti = ?) AND projekti_id = ?";
 			if (jdbcTemplate.queryForObject(sql, new Object[] { lisattavaSahkoposti, projektiId }, Integer.class) != 0) {
 				logger.debug("Käyttäjä yritettiin lisätä projektiin johon hän jo kuuluu");
