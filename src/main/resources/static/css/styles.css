@@ -147,6 +147,18 @@ body {
 	margin-left: -20px;
 	margin-top: -15px;
 }
+.projektisisalto .active {
+	background:none;
+	font-weight: bold !important;
+	color: red;
+}
+.projektisisalto .active:before {
+	font-family: "FontAwesome";
+	content:"\f105";
+	float:left;
+	color: #d9eef9;
+	line-height: 1.8em;
+}
 
 .projektisisalto ul li a {
 	list-style-type: none;
