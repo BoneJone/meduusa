@@ -58,9 +58,9 @@
             </p>
           </div>
           <ul class="nav nav-sidebar">
-            <li class="active"><a th:href="@{'/'}"><i class="fa fa-calendar" aria-hidden="true"></i> <span th:text="#{kayt.common.etusivu}"></span><span class="sr-only">(current)</span></a></li>
+            <li th:class="${active == 'yleiskatsaus' ? 'active' : ''}"><a th:href="@{'/'}"><i class="fa fa-calendar" aria-hidden="true"></i> <span th:text="#{kayt.common.etusivu}"></span><span class="sr-only">(current)</span></a></li>
             <!--Projektit collapsee -->
-            <li class="active">
+            <li>
 	            <a data-toggle="collapse" data-target="#exCollapsingNavbar" aria-controls="exCollapsingNavbar" aria-expanded="true" aria-label="Näytä projektit">
 		            <i class="fa fa-folder-o" aria-hidden="true"></i>
 		            <span th:text="#{kayt.yleiskatsaus.projektit}"></span>
