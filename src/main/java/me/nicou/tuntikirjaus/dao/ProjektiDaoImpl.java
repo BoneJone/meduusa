@@ -52,6 +52,8 @@ public class ProjektiDaoImpl implements ProjektiDao {
 	
 	public Projekti haeProjektinTiedot(int projektiId, String sahkoposti, int sivunumero) {
 		Projekti projekti = new ProjektiImpl();
+		MerkintaLista merkintaLista = new MerkintaListaImpl();
+		merkintaLista.setMerkinnat(new ArrayList<Merkinta>());
 		projekti.setMerkintaLista(new MerkintaListaImpl());
 		projekti.getMerkintaLista().setMerkinnat(new ArrayList<Merkinta>());
 		String sql = "SELECT p.id, p.nimi, p.kuvaus, p.luontipaiva, SUM(m.tunnit) AS yhteistunnit FROM Projektit p JOIN ProjektinJasenet pj ON p.id = pj.projekti_id JOIN Merkinnat m ON p.id = m.projekti_id WHERE pj.kayttaja_id = (SELECT id FROM Kayttajat WHERE sahkoposti = ?) AND p.id = ? ORDER BY id DESC";
@@ -67,7 +69,6 @@ public class ProjektiDaoImpl implements ProjektiDao {
 			sql = "SELECT COUNT(*) FROM Merkinnat WHERE projekti_id = ?";
 			
 			int offset = MERKINNAT_PER_SIVU * sivunumero - MERKINNAT_PER_SIVU;
-			MerkintaLista merkintaLista = new MerkintaListaImpl();
 			merkintaLista.setNykyinenSivu(sivunumero);
 			merkintaLista.setMerkintojaPerSivu(offset);
 			
@@ -77,6 +78,7 @@ public class ProjektiDaoImpl implements ProjektiDao {
 			merkintaLista.setSivujaYhteensa(sivujaYhteensa);
 			
 			if (merkintaLista.getSivujaYhteensa() == 0 || sivunumero > merkintaLista.getSivujaYhteensa()) {
+				projekti.setMerkintaLista(merkintaLista);
 				return projekti;
 			}
 			
@@ -95,6 +97,8 @@ public class ProjektiDaoImpl implements ProjektiDao {
 	
 	public Projekti haeProjektinTiedotKayttajalta(int projektiId, String sahkoposti, int kayttajaId, int sivunumero) {
 		Projekti projekti = new ProjektiImpl();
+		MerkintaLista merkintaLista = new MerkintaListaImpl();
+		merkintaLista.setMerkinnat(new ArrayList<Merkinta>());
 		String sql = "SELECT p.id, p.nimi, p.kuvaus, p.luontipaiva, SUM(m.tunnit) AS yhteistunnit FROM Projektit p JOIN ProjektinJasenet pj ON p.id = pj.projekti_id JOIN Merkinnat m ON p.id = m.projekti_id WHERE pj.kayttaja_id = (SELECT id FROM Kayttajat WHERE sahkoposti = ?) AND p.id = ? ORDER BY id DESC";
 		try {
 			RowMapper<Projekti> mapper = new ProjektiListaRowMapper();
@@ -109,7 +113,6 @@ public class ProjektiDaoImpl implements ProjektiDao {
 			sql = "SELECT COUNT(*) FROM Merkinnat WHERE projekti_id = ? AND kayttaja_id = ?";
 			
 			int offset = MERKINNAT_PER_SIVU * sivunumero - MERKINNAT_PER_SIVU;
-			MerkintaLista merkintaLista = new MerkintaListaImpl();
 			merkintaLista.setNykyinenSivu(sivunumero);
 			merkintaLista.setMerkintojaPerSivu(offset);
 			
@@ -119,6 +122,7 @@ public class ProjektiDaoImpl implements ProjektiDao {
 			merkintaLista.setSivujaYhteensa(sivujaYhteensa);
 			
 			if (merkintaLista.getSivujaYhteensa() == 0 || sivunumero > merkintaLista.getSivujaYhteensa()) {
+				projekti.setMerkintaLista(merkintaLista);
 				return projekti;
 			}
 			
