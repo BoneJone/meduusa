@@ -60,7 +60,7 @@
           <ul class="nav nav-sidebar">
             <li th:class="${active == 'yleiskatsaus' ? 'active' : ''}"><a th:href="@{'/'}"><i class="fa fa-calendar" aria-hidden="true"></i> <span th:text="#{kayt.common.etusivu}"></span><span class="sr-only">(current)</span></a></li>
             <!--Projektit collapsee -->
-            <li>
+            <li th:class="${projekti != null ? 'active' : ''}">
 	            <a data-toggle="collapse" data-target="#exCollapsingNavbar" aria-controls="exCollapsingNavbar" aria-expanded="true" aria-label="Näytä projektit">
 		            <i class="fa fa-folder-o" aria-hidden="true"></i>
 		            <span th:text="#{kayt.yleiskatsaus.projektit}"></span>
@@ -70,8 +70,8 @@
             <li>
 	            <div class="collapse in" id="exCollapsingNavbar">
 	              <div class="projektisisalto">
-	                <ul th:each="projekti : ${projektit}">
-	                  <li><a th:href="@{'/projekti/' + ${projekti.id}}" th:text="${projekti.nimi}"></a></li>
+	                <ul th:each="navprojekti : ${projektit}">
+	                  <li th:class="${projekti != null and projekti.id == navprojekti.id ? 'active' : ''}"><a th:href="@{'/projekti/' + ${navprojekti.id}}" th:text="${navprojekti.nimi}"></a></li>
 	                </ul>
 	               	<ul>
 	                <li class="projektisisaltolisaa"><a th:href="@{/lisaa-projekti}"> <span th:text="#{proj.common.luoprojekti}"></span><i class="fa fa-plus" style="margin-left: 5px; font-size: 12px" aria-hidden="true"></i></a></li>
@@ -93,9 +93,9 @@
       <div class="modal fade" id="myModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
+            <div class="modal-header modaaliotsikko">
+              <button type="button" class="close modaalibutton" data-dismiss="modal" aria-label="Close">
+                <i class="fa fa-times" aria-hidden="true"></i>
               </button>
               <h4 class="modal-title"><span th:text="#{proj.projekti.merkmuokkaus}"></span></h4>
             </div>
@@ -122,7 +122,7 @@
       <div th:fragment="lisaabtn">
       <div class="modal fade" id="merkintaModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
-        <form method="post" th:action="@{'/projekti/' + ${projekti.id} + '/lisaa'}">
+        <form method="post" th:action="@{'/projekti//lisaamerkinta'}">
           <div class="modal-content modaalisisalto">
             <div class="modal-header modaaliotsikko">
               <button type="button" class="close modaalibutton" data-dismiss="modal" aria-label="Close">
@@ -131,6 +131,14 @@
               <h4 class="modal-title"><span th:text="#{proj.projekti.lisaamerkinta}"></span></h4>
             </div>
             <div class="modal-body">
+              <div class="form-group row">
+              <div class="col-xs-12">
+              	<label><strong th:text="#{common.projekti}"></strong></label>
+              	<select class="form-control" name="id">
+              		<option th:each="listaprojekti : ${projektit}" th:value="${listaprojekti.id}" th:text="${listaprojekti.nimi}" th:selected="${projekti != null and projekti.id == listaprojekti.id}"></option>
+              	</select>
+              </div>
+              </div>
               <div class="form-group row">
                 <div class="col-xs-6">
                   <label><strong><span th:text="#{proj.projekti.tunnit}"></span></strong></label>

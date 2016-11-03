@@ -183,10 +183,10 @@ public class ProjektiKontrolleri {
 		return haeProjektinTiedot(projektiId, 1, model, principal);
 	}
 	
-	@RequestMapping(value = "/projekti/{projektiId}/lisaa", method = RequestMethod.POST)
+	@RequestMapping(value = "/projekti/lisaamerkinta", method = RequestMethod.POST)
 	public String lisaaMerkinta(
 			Model model,
-			@PathVariable Integer projektiId,
+			@RequestParam(value = "id", required = true) Integer projektiId,
 			@RequestParam(value = "tunnit", required = true) String tunnit,
 			@RequestParam(value = "minuutit", required = true) String minuutit,
 			@RequestParam(value = "kuvaus", required = false) String kuvaus,
