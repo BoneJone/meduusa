@@ -68,7 +68,7 @@ body {
 .sivupalkki ul li a {
 	padding-left: 10px;
 	font-weight: bold;
-	color: #738c98 !important;
+	color: #adbcc4 !important;
 	line-height: 2;
 	font-size: 16px;
 	cursor: pointer;
@@ -83,7 +83,7 @@ body {
 
 .sivupalkki ul li a:hover {
 	text-decoration: none;
-	color: #adbcc4 !important;
+	color: #d9eef9 !important;
 	background: #151b1e;
 }
 .sivupalkki .active {
