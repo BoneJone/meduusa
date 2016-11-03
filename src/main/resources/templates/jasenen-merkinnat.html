@@ -66,12 +66,13 @@
             </tr>
           </thead>
           <tbody>
+         																																							 <!-- /projekti/{projektiId}/jasen/{kayttajaId}/poista/{merkintaId} -->
             <tr th:each="merkinta : ${projekti.merkintaLista.merkinnat}">
               <td class="col-md-1" scope="row"><strong th:text="${merkinta.tunnit + 'h'}"></strong></td>
               <td class="col-md-2" th:text="${merkinta.kayttaja.etunimi + ' ' + merkinta.kayttaja.sukunimi}"></td>
               <td class="col-md-1"><small class="text-muted" th:text="${#dates.format(merkinta.paivamaara, 'dd.MM.yyy')}"></small></td>
               <td class="col-md-7"><small class="text-muted" th:text="${merkinta.kuvaus}"></small></td>
-              <td class="col-md-1"><button th:if="${merkinta.kayttaja.id == kayttaja.id}" type="button" class="btn btn-primary btn-sm muokkaabtn" data-toggle="modal" data-target="#myModal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></td>
+              <td class="col-md-1"><button th:if="${merkinta.kayttaja.id == kayttaja.id}" type="button" class="btn btn-primary btn-sm muokkaabtn" data-toggle="modal" data-target="#myModal" th:onclick="'poisto(\'' + ${merkinta.kayttaja.id} + '/poista/' + ${merkinta.id} + '\')'"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></td>
             </tr>
           </tbody>
         </table>
@@ -120,5 +121,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+	  var poisto = function(url) {
+		  $("#poistonappi").attr("href", url);
+	  }
+	</script>
   </body>
 </html>
