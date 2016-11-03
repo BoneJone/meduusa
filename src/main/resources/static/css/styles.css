@@ -472,6 +472,17 @@ body {
 .logininput:focus::-moz-placeholder {color: transparent;}
 .logininput:focus:-ms-input-placeholder {color: transparent;}
 
+.alerttitesti {
+	position: absolute;
+    top: 40px;
+    right: 15px;
+    z-index: 9001;
+}
+.piilotus {
+	display: none;
+	visibility: none;
+}
+
 /* Napeista ja linkeistä ärsyttävät borderit pois Firefoxilla */
 a, a:active, a:focus, button, button:active, button:focus  {
 	outline: 0;

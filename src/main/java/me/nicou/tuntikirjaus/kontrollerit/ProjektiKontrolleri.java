@@ -20,6 +20,7 @@ import me.nicou.tuntikirjaus.bean.KayttajaImpl;
 import me.nicou.tuntikirjaus.bean.Merkinta;
 import me.nicou.tuntikirjaus.bean.MerkintaImpl;
 import me.nicou.tuntikirjaus.bean.Projekti;
+import me.nicou.tuntikirjaus.bean.ProjektiImpl;
 import me.nicou.tuntikirjaus.dao.KayttajaDaoImpl;
 import me.nicou.tuntikirjaus.dao.ProjektiDaoImpl;
 import me.nicou.tuntikirjaus.utility.Slack;
@@ -289,8 +290,29 @@ public class ProjektiKontrolleri {
 		model.addAttribute("merkinnat", merkinnat);
 	return "projektinlisays";
 	}
-
-
+	/*
+	@RequestMapping(value = "/lisaa-projekti", method = RequestMethod.GET)
+	public String lisaaProjekti(Model model,@PathVariable Integer projektiId, Principal principal) {
+		return haeProjektinTiedot(projektiId, 1, model, principal);
+	}
+	*/
+	@RequestMapping(value = "/lisaa-projekti", method = RequestMethod.POST)
+	public String lisaaProjekti(
+			Model model,
+			@RequestParam(value = "nimi", required = true) String nimi,
+			@RequestParam(value = "kuvaus", required = true) String kuvaus,
+			Principal principal
+			) {
+		
+			Projekti projekti = new ProjektiImpl();
+			projekti.setNimi(nimi);
+			projekti.setKuvaus(kuvaus);
+			
+			projektiDao.lisaaProjekti(projekti);
+		
+		// @TODO: Success / Error viestin välitys käyttäjälle
+		return haeProjektinTiedot(1, 1, model, principal);
+	}
 
 	
 }
