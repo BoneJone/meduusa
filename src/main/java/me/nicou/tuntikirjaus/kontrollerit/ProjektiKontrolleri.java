@@ -68,7 +68,7 @@ public class ProjektiKontrolleri {
 		logger.debug(projekti.toString());
 		if (projekti.getId() == 0) { return "redirect:/"; }
 		Kayttaja kayttaja = kayttajaDao.haeKayttajaSahkopostilla(principal.getName());
-		List<Merkinta> yhteistunnit = projektiDao.haeProjektinYhteistunnit(id, principal.getName());
+		List<Merkinta> yhteistunnit = projektiDao.haeProjektinJasenet(id, principal.getName());
 		model.addAttribute("kayttaja", kayttaja);
 		model.addAttribute("projekti", projekti);
 		model.addAttribute("yhteistunnit", yhteistunnit);
@@ -98,7 +98,7 @@ public class ProjektiKontrolleri {
 		Projekti projekti = projektiDao.haeProjektinTiedotKayttajalta(projektiId, principal.getName(), kayttajaId, sivunumero);
 		if (projekti.getId() == 0) { return "redirect:/"; }
 		Kayttaja kayttaja = kayttajaDao.haeKayttajaSahkopostilla(principal.getName());
-		List<Merkinta> yhteistunnit = projektiDao.haeProjektinYhteistunnit(projektiId, principal.getName());
+		List<Merkinta> yhteistunnit = projektiDao.haeProjektinJasenet(projektiId, principal.getName());
 		model.addAttribute("kayttaja", kayttaja);
 		model.addAttribute("projekti", projekti);
 		model.addAttribute("yhteistunnit", yhteistunnit);
@@ -137,7 +137,7 @@ public class ProjektiKontrolleri {
 		Projekti projekti = projektiDao.haeProjektinTiedotKayttajalta(projektiId, principal.getName(), kayttajaId, sivunumero);
 		if (projekti.getId() == 0) { return "redirect:/"; }
 		Kayttaja kayttaja = kayttajaDao.haeKayttajaSahkopostilla(principal.getName());
-		List<Merkinta> yhteistunnit = projektiDao.haeProjektinYhteistunnit(projektiId, principal.getName());
+		List<Merkinta> yhteistunnit = projektiDao.haeProjektinJasenet(projektiId, principal.getName());
 		model.addAttribute("kayttaja", kayttaja);
 		model.addAttribute("projekti", projekti);
 		model.addAttribute("yhteistunnit", yhteistunnit);
@@ -267,7 +267,7 @@ public class ProjektiKontrolleri {
 		Projekti projekti = projektiDao.haeProjektinTiedot(projektiId, principal.getName(), 1);
 		if (projekti.getId() == 0) { return "redirect:/"; }
 		Kayttaja kayttaja = kayttajaDao.haeKayttajaSahkopostilla(principal.getName());
-		List<Merkinta> yhteistunnit = projektiDao.haeProjektinYhteistunnit(projektiId, principal.getName());
+		List<Merkinta> yhteistunnit = projektiDao.haeProjektinJasenet(projektiId, principal.getName());
 		model.addAttribute("kayttaja", kayttaja);
 		model.addAttribute("projekti", projekti);
 		model.addAttribute("yhteistunnit", yhteistunnit);

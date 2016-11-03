@@ -70,8 +70,8 @@ public class ProjektiRestKontrolleri {
 	}
 	
 	@RequestMapping(value = "/projektit/{projektiId}/yhteistunnit", method = RequestMethod.GET)
-	public List<Merkinta> haeProjektinYhteistunnit(@PathVariable Integer projektiId, Principal principal) {
-		return projektiDao.haeProjektinYhteistunnit(projektiId, principal.getName());
+	public List<Merkinta> haeProjektinJasenet(@PathVariable Integer projektiId, Principal principal) {
+		return projektiDao.haeProjektinJasenet(projektiId, principal.getName());
 	}
 	
 	@RequestMapping(value = "/projekti/{projektiId}/jasen/{kayttajaId}/poista/{merkintaId}", method = RequestMethod.GET)
