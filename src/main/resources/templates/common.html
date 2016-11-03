@@ -123,6 +123,47 @@
       </div><!-- /.modal -->
       </div>
       
+      <!-- Rekisteröitymisen modaali -->
+      <div th:fragment="rekisteroidy">
+      <div class="modal fade" id="rekisteroidyModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <form method="post">
+          <div class="modal-content modaalisisalto">
+            <div class="modal-header modaaliotsikko">
+              <button type="button" class="close modaalibutton" data-dismiss="modal" aria-label="Close">
+                 <i class="fa fa-times" aria-hidden="true"></i>
+              </button>
+              <h4 class="modal-title"><span th:text="#{proj.projekti.rekisteroidy}"></span></h4>
+            </div>
+            <div class="modal-body">
+              <div class="form-group row">
+                <div class="col-xs-12">
+                <p th:text="#{proj.projekti.rekisteroidykuvaus}"></p>
+                  <label for="sahkoposti"><strong><span th:text="#{proj.projekti.rekisteroidyemail}"></span></strong></label>
+                  <input class="form-control merkintaformi" id="sahkoposti" name="sahkoposti" th:placeholder="#{proj.projekti.rekisteroidyemail}"></input>
+                </div>
+                </div>
+                <div class="form-group row">
+                <div class="col-xs-12">
+                  <label for="salasana"><strong><span th:text="#{proj.projekti.rekisteroidysalasana}"></span></strong></label>
+                  <input class="form-control merkintaformi" id="salasana" type="password" name="salasana" th:placeholder="#{proj.projekti.rekisteroidysalasana}"></input>
+                </div>
+                </div>
+                
+            </div>
+            <div class="modal-footer">
+    		  <button type="button" class="btn btn-warning" data-dismiss="modal" aria-label="Close"><span th:text="#{common.peruuta}"></span></button>
+              <button type="submit" class="btn btn-info nappi-oikea">
+	              <i class="fa fa-check" aria-hidden="true"></i>
+	              <span th:text="#{proj.projekti.rekisteroidy}"></span>
+              </button>
+            </div>
+          </div><!-- /.modal-content -->
+          </form>
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+     </div>
+      
       <!-- Lisää merkintä nappulan modaali -->
       <div th:fragment="lisaabtn">
       <div class="modal fade" id="merkintaModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
