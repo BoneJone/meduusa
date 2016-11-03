@@ -200,11 +200,18 @@
      	<div class="col-xs-12 projekti-yhteenveto">
       		<h2 th:text="${projekti.nimi}"></h2>
        		<h5 th:text="${projekti.kuvaus}"></h5>
-       		<h6>
+       		<h6 th:if="${projekti.yhteistunnit > 0}">
        		  <i class="fa fa-clock-o" aria-hidden="true"></i>
        		  <span th:text="${#numbers.formatDecimal(T(Math).floor(projekti.yhteistunnit), 0, 0)}"></span> <span th:text="#{proj.aika.tuntia}"></span>
-              <span th:text="${#numbers.formatDecimal((projekti.yhteistunnit - T(Math).floor(projekti.yhteistunnit)) * 60, 0, 0)}"></span> <span th:text="#{proj.aika.minuuttia}"></span>
+       		  <span th:if="${T(Math).floor(projekti.yhteistunnit) > 0 and (projekti.yhteistunnit - T(Math).floor(projekti.yhteistunnit) > 0)}" th:text="#{common.ja}"></span>
+       		  <span th:if="${projekti.yhteistunnit - T(Math).floor(projekti.yhteistunnit) > 0}">
+       		  <span th:text="${#numbers.formatDecimal((projekti.yhteistunnit - T(Math).floor(projekti.yhteistunnit)) * 60, 0, 0)}"></span>
+       		  <span th:text="#{proj.aika.minuuttia}"></span>
+       		  </span>
               <span th:text="#{proj.aika.yhteensa}"></span>
+       		</h6>
+       		<h6 th:if="${projekti.yhteistunnit == 0}">
+       			<i class="fa fa-clock-o" aria-hidden="true"></i> <span th:text="#{proj.projekti.eimerkintoja}"></span>
        		</h6>
      	</div>
      </div>

@@ -63,23 +63,23 @@
             <table class="table table-striped tuntilista">
           <thead>
             <tr>
-              <th class="col-md-1"><span th:text="#{proj.projekti.tunnit}"></span></th>
+              <th class="col-md-2 text-xs-center"><span th:text="#{proj.projekti.tunnit}"></span></th>
               <th class="col-md-2"><span th:text="#{proj.projekti.henk}"></span></th>
               <th class="col-md-1"><span th:text="#{proj.projekti.paiva}"></span></th>
-              <th class="col-md-7"><span th:text="#{proj.projekti.kuvaus}"></span></th>
+              <th class="col-md-6"><span th:text="#{proj.projekti.kuvaus}"></span></th>
               <th class="col-md-1">&nbsp;</th>
             </tr>
           </thead>
           <tbody>
          																																							 <!-- /projekti/{projektiId}/jasen/{kayttajaId}/poista/{merkintaId} -->
             <tr th:each="merkinta : ${projekti.merkintaLista.merkinnat}">
-              <td class="col-md-1" scope="row">
-             	<strong th:text="${#numbers.formatDecimal(T(Math).floor(merkinta.tunnit), 0, 0) + 'h'}"></strong>
-              	<strong th:text="${#numbers.formatDecimal((merkinta.tunnit - T(Math).floor(merkinta.tunnit)) * 60, 0, 0) + 'min'}"></strong>
+              <td class="col-md-2 text-xs-center" scope="row">   
+              	<span th:if="${merkinta.tunnit >= 1}" th:text="${#numbers.formatDecimal(T(Math).floor(merkinta.tunnit), 0, 0) + 'h'}"></span>
+              	<span th:if="${merkinta.tunnit - T(Math).floor(merkinta.tunnit) > 0}" th:text="${#numbers.formatDecimal((merkinta.tunnit - T(Math).floor(merkinta.tunnit)) * 60, 0, 0) + 'min'}"></span>
               </td>
               <td class="col-md-2" th:text="${merkinta.kayttaja.etunimi + ' ' + merkinta.kayttaja.sukunimi}"></td>
               <td class="col-md-1"><small class="text-muted" th:text="${#dates.format(merkinta.paivamaara, 'dd.MM.yyy')}"></small></td>
-              <td class="col-md-7"><small class="text-muted" th:text="${merkinta.kuvaus}"></small></td>
+              <td class="col-md-6"><small class="text-muted" th:text="${merkinta.kuvaus}"></small></td>
               <td class="col-md-1"><button th:if="${merkinta.kayttaja.id == kayttaja.id}" type="button" class="btn btn-primary btn-sm muokkaabtn" data-toggle="modal" data-target="#myModal" th:onclick="'poisto(\'' + ${merkinta.kayttaja.id} + '/poista/' + ${merkinta.id} + '\')'"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></td>
             </tr>
           </tbody>
