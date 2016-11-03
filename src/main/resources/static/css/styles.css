@@ -462,10 +462,15 @@ body {
 }
 .logininput:focus {
 	border: 1px solid #2ebcfc;
+	
 }
 .logininput:focus + .loginikoni{
 	color: #2ebcfc;
 }
+.logininput:focus::-webkit-input-placeholder {color: transparent;}
+.logininput:focus:-moz-placeholder {color: transparent;}
+.logininput:focus::-moz-placeholder {color: transparent;}
+.logininput:focus:-ms-input-placeholder {color: transparent;}
 
 /* Napeista ja linkeistä ärsyttävät borderit pois Firefoxilla */
 a, a:active, a:focus, button, button:active, button:focus  {
