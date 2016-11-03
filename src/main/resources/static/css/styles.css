@@ -18,7 +18,8 @@ body {
 	border: 1px solid white;
 	color: white;
 	margin: 7px;
-	-o-transition: background-color 0.2s linear;
+	outline: none;
+	-o-transition: backgr	ound-color 0.2s linear;
 	-moz-transition: background-color 0.2s linear;
 	-khtml-transition: background-color 0.2s linear;
 	-webkit-transition: background-color 0.2s linear;
@@ -29,16 +30,16 @@ body {
 	width: 170px;
 }
 .ylapalkki button:focus {
-	outline: 0;
-	border: 1px solid white;
-	background-color: #fff !important;
-	color: #2ebcfc;
+	outline: none !important;
+	border: 1px solid #fff !important;
+	background-color: #5ac7f8 !important;
+	color: #fff;
 }
 
 .ylapalkki button:hover {
 	border: 1px solid white;
-	background-color: #fff;
-	color: #2ebcfc;
+	background-color: #5ac7f8;
+	color: #fff;
 }
 
 .nav-logo {
@@ -378,14 +379,14 @@ body {
 	width: 100%;
 	background: #2ebcfc !important;
 	border-color: #2ebcfc !important;
-	-transition: all 0.3s linear;
-	-moz-transition: all 0.3s linear;
-	-webkit-transition: all 0.3s linear;
+	outline: none !important;
+	-transition: all 0.1s linear;
+	-moz-transition: all 0.1s linear;
+	-webkit-transition: all 0.1s linear;
 }
 .loginbtn:hover {
-	background: #fff !important;
-	color: #2ebcfc !important;
-	border-color: #2ebcfc !important;
+	background: #5ac7f8 !important;
+	border-color: #5ac7f8 !important;
 }
 .page-link {
 	color: #2ebcfc;
