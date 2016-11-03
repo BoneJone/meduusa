@@ -281,7 +281,7 @@ public class ProjektiKontrolleri {
 		
 	}
 	@RequestMapping(value = "/lisaa-projekti", method = RequestMethod.GET)
-	public String lisaaProjekti(Model model, Principal principal) {
+	public String lisaaProjektiGet(Model model, Principal principal) {
 		Kayttaja kayttaja = kayttajaDao.haeKayttajaSahkopostilla(principal.getName());
 		List<Projekti> projektit = projektiDao.haeKayttajanProjektit(principal.getName());
 		List<EtusivunMerkinta> merkinnat = kayttajaDao.haeEtusivunMerkinnat(principal.getName());
@@ -290,28 +290,28 @@ public class ProjektiKontrolleri {
 		model.addAttribute("merkinnat", merkinnat);
 	return "projektinlisays";
 	}
-	/*
-	@RequestMapping(value = "/lisaa-projekti", method = RequestMethod.GET)
-	public String lisaaProjekti(Model model,@PathVariable Integer projektiId, Principal principal) {
-		return haeProjektinTiedot(projektiId, 1, model, principal);
-	}
-	*/
+
 	@RequestMapping(value = "/lisaa-projekti", method = RequestMethod.POST)
-	public String lisaaProjekti(
+	public String lisaaProjektiPost(
 			Model model,
 			@RequestParam(value = "nimi", required = true) String nimi,
 			@RequestParam(value = "kuvaus", required = true) String kuvaus,
 			Principal principal
 			) {
+		int projektiId = 0;
 		
+		if (nimi.length() < 100 && kuvaus.length() < 200) {
 			Projekti projekti = new ProjektiImpl();
 			projekti.setNimi(nimi);
 			projekti.setKuvaus(kuvaus);
-			
-			projektiDao.lisaaProjekti(projekti);
+			projektiId = projektiDao.lisaaProjekti(projekti, principal.getName());
+		}
 		
-		// @TODO: Success / Error viestin välitys käyttäjälle
-		return haeProjektinTiedot(1, 1, model, principal);
+		if (projektiId > 0) {
+			return haeProjektinTiedot(projektiId, 1, model, principal);
+		}
+		
+		return lisaaProjektiGet(model, principal);
 	}
 
 	

@@ -19,7 +19,7 @@ public interface ProjektiDao {
 	
 	public List<Merkinta> haeProjektinYhteistunnit(int projektiId, String sahkoposti);
 	
-	public abstract void lisaaProjekti(Projekti projekti);
+	public abstract int lisaaProjekti(Projekti projekti, String sahkoposti);
 	
 	public boolean lisaaJasenProjektiin(int projektiId, String lisattavaSahkoposti, String sahkoposti);
 

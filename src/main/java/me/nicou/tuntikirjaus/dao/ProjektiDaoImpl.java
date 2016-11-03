@@ -1,5 +1,9 @@
 package me.nicou.tuntikirjaus.dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +12,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import me.nicou.tuntikirjaus.bean.Merkinta;
@@ -161,14 +168,34 @@ public class ProjektiDaoImpl implements ProjektiDao {
 		return merkinnat;
 	}
 	
-	public void lisaaProjekti (Projekti projekti) {
-		 String sql = "INSERT INTO Projektit (nimi, kuvaus) VALUES(?, ?)";
+	public int lisaaProjekti (Projekti projekti, String sahkoposti) {
+		 final String projektiSql = "INSERT INTO Projektit (nimi, kuvaus) VALUES(?, ?)";
 		 Object[] parametrit = { projekti.getNimi(), projekti.getKuvaus() };
+		 KeyHolder keyholder = new GeneratedKeyHolder();
+		 int projektiId = 0;
 	  	try {
-	  	  jdbcTemplate.update(sql, parametrit);
-	  	}	catch (EmptyResultDataAccessException ex) {
+	  	  jdbcTemplate.update(new PreparedStatementCreator() {
+			@Override
+			public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+				PreparedStatement ps = connection.prepareStatement(projektiSql, Statement.RETURN_GENERATED_KEYS);
+				ps.setString(1, projekti.getNimi());
+				ps.setString(2, projekti.getKuvaus());
+				return ps;
+			}
+		}, keyholder);
+	  	  projektiId = keyholder.getKey().intValue();
+	  	  logger.info("Luotiin projekti ID:llä " + projektiId);
+	  	  
+	  	  String sql = "INSERT INTO ProjektinJasenet (kayttaja_id, projekti_id, rooli_id, status_id) VALUES ((SELECT id FROM Kayttajat WHERE sahkoposti = ?), ?, 2, 2)";
+	  	  if (jdbcTemplate.update(sql, new Object[] { sahkoposti, projektiId }) == 1) {
+	  		  return projektiId;
+	  	  } else {
+	  		  return 0;
+	  	  }
+	  	} catch (EmptyResultDataAccessException ex) {
 	  			logger.error("Projektia lisätessä tapahtui virhe");
-	  	}	
+	  	}
+	  	return 0;
 	 }
 	
 	public boolean lisaaJasenProjektiin(int projektiId, String lisattavaSahkoposti, String sahkoposti) {
