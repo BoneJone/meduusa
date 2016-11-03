@@ -482,7 +482,37 @@ body {
 	display: none;
 	visibility: none;
 }
+.modaalisisalto {
+	border-radius: 0px;
+	border: none;
+}
+.modaaliotsikko {
+	background: #4FC3F7;
+	color: #fff;
+}
 
+.modaaliotsikko i {
+	color: #fff;
+	outline: none;
+	text-shadow:none;
+	margin-top: 6px; 
+	margin-right: 15px;
+	transition: all 0.3s ease;
+}
+.modaaliotsikko i:hover{
+	outline: none;
+	color: #222c31;
+	text-shadow:none;
+}
+.modaaliotsikko > .close {
+	opacity: 1 !important;
+}
+.modaalijalka {
+	border-top: none;
+}
+.merkintaformi {
+	border-radius: 0px;
+}
 /* Napeista ja linkeistä ärsyttävät borderit pois Firefoxilla */
 a, a:active, a:focus, button, button:active, button:focus  {
 	outline: 0;
