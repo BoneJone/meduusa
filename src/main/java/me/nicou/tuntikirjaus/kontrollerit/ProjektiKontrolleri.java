@@ -135,32 +135,7 @@ public class ProjektiKontrolleri {
 			model.addAttribute("viesti", "Merkintä poistettu!");
 		}
 		
-		Projekti projekti = projektiDao.haeProjektinTiedotKayttajalta(projektiId, principal.getName(), kayttajaId, sivunumero);
-		if (projekti.getId() == 0) { return "redirect:/"; }
-		Kayttaja kayttaja = kayttajaDao.haeKayttajaSahkopostilla(principal.getName());
-		List<Merkinta> yhteistunnit = projektiDao.haeProjektinJasenet(projektiId, principal.getName());
-		model.addAttribute("kayttaja", kayttaja);
-		model.addAttribute("projekti", projekti);
-		model.addAttribute("yhteistunnit", yhteistunnit);
-		
-		// @TODO: Keksitään fiksumpi tapa, mutta nyt pitää includee nää joka hakuun
-		// jotta saadaan sidebariin projektit näkyviin
-		List<Projekti> projektit = projektiDao.haeKayttajanProjektit(principal.getName());
-		model.addAttribute("projektit", projektit);
-		
-		return "jasenen-merkinnat";
-	}
-	
-	// Workaround siihen, että merkinnän lisäyksen jälkeen toimii kielen vaihto
-	@RequestMapping(value = "/projekti/{projektiId}/lisaa", method = RequestMethod.GET)
-	public String lisaysRedirect(Model model, @PathVariable Integer projektiId, Principal principal) {
-		return haeProjektinTiedot(projektiId, 1, model, principal);
-	}
-	
-	// Toinen workaround
-	@RequestMapping(value = "projekti/{projektiId}/lisaajasen", method = RequestMethod.GET)
-	public String lisaaProjektiinJasen(Model model,@PathVariable Integer projektiId, Principal principal) {
-		return haeProjektinTiedot(projektiId, 1, model, principal);
+		return "redirect:/projekti/" + projektiId + "/jasen/" + kayttajaId;
 	}
 	
 	@RequestMapping(value = "projekti/{projektiId}/lisaajasen", method = RequestMethod.POST)
@@ -180,7 +155,7 @@ public class ProjektiKontrolleri {
 		}
 		
 		// @TODO: Success / Error viestin välitys käyttäjälle
-		return haeProjektinTiedot(projektiId, 1, model, principal);
+		return "redirect:/projekti/" + projektiId;
 	}
 	
 	@RequestMapping(value = "/projekti/lisaamerkinta", method = RequestMethod.POST)
@@ -265,20 +240,7 @@ public class ProjektiKontrolleri {
 			model.addAttribute("viesti", viesti);
 		}	
 		
-		Projekti projekti = projektiDao.haeProjektinTiedot(projektiId, principal.getName(), 1);
-		if (projekti.getId() == 0) { return "redirect:/"; }
-		Kayttaja kayttaja = kayttajaDao.haeKayttajaSahkopostilla(principal.getName());
-		List<Merkinta> yhteistunnit = projektiDao.haeProjektinJasenet(projektiId, principal.getName());
-		model.addAttribute("kayttaja", kayttaja);
-		model.addAttribute("projekti", projekti);
-		model.addAttribute("yhteistunnit", yhteistunnit);
-		
-		// @TODO: Keksitään fiksumpi tapa, mutta nyt pitää includee nää joka hakuun
-		// jotta saadaan sidebariin projektit näkyviin
-		List<Projekti> projektit = projektiDao.haeKayttajanProjektit(principal.getName());
-		model.addAttribute("projektit", projektit);
-		
-		return "projekti";
+		return "redirect:/projekti/" + projektiId;
 		
 	}
 	@RequestMapping(value = "/lisaa-projekti", method = RequestMethod.GET)
@@ -309,7 +271,7 @@ public class ProjektiKontrolleri {
 		}
 		
 		if (projektiId > 0) {
-			return haeProjektinTiedot(projektiId, 1, model, principal);
+			return "redirect:/projekti/" + projektiId;
 		}
 		
 		return lisaaProjektiGet(model, principal);
