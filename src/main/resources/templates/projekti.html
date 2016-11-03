@@ -30,7 +30,15 @@
             </div>
           </div>
         </div>
-
+        <!-- Väliaikainen ratkaisu merkinnän lisäyksen onnistumiselle -->
+        <div class="alerttitesti piilotus">
+		<div class="alert alert-success">
+   		<button href="#" class="close" data-dismiss="alert"><i class="fa fa-times" aria-hidden="true"></i></button>
+ 		<strong>Onnistui!</strong> Uusi merkintä lisätty
+ 		</div>
+ 		</div>
+ 		
+ 		<!-- Projektiyhteenvedon näyttö -->
         <div th:include="common :: projektinyhteenveto"></div>
         
         <!-- Tiimin jäsenet -->
@@ -96,10 +104,10 @@
             </li>
           </ul>
         </nav>
-        
         </div>
       </div>
 	</div>
+	
 
     <!-- muokkaabtn -->
     <div th:include="common :: muokkaabtn"></div>
@@ -115,5 +123,17 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/js/bootstrap.min.js"></script>
+    <script>
+    if (document.location.pathname.indexOf("/meduusa/projekti/1/lisaa") == 0) {
+    	$(".alerttitesti").removeClass("piilotus");
+    	window.setTimeout(function() {
+    	    $(".alerttitesti").fadeTo(500, 0).slideUp(500, function(){
+    	        $(this).remove(); 
+    	    });
+    	    }, 8000);
+    }
+    </script>
+
+
   </body>
 </html>
