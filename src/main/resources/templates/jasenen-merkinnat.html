@@ -33,14 +33,15 @@
        
         <div th:include="common :: projektinyhteenveto"></div>
         
-        <!-- Tiimin jäsenet -->
+     <!-- Tiimin jäsenet -->
+     	<div th:fragment="tiimintunnit">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 profiili">
             <div class="list-group">
               <li class="list-group-item active"><span th:text="#{proj.projekti.jasenet}"></span></li>
               <span th:each="merkinta : ${yhteistunnit}">
-	              <a th:href="@{'/projekti/' + ${projekti.id} + '/jasen/' + ${merkinta.kayttaja.id}}" class="list-group-item list-group-item-action">
+	              <a th:href="${merkinta.tunnit > 0} ? @{'/projekti/' + ${projekti.id} + '/jasen/' + ${merkinta.kayttaja.id}} : '#!'" class="list-group-item list-group-item-action" th:classappend="${merkinta.tunnit == 0} ? 'disabled'">
 	              	<img src="/img/placeholder.jpg" th:src="@{/img/placeholder.jpg}" class="profiilikuva" alt="Profiilikuva" />
-	              	<span class="tag tag-success tag-pill pull-xs-right tagi-yhteistunnit" th:text="${merkinta.tunnit + 'h'}"></span>
+	              	<span class="tag tag-pill pull-xs-right tagi-yhteistunnit" th:text="${merkinta.tunnit + 'h'}" th:classappend="${merkinta.tunnit > 0} ? 'tag-success' : 'tag-default'"></span>
 	              	<span th:text="${merkinta.kayttaja.etunimi + ' ' + merkinta.kayttaja.sukunimi}"></span>
 	              </a>
               </span>
@@ -48,9 +49,13 @@
             <button type="button" class="btn btn-secondary btn-lg lisaysbtn" data-toggle="modal" data-target="#lisaaJasenModal"><span th:text="#{proj.projekti.lisaajasen}"></span></button>
             <a th:href="@{'/projekti/' + ${projekti.id}}" class="btn btn-secondary btn-lg lisaysbtn"><span th:text="#{proj.projekti.naytakaikki}"></span></a>
           </div>
+          </div>
           
           <!-- Tuntilista alkaa -->
-          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-9 col-xl-9 taulukko">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-9 col-xl-9" th:if="${#lists.size(projekti.merkintaLista.merkinnat) == 0}">
+          	<h2 class="text-muted" th:text="#{proj.projekti.eimerkintojakayttajalla}"></h2>
+          </div>
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-9 col-xl-9 taulukko" th:if="${#lists.size(projekti.merkintaLista.merkinnat) > 0}">
           <div class="list-group">
           <li class="list-group-item active"><span th:text="#{proj.projekti.kaytmerkinnat}"></span> <strong th:text="${projekti.merkintaLista.merkinnat[0].kayttaja.etunimi + ' ' + projekti.merkintaLista.merkinnat[0].kayttaja.sukunimi}"></strong></li>
           </div>

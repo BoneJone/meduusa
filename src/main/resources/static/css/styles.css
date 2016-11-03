@@ -559,3 +559,8 @@ a, a:active, a:focus, button, button:active, button:focus  {
 .nappi-oikea {
 	margin-left: 10px;
 }
+
+/* Valkonen tausta containerille */
+.valkotausta {
+	background-color: #fff;
+}
