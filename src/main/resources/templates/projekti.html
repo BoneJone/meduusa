@@ -13,11 +13,9 @@
     <div th:include="common :: sivupalkki"></div>
 
       <!-- Main contentti alkaa -->
-<div class="col-sm-12 col-lg-12">
-      
+	<div class="col-sm-12 col-lg-12">      
     <div class="container-fluid">
-      <div class="row">      
-      
+    <div class="row">
       	<!-- Wrapperi joka antaa sidebarin verran marginia -->
       	<div class="main-contentti">
       	<div class="row">
@@ -26,7 +24,7 @@
         <div class="col-sm-12 hidden-lg-up">
           <div class="row">
             <div class="nappi">
-              <button type="button" class="btn btn-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i> <span th:text="#{proj.projekti.lisaamerkinta}"></span></button>
+              <button type="button" class="btn btn-primary lisaamerkintabtn" data-toggle="modal" data-target="#merkintaModal"><i class="fa fa-plus-circle" aria-hidden="true"></i> <span th:text="#{proj.projekti.lisaamerkinta}"></span></button>
             </div>
           </div>
         </div>

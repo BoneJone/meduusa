@@ -169,15 +169,12 @@ body {
 }
 .etusivu-main {
 	background-color: #fff;
-	margin-left: 20px;	
-	
 }
 .etusivu-otsikko {
 	border-bottom: 1px solid #dcdcdd;
-	margin-left: 20px;
 }
 .etusivu-kuva {
-	padding: 20px 20px 0 0;
+	padding: 20px 20px 0 20px;
 }
 .etusivu-profiili {
 	padding: 40px 0;
