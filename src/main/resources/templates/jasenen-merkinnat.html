@@ -87,7 +87,7 @@
         </div>
         
         <!-- Merkintöjen paginaatio -->
-        <nav aria-label="..." class="paginaatio">
+        <nav aria-label="..." class="paginaatio" th:if="${projekti.merkintaLista.sivujaYhteensa > 1}">
           <ul class="pagination pagination-sm">
             <li th:class="${projekti.merkintaLista.nykyinenSivu eq 1 ? 'page-item disabled' : 'page-item'}">
               <a class="page-link" aria-label="Edellinen" th:href="@{/projekti/{id}/jasen/{kayttajaid}(p=1, id=${projekti.id}, kayttajaid=${projekti.merkintaLista.merkinnat[0].kayttaja.id})}">
