@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-  <head th:include="common :: head"></head>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
   <head>
     <title th:text="${'Meduusa | ' + projekti.nimi}"></title>
+    <th:block th:include="common :: header"></th:block>
   </head>
   <body>
 
@@ -73,7 +73,7 @@
           <tbody>
          																																							 <!-- /projekti/{projektiId}/jasen/{kayttajaId}/poista/{merkintaId} -->
             <tr th:each="merkinta : ${projekti.merkintaLista.merkinnat}">
-              <td class="col-md-2 text-xs-center" scope="row">   
+              <td class="col-md-2 text-xs-center">   
               	<span th:if="${merkinta.tunnit >= 1}" th:text="${#numbers.formatDecimal(T(Math).floor(merkinta.tunnit), 0, 0) + 'h'}"></span>
               	<span th:if="${merkinta.tunnit - T(Math).floor(merkinta.tunnit) > 0}" th:text="${#numbers.formatDecimal((merkinta.tunnit - T(Math).floor(merkinta.tunnit)) * 60, 0, 0) + 'min'}"></span>
               </td>

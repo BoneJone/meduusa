@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <!-- HEAD -->
-<head th:fragment="head">
+<head th:fragment="header">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
@@ -41,9 +41,7 @@
 	      <li class="nav-item mobiiliprojektitnav" th:each="projekti : ${projektit}"><a class="nav-link" th:href="@{'/projekti/' + ${projekti.id}}" th:text="${projekti.nimi}"></a></li>
 	    	<hr></hr>
 	    	<li class="nav-item">
-	            <form id="logoutform" th:action="@{/logout}" method="post">
-					<a class="nav-link" href="#logout" onClick="document.getElementById('logoutform').submit()"><i class="fa fa-sign-out" aria-hidden="true"></i> <span th:text="#{kayt.common.uloskirjaus}"></span></a>
-				</form>
+				<a class="nav-link" href="#logout" onClick="document.getElementById('logoutform').submit()"><i class="fa fa-sign-out" aria-hidden="true"></i> <span th:text="#{kayt.common.uloskirjaus}"></span></a>
 			</li>
         </ul>
         
@@ -95,7 +93,7 @@
 
       <!-- muokkaabtn modaali -->
       <div th:fragment="muokkaabtn">
-      <div class="modal fade" id="myModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal fade" id="myModal" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header modaaliotsikko">
@@ -125,7 +123,7 @@
       
       <!-- Rekisteröitymisen modaali -->
       <div th:fragment="rekisteroidy">
-      <div class="modal fade" id="rekisteroidyModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal fade" id="rekisteroidyModal" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
         <form method="post" th:action="@{/rekisteroidy}">
           <div class="modal-content modaalisisalto">
@@ -178,7 +176,7 @@
       
       <!-- Lisää merkintä nappulan modaali -->
       <div th:fragment="lisaabtn">
-      <div class="modal fade" id="merkintaModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal fade" id="merkintaModal" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
         <form method="post" th:action="@{'/projekti//lisaamerkinta'}">
           <div class="modal-content modaalisisalto">
@@ -228,8 +226,8 @@
               </div>
               <div class="form-group row">
                 <div class="col-xs-12">
-                  <label for="text"><strong><span th:text="#{proj.projekti.kuvaus}"></span></strong></label>
-                  <textarea class="form-control merkintaformi" id="exampleTextarea" rows="3" name="kuvaus"></textarea>
+                  <label for="kuvaus"><strong><span th:text="#{proj.projekti.kuvaus}"></span></strong></label>
+                  <textarea class="form-control merkintaformi" id="kuvaus" rows="3" name="kuvaus"></textarea>
                 </div>
               </div>
             </div>
@@ -280,7 +278,7 @@
      
     <!-- Lisää jäsen modali -->
     <div th:fragment="lisaajasen">
-      <div class="modal fade" id="lisaaJasenModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal fade" id="lisaaJasenModal" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
         <form method="post" th:action="@{'/projekti/' + ${projekti.id} + '/lisaajasen'}">
           <div class="modal-content modaalisisalto">
