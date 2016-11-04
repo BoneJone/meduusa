@@ -60,5 +60,16 @@ public class KayttajaDaoImpl implements KayttajaDao {
 		}
 		return 0;
 	}
+	
+	public boolean rekisteroiKayttaja(String etunimi, String sukunimi, String sahkoposti, String salasanaTiiviste) {
+		String sql = "SELECT COUNT(*) FROM Kayttajat WHERE sahkoposti = ?";
+		if (jdbcTemplate.queryForObject(sql, new Object[] { sahkoposti }, Integer.class) > 0) {
+			logger.info("Käyttäjä yritti rekisteröityä sähköpostiosoitteella joka on jo olemassa");
+			return false;
+		}
+		
+		sql = "INSERT INTO Kayttajat (etunimi, sukunimi, sahkoposti, salasana) VALUES (?, ?, ?, ?)";
+		return jdbcTemplate.update(sql, new Object[] { etunimi, sukunimi, sahkoposti, salasanaTiiviste }) == 1;
+	}
 
 }

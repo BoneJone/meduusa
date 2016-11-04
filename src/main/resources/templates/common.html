@@ -127,7 +127,7 @@
       <div th:fragment="rekisteroidy">
       <div class="modal fade" id="rekisteroidyModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
-        <form method="post">
+        <form method="post" th:action="@{/rekisteroidy}">
           <div class="modal-content modaalisisalto">
             <div class="modal-header modaaliotsikko">
               <button type="button" class="close modaalibutton" data-dismiss="modal" aria-label="Close">
@@ -143,6 +143,18 @@
                   <input class="form-control merkintaformi" id="sahkoposti" name="sahkoposti" th:placeholder="#{proj.projekti.rekisteroidyemail}"></input>
                 </div>
                 </div>
+                
+                <div class="form-group row">
+                <div class="col-xs-12 col-md-6">
+                  <label for="etunimi"><strong><span th:text="#{proj.projekti.rekisteroidyetunimi}"></span></strong></label>
+                  <input class="form-control merkintaformi" id="etunimi" name="etunimi" th:placeholder="#{proj.projekti.rekisteroidyetunimi}"></input>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                  <label for="sukunimi"><strong><span th:text="#{proj.projekti.rekisteroidysukunimi}"></span></strong></label>
+                  <input class="form-control merkintaformi" id="sukunimi" name="sukunimi" th:placeholder="#{proj.projekti.rekisteroidysukunimi}"></input>
+                </div>
+                </div>
+                
                 <div class="form-group row">
                 <div class="col-xs-12">
                   <label for="salasana"><strong><span th:text="#{proj.projekti.rekisteroidysalasana}"></span></strong></label>
@@ -250,7 +262,9 @@
        		<h5 th:text="${projekti.kuvaus}"></h5>
        		<h6 th:if="${projekti.yhteistunnit > 0}">
        		  <i class="fa fa-clock-o" aria-hidden="true"></i>
+       		  <span th:if="${projekti.yhteistunnit >= 1}">
        		  <span th:text="${#numbers.formatDecimal(T(Math).floor(projekti.yhteistunnit), 0, 0)}"></span> <span th:text="#{proj.aika.tuntia}"></span>
+       		  </span>
        		  <span th:if="${T(Math).floor(projekti.yhteistunnit) > 0 and (projekti.yhteistunnit - T(Math).floor(projekti.yhteistunnit) > 0)}" th:text="#{common.ja}"></span>
        		  <span th:if="${projekti.yhteistunnit - T(Math).floor(projekti.yhteistunnit) > 0}">
        		  <span th:text="${#numbers.formatDecimal((projekti.yhteistunnit - T(Math).floor(projekti.yhteistunnit)) * 60, 0, 0)}"></span>

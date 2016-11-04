@@ -12,5 +12,7 @@ public interface KayttajaDao {
 	public List<EtusivunMerkinta> haeEtusivunMerkinnat(String sahkoposti);
 	
 	public double haeKayttajanKuukaudenYhteistunnit(String sahkoposti);
+	
+	public boolean rekisteroiKayttaja(String etunimi, String sukunimi, String sahkoposti, String salasanaTiiviste);
 
 }

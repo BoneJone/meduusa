@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -275,6 +276,26 @@ public class ProjektiKontrolleri {
 		}
 		
 		return lisaaProjektiGet(model, principal);
+	}
+	
+	@RequestMapping(value = "/rekisteroidy", method = RequestMethod.POST)
+	public String rekisteroidy(
+			Model model,
+			@RequestParam(value = "etunimi", required = true) String etunimi,
+			@RequestParam(value = "sukunimi", required = true) String sukunimi,
+			@RequestParam(value = "sahkoposti", required = true) String sahkoposti,
+			@RequestParam(value = "salasana", required = true) String salasana
+			) {
+		
+		// @TODO: Kunnon validoinnit
+		if (etunimi.trim().length() > 2 && sukunimi.trim().length() > 2 && sahkoposti.trim().length() > 4 && salasana.length() > 5) {
+			String salasanaTiiviste = BCrypt.hashpw(salasana, BCrypt.gensalt(10));
+			if (kayttajaDao.rekisteroiKayttaja(etunimi.trim(), sukunimi.trim(), sahkoposti.trim(), salasanaTiiviste)) {
+				logger.info("Uusi käyttäjä rekisteröity!");
+				return "redirect:/?rekisterointi=ok";
+			}
+		}
+		return "redirect:/?rekisterointi=fail";
 	}
 
 	
