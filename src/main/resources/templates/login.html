@@ -34,17 +34,17 @@
 	      <div class="from-group row">
 	        <div class="col-xs-12 col-md-12">
 	        	<!-- Sähköpostin front-end validointiin: type="email"x -->
-	          <input class="form-control logininput sposti" aria-describedby="emailHelp" placeholder="Sähköposti" name="username" />
+	          <input class="form-control logininput sposti" aria-describedby="emailHelp" th:placeholder="#{proj.projekti.rekisteroidyemail}" name="username" />
 	          <i class="fa fa-user fa-lg loginikoni"></i>
 	        </div>
 	      </div>
 	      <div class="from-group row">
 	        <div class="col-xs-12 col-md-12">
-	          <input type="password" class="form-control logininput salasana" placeholder="Salasana" name="password" />
+	          <input type="password" class="form-control logininput salasana" th:placeholder="#{proj.projekti.rekisteroidysalasana}" name="password" />
 	          <i class="fa fa-lock fa-lg loginikoni"></i>
 	        </div>
 	      </div>
-	      <button class="btn btn-primary loginbtn" type="submit" style="margin-top: 10px;">Kirjaudu</button>
+	      <button class="btn btn-primary loginbtn" type="submit" style="margin-top: 10px;" th:text="#{kayt.login.kirjaudu}"></button>
 	      <!-- Toistaiseks jemmaan
 	      <div class="form-check row muistaminut">
 	        <div class="col-xs-12 col-md-12">
@@ -57,9 +57,31 @@
 	      -->
       </form>
       <div style="text-align: center; margin-top: 30px;">
-      		<div th:if="${param.error}" style="color: #f00;"><strong>Virheelliset käyttäjätiedot!</strong><br /><br /></div>
-			<div th:if="${param.logout}" style="color: #0a0;"><strong>Sinut kirjattiin ulos onnistuneesti!</strong><br /><br /></div>
-      	<a href="#" data-toggle="modal" data-target="#rekisteroidyModal" style="color: #999; font-size: 11pt;">Rekisteröidy täältä</a>     
+      		<div th:if="${param.error}" class="alert alert-danger alert-dismissible fade in" role="alert">
+			  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			    <span aria-hidden="true">&times;</span>
+			  </button>
+      		  <strong th:text="#{login.fail}"></strong>
+      		</div>
+			<div th:if="${param.regfail}" class="alert alert-danger alert-dismissible fade in" role="alert">
+			  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			    <span aria-hidden="true">&times;</span>
+			  </button>
+				<strong th:text="#{reg.fail}"></strong>
+			</div>
+			<div th:if="${param.logout}" class="alert alert-success alert-dismissible fade in" role="alert">
+			  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			    <span aria-hidden="true">&times;</span>
+			  </button>
+			  <strong th:text="#{login.ok}"></strong>
+			</div>
+      		<div th:if="${param.regok}" class="alert alert-success alert-dismissible fade in" role="alert">
+      		  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			    <span aria-hidden="true">&times;</span>
+			  </button>
+      		  <strong th:text="#{reg.ok}"></strong>
+      		</div>
+      	<a href="#" data-toggle="modal" data-target="#rekisteroidyModal" style="color: #999; font-size: 11pt;" th:text="#{proj.projekti.rekisteroidytaalta}"></a>     
       </div>
       
   <div th:include="common :: rekisteroidy"></div>
