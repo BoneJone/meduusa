@@ -254,6 +254,7 @@ body {
 /* Main content */
 .main-contentti {
 	margin-right: 15px;
+	margin-bottom: 15px;
 }
 
 /* Main-content wrapperille left marginia kun sivupalkki esillä */
@@ -317,7 +318,6 @@ body {
 	border-radius: 5px;
 	box-shadow: 2px 2px 8px 3px rgba(0, 0, 0, 0.1);
 	padding: 0px;
-	margin-bottom: 25px;
 }
 
 .taulukko .tuntilista {
@@ -466,7 +466,7 @@ body {
 }
 .lisaaprojekti {
 	margin-top: 40px;
-	margin-left: 35px;
+	margin-left: 15px;
 	background-color: #fff;
 	padding: 25px;
 }
