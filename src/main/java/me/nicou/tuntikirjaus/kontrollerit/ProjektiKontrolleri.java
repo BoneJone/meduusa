@@ -292,10 +292,10 @@ public class ProjektiKontrolleri {
 			String salasanaTiiviste = BCrypt.hashpw(salasana, BCrypt.gensalt(10));
 			if (kayttajaDao.rekisteroiKayttaja(etunimi.trim(), sukunimi.trim(), sahkoposti.trim(), salasanaTiiviste)) {
 				logger.info("Uusi käyttäjä rekisteröity!");
-				return "redirect:/?rekisterointi=ok";
+				return "redirect:/kirjaudu?regok";
 			}
 		}
-		return "redirect:/?rekisterointi=fail";
+		return "redirect:/kirjaudu?regfail";
 	}
 
 	

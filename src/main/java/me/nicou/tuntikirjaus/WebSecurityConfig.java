@@ -53,7 +53,7 @@ public class WebSecurityConfig {
 	    protected void configure(HttpSecurity http) throws Exception {
 	        http
 	            .authorizeRequests()
-	                .antMatchers("/css/**", "/js/**", "/img/**", "/favicon.ico", "/rekisteroidy").permitAll()
+	                .antMatchers("/css/**", "/js/**", "/img/**", "/favicon.ico", "/rekisteroidy", "/kirjaudu").permitAll()
 	                .anyRequest().authenticated()
 	                .and()
 	                .csrf().csrfTokenRepository(new CookieCsrfTokenRepository())
