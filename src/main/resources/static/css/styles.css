@@ -528,22 +528,20 @@ body {
 	color: #fff;
 }
 
-.modaaliotsikko i {
-	color: #fff;
-	outline: none;
-	text-shadow:none;
-	margin-top: 6px; 
-	margin-right: 15px;
-	transition: all 0.3s ease;
-}
-.modaaliotsikko i:hover{
-	outline: none;
-	color: #222c31;
-	text-shadow:none;
-}
 .modaaliotsikko > .close {
 	opacity: 1 !important;
+	margin-top: 4px;
+	margin-right: 3px;
+	outline:none;
+	text-shadow: none;
+	-transition: all 0.2s ease-in-out;
+	-moz-transition: all 0.2s ease-in-out;
+	-webkit-transition: all 0.2s ease-in-out;
 }
+.modaaliotsikko > .close:hover {
+	color: #222c31;
+}
+
 .modaalijalka {
 	border-top: none;
 }
