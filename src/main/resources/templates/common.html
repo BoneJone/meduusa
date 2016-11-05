@@ -283,8 +283,8 @@
         <form method="post" th:action="@{'/projekti/' + ${projekti.id} + '/lisaajasen'}">
           <div class="modal-content modaalisisalto">
             <div class="modal-header modaaliotsikko">
-              <button type="button" class="close modaalibutton" data-dismiss="modal" aria-label="Close">
-                 <i class="fa fa-times" aria-hidden="true"></i>
+              <button type="button" class="close modaaliotsikko" data-dismiss="modal" aria-label="Close">
+                 <span class="fa fa-times" aria-hidden="true"></span>
               </button>
               <h4 class="modal-title"><span th:text="#{proj.projekti.lisaajasenprojektiin}"></span></h4>
             </div>
