@@ -280,6 +280,11 @@ body {
 	margin-left: 0;
 	}
 }
+@media (max-width: 768px){
+	.etusivu-kokonaistunnit {
+	padding: 0px;
+	}
+}
 
 
 
