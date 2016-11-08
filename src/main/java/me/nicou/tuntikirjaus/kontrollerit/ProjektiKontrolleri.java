@@ -149,19 +149,22 @@ public class ProjektiKontrolleri {
 			Model model,
 			@PathVariable Integer projektiId,
 			@RequestParam(value = "sahkoposti", required = true) String sahkoposti,
-			Principal principal
+			Principal principal, @Valid Kayttaja kayttaja, BindingResult result
 			) {
-		
-		boolean success = projektiDao.lisaaJasenProjektiin(projektiId, sahkoposti.trim(), principal.getName());
-		
-		if (success) {
-			logger.info("Käyttäjä " + sahkoposti + " lisätty projektiin " + projektiId);
-		} else {
+				
+		if (result.hasErrors()) {
 			logger.info("Käyttäjän " + sahkoposti + " lisäys projektiin " + projektiId + " ei onnistunut");
+			return "redirect:/projekti/" + projektiId;
+		} else {
+			boolean success = projektiDao.lisaaJasenProjektiin(projektiId, sahkoposti.trim(), principal.getName());
+			
+			if (success) {
+				logger.info("Käyttäjä " + sahkoposti + " lisätty projektiin " + projektiId);
+			} else {
+				logger.info("Käyttäjän " + sahkoposti + " lisäys projektiin " + projektiId + " ei onnistunut");
+			}
+			return "redirect:/projekti/" + projektiId;
 		}
-		
-		// @TODO: Success / Error viestin välitys käyttäjälle
-		return "redirect:/projekti/" + projektiId;
 	}
 	
 	@RequestMapping(value = "/projekti/lisaamerkinta", method = RequestMethod.POST)
