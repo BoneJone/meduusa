@@ -16,19 +16,22 @@
 	<div class="col-sm-12 col-lg-12">
 	<div class="container-fluid">
 	<div class="row">
-	<div class="main-contentti">
+	<div class="main-contentti etusivu-contentti">
 	<div class="etusivu-main boksivarjo">
 	<div class="row">
 	<div class="col-xs-12 etusivu-sisalto">
-		<div class="media etusivu-otsikko">
+	<div class="col-xs-12 etusivu-otsikko">
+		<div class="col-xs-12 col-md-10 media">
 		<a class="media-left etusivu-kuva">
 		<img src="/img/placeholder.jpg" th:src="@{/img/placeholder.jpg}" class="profiilikuva-iso" alt="Profiilikuva" />
 		</a>
+		
 		<div class="media-body etusivu-profiili">
 			<h4 th:text="${'' + kayttaja.etunimi + ' ' + kayttaja.sukunimi + ''}"></h4>
 			<p class="text-muted" th:text="${''+kayttaja.sahkoposti+''}"></p>
 		</div>
-		<div class="media-right etusivu-kokonaistunnit text-xs-center">
+		</div>
+		<div class="col-xs-12 col-md-2 media-right etusivu-kokonaistunnit text-xs-center">
 			<h1 th:text="${yhteistunnit + 'h'}"></h1>
 			<p class="text-muted"><small th:text="#{kayt.yleiskatsaus.paivat}"></small></p>
 		</div>
