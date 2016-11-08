@@ -279,14 +279,7 @@ body {
 	margin-right: 0;
 	}
 }
-@media (max-width: 768px){
-	.etusivu-kokonaistunnit {
-	padding: 0;
-	.etusivu-kuva {
-	padding: 20px 20px 0 0;
-	}
-}
-}
+
 
 
 /* Projektin pääsivulla wrapper projektin nimelle, kuvaukselle ja yhteistunneille */
