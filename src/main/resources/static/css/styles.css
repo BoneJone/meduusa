@@ -270,13 +270,14 @@ body {
 }
 @media (max-width: 992px){
 	.main-contentti {
-	margin-left: 	px;
+	margin-left: 10px;
 	margin-right: 10px;
 	}
 	.profiili {
 	padding: 0px;}
 	.etusivu-contentti {
 	margin-right: 0;
+	margin-left: 0;
 	}
 }
 
