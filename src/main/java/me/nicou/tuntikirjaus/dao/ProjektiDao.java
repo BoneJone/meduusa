@@ -22,5 +22,9 @@ public interface ProjektiDao {
 	public abstract int lisaaProjekti(Projekti projekti, String sahkoposti);
 	
 	public boolean lisaaJasenProjektiin(int projektiId, String lisattavaSahkoposti, String sahkoposti);
+	
+	public Merkinta haeYksiMerkinta(int merkintaId, String sahkoposti);
+	
+	public boolean muokkaaMerkintaa(Merkinta merkinta);
 
 }

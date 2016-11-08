@@ -81,7 +81,7 @@
               <td class="col-md-2" th:text="${merkinta.kayttaja.etunimi + ' ' + merkinta.kayttaja.sukunimi}"></td>
               <td class="col-md-1"><small class="text-muted" th:text="${#dates.format(merkinta.paivamaara, 'dd.MM.yyy')}"></small></td>
               <td class="col-md-6"><small class="text-muted" th:text="${merkinta.kuvaus}"></small></td>
-              <td class="col-md-1"><button th:if="${merkinta.kayttaja.id == kayttaja.id}" type="button" class="btn btn-primary btn-sm muokkaabtn" data-toggle="modal" data-target="#myModal" th:onclick="'poisto(\'' + ${merkinta.kayttaja.id} + '/poista/' + ${merkinta.id} + '\')'"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></td>
+              <td class="col-md-1"><button th:if="${merkinta.kayttaja.id == kayttaja.id}" type="button" class="btn btn-primary btn-sm muokkaabtn" data-toggle="modal" data-target="#myModal" th:onclick="'poisto(\'' + ${merkinta.kayttaja.id} + '/poista/' + ${merkinta.id} + '\', ' + ${merkinta.id} + ')'"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></td>
             </tr>
           </tbody>
         </table>
@@ -127,8 +127,25 @@
 	</div>
 	</div>
 	<script type="text/javascript">
-	  var poisto = function(url) {
+	  var poisto = function(url, id) {
 		  $("#poistonappi").attr("href", url);
+		  $.get('/meduusa/hae-rest-merkinta?id=' + id, function(data) {
+			  $('#muokkaus-tunnit').children().each(function() {
+				 $(this).attr('selected', false);
+			  });
+			  $('#muokkaus-minuutit').children().each(function() {
+					 $(this).attr('selected', false);
+				  });
+			  var tunnit = Math.floor(data.tunnit).toFixed(0);
+			  var minuutit = ((data.tunnit - tunnit) * 60).toFixed(0);
+			  console.log(data);
+			  console.log(tunnit, minuutit);
+			  $('#merkintaId').val(id);
+			  $('#muokkaus-paivamaara').val(moment(data.paivamaara).format('DD.MM.YYYY'));
+			  $('#muokkaus-tunnit option[value=' + tunnit + ']').attr('selected', 'selected');
+			  $('#muokkaus-minuutit option[value=' + minuutit + ']').attr('selected', 'selected');
+			  $('#muokkaus-kuvaus').val(data.kuvaus);
+		  });
 	  }
 	</script>
   </body>

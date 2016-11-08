@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import me.nicou.tuntikirjaus.bean.EtusivunMerkinta;
 import me.nicou.tuntikirjaus.bean.Kayttaja;
@@ -121,6 +122,13 @@ public class ProjektiKontrolleri {
 		return "jasenen-merkinnat";
 	}
 	
+	@RequestMapping(value = "/hae-rest-merkinta", method = RequestMethod.GET)
+	public @ResponseBody Merkinta haeKayttajanMerkinta(
+			@RequestParam(value = "id", required = true) Integer id,
+			Principal principal) {
+		return projektiDao.haeYksiMerkinta(id, principal.getName());
+	}
+	
 	@RequestMapping(value = "/projekti/{projektiId}/jasen/{kayttajaId}/poista/{merkintaId}", method = RequestMethod.GET)
 	public String poistaKayttajanMerkinta(
 			@PathVariable Integer projektiId,
@@ -145,6 +153,71 @@ public class ProjektiKontrolleri {
 		}
 		
 		return "redirect:/projekti/" + projektiId + "/jasen/" + kayttajaId;
+	}
+	
+	@RequestMapping(value = "/projekti/muokkaa-merkintaa", method = RequestMethod.POST)
+	public String muokkaaMerkintaa(
+			Model model,
+			@RequestParam(value = "id", required = true) Integer merkintaId,
+			@RequestParam(value = "projektiId", required = true) Integer projektiId,
+			@RequestParam(value = "tunnit", required = true) String tunnit,
+			@RequestParam(value = "minuutit", required = true) String minuutit,
+			@RequestParam(value = "kuvaus", required = false) String kuvaus,
+			@RequestParam(value = "paivamaara", required = false) String paivamaara,
+			Principal principal) {
+		
+		String viesti = null;
+
+		try {
+			// Parsitaan integereiksi, voisi vetästä myös suoraan doubleksi
+			int tunnitInt = Integer.parseInt(tunnit);
+			int minuutitInt = Integer.parseInt(minuutit);
+
+			// Tehdään pienimuotoinen validointi
+			if ((tunnitInt >= 0 && tunnitInt < 13 && minuutitInt >= 0 && minuutitInt < 60)
+					&& tunnitInt + minuutitInt > 0) {
+				// Lasketaan tuntimäärä tunneista ja minuuteista doubleksi
+				double tunnitYht = Double.valueOf(tunnitInt)
+						+ (Double.valueOf(minuutitInt) / 60);
+				
+				if (kuvaus != null) {
+					kuvaus = kuvaus.trim();
+				}
+				
+				Kayttaja kayttaja = new KayttajaImpl();
+				kayttaja.setSahkoposti(principal.getName());
+				
+				SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+				
+				if (paivamaara == null != (paivamaara != null && !paivamaara.matches("^[\\d]{2}\\.[\\d]{2}\\.[\\d]{4}$"))) {
+					Date date = new Date();
+					paivamaara = sdf.format(date);
+				}
+				
+				Date date = sdf.parse(paivamaara);
+				
+				logger.info("Paivamaara: " + date);
+				
+				Merkinta merkinta = new MerkintaImpl();
+				merkinta.setId(merkintaId);
+				merkinta.setKayttaja(kayttaja);
+				merkinta.setTunnit(tunnitYht);
+				merkinta.setKuvaus(kuvaus);
+				merkinta.setPaivamaara(date);
+				
+				logger.info("Merkinnässä kaikki ok: " + merkinta.toString());
+				
+				if (projektiDao.muokkaaMerkintaa(merkinta)) {
+					logger.info("Merkinnän " + merkintaId + " muokkaus onnistui!");
+				} else {
+					logger.info("Merkinnän " + merkintaId + " muokkaus ei onnistunut!");
+				}
+			}
+			} catch (Exception ex) {
+				logger.error("Merkintää muokatessa tapahtui virhe " + ex);
+			}
+		
+		return "redirect:/projekti/" + projektiId;
 	}
 	
 	@RequestMapping(value = "projekti/{projektiId}/lisaajasen", method = RequestMethod.POST)
@@ -267,6 +340,7 @@ public class ProjektiKontrolleri {
 		return "redirect:/projekti/" + projektiId;
 		
 	}
+	
 	@RequestMapping(value = "/lisaa-projekti", method = RequestMethod.GET)
 	public String lisaaProjektiGet(Model model, Principal principal) {
 		Kayttaja kayttaja = kayttajaDao.haeKayttajaSahkopostilla(principal.getName());

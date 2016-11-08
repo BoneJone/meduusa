@@ -19,6 +19,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import me.nicou.tuntikirjaus.bean.Merkinta;
+import me.nicou.tuntikirjaus.bean.MerkintaImpl;
 import me.nicou.tuntikirjaus.bean.MerkintaLista;
 import me.nicou.tuntikirjaus.bean.MerkintaListaImpl;
 import me.nicou.tuntikirjaus.bean.Projekti;
@@ -221,6 +222,27 @@ public class ProjektiDaoImpl implements ProjektiDao {
 			return jdbcTemplate.update(sql, new Object[] { lisattavaSahkoposti, projektiId }) == 1;
 		} catch (Exception ex) {
 			logger.error("Projektin jäsentä lisätessä tapahtui virhe: " + ex);
+		}
+		return false;
+	}
+	
+	public Merkinta haeYksiMerkinta(int merkintaId, String sahkoposti) {
+		String sql = "SELECT k.id AS kayttaja_id, m.id AS merkinta_id, sahkoposti, etunimi, sukunimi, paivamaara, tunnit, kuvaus FROM Merkinnat m JOIN Kayttajat k ON m.kayttaja_id = k.id WHERE m.id = ? AND m.kayttaja_id = (SELECT id FROM Kayttajat WHERE sahkoposti = ?)";
+		try {
+			RowMapper<Merkinta> mapper = new MerkintaRowMapper();
+			return jdbcTemplate.query(sql, new Object[] { merkintaId, sahkoposti }, mapper).get(0);
+		} catch (Exception ex) {
+			logger.error("Käyttäjän merkinnän haku ei onnistunut");
+		}
+		return new MerkintaImpl();
+	}
+	
+	public boolean muokkaaMerkintaa(Merkinta merkinta) {
+		String sql = "UPDATE Merkinnat SET tunnit = ?, kuvaus = ?, paivamaara = ? WHERE id = ? AND kayttaja_id = (SELECT id FROM Kayttajat WHERE sahkoposti = ?)";
+		try {
+			return jdbcTemplate.update(sql, new Object[] { merkinta.getTunnit(), merkinta.getKuvaus(), merkinta.getPaivamaara(), merkinta.getId(), merkinta.getKayttaja().getSahkoposti() }) == 1;
+		} catch (Exception ex) {
+			logger.error("Error merkintää päivittäessä " + ex);
 		}
 		return false;
 	}
