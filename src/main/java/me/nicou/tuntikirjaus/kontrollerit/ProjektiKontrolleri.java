@@ -3,6 +3,11 @@ package me.nicou.tuntikirjaus.kontrollerit;
 import java.security.Principal;
 import java.util.List;
 
+import javax.validation.Valid;
+import javax.inject.Inject;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -260,43 +265,47 @@ public class ProjektiKontrolleri {
 			Model model,
 			@RequestParam(value = "nimi", required = true) String nimi,
 			@RequestParam(value = "kuvaus", required = true) String kuvaus,
-			Principal principal
+			Principal principal, @Valid ProjektiImpl projekti, BindingResult result
 			) {
-		int projektiId = 0;
 		
-		if (nimi.length() < 100 && kuvaus.length() < 200) {
-			Projekti projekti = new ProjektiImpl();
-			projekti.setNimi(nimi);
-			projekti.setKuvaus(kuvaus);
+		if (result.hasErrors()) {
+			logger.info("Projektin validointi epäonnistui, projektia ei lisätty tietokantaan!");
+			return "redirect:/lisaa-projekti";
+		} else {
+			int projektiId = 0;
+			Projekti projektilisays = new ProjektiImpl();
+			projektilisays.setNimi(nimi);
+			projektilisays.setKuvaus(kuvaus);
 			projektiId = projektiDao.lisaaProjekti(projekti, principal.getName());
-		}
-		
-		if (projektiId > 0) {
-			return "redirect:/projekti/" + projektiId;
-		}
-		
-		return lisaaProjektiGet(model, principal);
-	}
-	
+			
+			if (projektiId > 0) {
+				return "redirect:/projekti/" + projektiId;
+			}
+			logger.info("Projektin lisäys onnistui!");
+			return lisaaProjektiGet(model, principal);
+			}
+		}		
+			
 	@RequestMapping(value = "/rekisteroidy", method = RequestMethod.POST)
 	public String rekisteroidy(
 			Model model,
 			@RequestParam(value = "etunimi", required = true) String etunimi,
 			@RequestParam(value = "sukunimi", required = true) String sukunimi,
 			@RequestParam(value = "sahkoposti", required = true) String sahkoposti,
-			@RequestParam(value = "salasana", required = true) String salasana
-			) {
+			@RequestParam(value = "salasana", required = true) String salasana,
+			 @Valid KayttajaImpl kayttaja, BindingResult result ) {
 		
-		// @TODO: Kunnon validoinnit
-		if (etunimi.trim().length() > 2 && sukunimi.trim().length() > 2 && sahkoposti.trim().length() > 4 && salasana.length() > 5) {
+		if (result.hasErrors()) {
+			return "redirect:/kirjaudu?regfail";
+		} else {
 			String salasanaTiiviste = BCrypt.hashpw(salasana, BCrypt.gensalt(10));
-			if (kayttajaDao.rekisteroiKayttaja(etunimi.trim(), sukunimi.trim(), sahkoposti.trim(), salasanaTiiviste)) {
+			if (kayttajaDao.rekisteroiKayttaja(etunimi, sukunimi, sahkoposti, salasanaTiiviste)) {
 				logger.info("Uusi käyttäjä rekisteröity!");
 				return "redirect:/kirjaudu?regok";
+			} else {
+				logger.info("Käyttäjän rekisteröinti epäonnistui!");
+				return "redirect:/kirjaudu?regfail";
 			}
 		}
-		return "redirect:/kirjaudu?regfail";
 	}
-
-	
 }
