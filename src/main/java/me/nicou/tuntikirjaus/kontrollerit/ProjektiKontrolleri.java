@@ -154,7 +154,6 @@ public class ProjektiKontrolleri {
 				
 		if (result.hasErrors()) {
 			logger.info("Käyttäjän " + sahkoposti + " lisäys projektiin " + projektiId + " ei onnistunut");
-			return "redirect:/projekti/" + projektiId;
 		} else {
 			boolean success = projektiDao.lisaaJasenProjektiin(projektiId, sahkoposti.trim(), principal.getName());
 			
@@ -163,8 +162,8 @@ public class ProjektiKontrolleri {
 			} else {
 				logger.info("Käyttäjän " + sahkoposti + " lisäys projektiin " + projektiId + " ei onnistunut");
 			}
-			return "redirect:/projekti/" + projektiId;
 		}
+		return "redirect:/projekti/" + projektiId;
 	}
 	
 	@RequestMapping(value = "/projekti/lisaamerkinta", method = RequestMethod.POST)
