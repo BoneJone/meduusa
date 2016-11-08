@@ -3,6 +3,7 @@
   <head>
     <title th:text="${'Meduusa | ' + projekti.nimi}"></title>
     <th:block th:include="common :: header"></th:block>
+    <th:block th:include="common :: skriptit"></th:block>
   </head>
   <body>
 
@@ -125,8 +126,6 @@
     <div th:include="common :: lisaajasen"></div>       
     
 </div></div></div>
-
-	<th:block th:include="common :: skriptit"></th:block>
     <script>
     if (document.location.pathname.indexOf("/meduusa/projekti/1/lisaa") == 0) {
     	$(".alerttitesti").removeClass("piilotus");

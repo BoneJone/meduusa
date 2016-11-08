@@ -1,13 +1,16 @@
 package me.nicou.tuntikirjaus.kontrollerit;
 
 import java.security.Principal;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
 import javax.inject.Inject;
+
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -171,6 +174,7 @@ public class ProjektiKontrolleri {
 			@RequestParam(value = "tunnit", required = true) String tunnit,
 			@RequestParam(value = "minuutit", required = true) String minuutit,
 			@RequestParam(value = "kuvaus", required = false) String kuvaus,
+			@RequestParam(value = "paivamaara", required = false) String paivamaara,
 			@RequestParam(value = "slack", required = false) String slack[],
 			Principal principal) {
 		
@@ -197,10 +201,22 @@ public class ProjektiKontrolleri {
 				Kayttaja kayttaja = new KayttajaImpl();
 				kayttaja.setSahkoposti(principal.getName());
 				
+				SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+				
+				if (paivamaara == null != (paivamaara != null && !paivamaara.matches("^[\\d]{2}\\.[\\d]{2}\\.[\\d]{4}$"))) {
+					Date date = new Date();
+					paivamaara = sdf.format(date);
+				}
+				
+				Date date = sdf.parse(paivamaara);
+				
+				logger.info("Paivamaara: " + date);
+				
 				Merkinta merkinta = new MerkintaImpl();
 				merkinta.setKayttaja(kayttaja);
 				merkinta.setTunnit(tunnitYht);
 				merkinta.setKuvaus(kuvaus);
+				merkinta.setPaivamaara(date);
 				
 				logger.info("Merkinnässä kaikki ok: " + merkinta.toString());
 				

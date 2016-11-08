@@ -150,8 +150,8 @@ public class ProjektiDaoImpl implements ProjektiDao {
 
 		logger.info("Käyttäjä kuuluu projektiin, lisätään merkintä");
 		
-		sql = "INSERT INTO Merkinnat (kayttaja_id, projekti_id, tunnit, kuvaus) VALUES(?, ?, ?, ?)";
-		Object[] parametrit = { kayttaja, projektiId, merkinta.getTunnit(), merkinta.getKuvaus() };
+		sql = "INSERT INTO Merkinnat (kayttaja_id, projekti_id, paivamaara, tunnit, kuvaus) VALUES(?, ?, ?, ?, ?)";
+		Object[] parametrit = { kayttaja, projektiId, merkinta.getPaivamaara(), merkinta.getTunnit(), merkinta.getKuvaus() };
 		return jdbcTemplate.update(sql, parametrit);
 	}
 	

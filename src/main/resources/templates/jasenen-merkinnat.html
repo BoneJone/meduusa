@@ -3,6 +3,7 @@
   <head>
     <title th:text="${'Meduusa | ' + projekti.nimi}"></title>
     <th:block th:include="common :: header"></th:block>
+    <th:block th:include="common :: skriptit"></th:block>
   </head>
   <body>
 
@@ -125,8 +126,6 @@
 	</div>
 	</div>
 	</div>
-
-    <th:block th:include="common :: skriptit"></th:block>
 	<script type="text/javascript">
 	  var poisto = function(url) {
 		  $("#poistonappi").attr("href", url);
