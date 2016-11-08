@@ -8,9 +8,20 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/css/styles.css" th:href="@{/css/styles.css}" />
+    <link rel="stylesheet" href="/css/bootstrap-datetimepicker.min.css" th:href="@{/css/bootstrap-datetimepicker.min.css}" />
     <link rel="shortcut icon" href="/favicon.ico?" th:href="@{/favicon.ico?}" type="image/x-icon" />
     <script src="https://use.fontawesome.com/b3b209c0c2.js"></script>
 </head>
+
+<!-- SKRIPTIT -->
+<th:block th:fragment="skriptit">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js"></script>
+    <script th:src="@{/js/moment.min.js}"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/js/bootstrap.min.js"></script>
+    <script th:src="@{/js/bootstrap-datetimepicker.min.js}"></script>
+</th:block>
+
 <body>
 <!-- NAVPALKKI -->
 <div th:fragment="navpalkki">
@@ -195,6 +206,42 @@
               	</select>
               </div>
               </div>
+              
+              <div class="row">
+              <div class="col-xs-12">
+              <div class="form-group">
+              <label><strong>Päivämäärä (i18n puuttuu)</strong></label>
+              	<div class="input-group date" id="paivamaaravalitsin">
+              	<input type="text" class="form-control" />
+              	<span class="input-group-addon">
+              		<i class="fa fa-calendar" aria-hidden="true"></i>
+              	</span>
+              	</div>
+              	<script type="text/javascript">
+				$(function () {
+					moment.updateLocale('en', {
+						week: { dow: 1 }
+					});
+					$('#paivamaaravalitsin').datetimepicker({
+						format: 'DD.MM.YYYY',
+						icons: {
+							previous: 'fa fa-angle-left',
+							next: 'fa fa-angle-right'
+						},
+						useCurrent: true,
+						defaultDate: moment(),
+						maxDate: moment(),
+						widgetPositioning: {
+							horizontal: 'right',
+							vertical: 'auto'
+						}
+					});
+				});
+				</script>
+              </div>
+              </div>
+              </div>
+              
               <div class="form-group row">
                 <div class="col-xs-6">
                   <label><strong><span th:text="#{proj.projekti.tunnit}"></span></strong></label>
