@@ -102,10 +102,10 @@
       <!-- muokkaabtn modaali -->
       <div th:fragment="muokkaabtn">
       <div class="modal fade" id="myModal" role="dialog" aria-hidden="true">
-      <input type="hidden" name="id" id="merkintaId" value="0" />
-      <input type="hidden" name="projektiId" id="projektiId" th:value="${projekti.id}" />
         <div class="modal-dialog" role="document">
         <form th:action="@{/projekti/muokkaa-merkintaa}" method="post">
+      <input type="hidden" name="id" id="merkintaId" value="0" />
+      <input type="hidden" name="projektiId" id="projektiId" th:value="${projekti.id}" />
           <div class="modal-content">
             <div class="modal-header modaaliotsikko">
               <button type="button" class="close modaaliotsikko" data-dismiss="modal" aria-label="Close">
