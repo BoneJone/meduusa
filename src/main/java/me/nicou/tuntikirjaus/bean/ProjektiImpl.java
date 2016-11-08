@@ -2,11 +2,21 @@ package me.nicou.tuntikirjaus.bean;
 
 import java.util.Date;
 
+//Validaattorit
+import javax.validation.constraints.Size;
+import javax.validation.constraints.Pattern;
+
 public class ProjektiImpl implements Projekti {
 
 	int id;
-	String nimi;
-	String kuvaus;
+	
+	@Pattern(regexp = "[\\sA-ZÅÄÖa-zåäö-]{2,254}")
+	// Hyväksyy välilyönnit, A-Z, a-z, skandit ja merkkimäärä 2-254.
+	private String nimi;
+	
+	@Size (min = 2, max = 2000)
+	private String kuvaus;
+	
 	Date luontipaiva;
 	MerkintaLista merkintaLista;
 	double yhteistunnit;
