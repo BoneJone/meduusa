@@ -105,6 +105,7 @@
         <div class="modal-dialog" role="document">
         <form th:action="@{/projekti/muokkaa-merkintaa}" method="post">
       <input type="hidden" name="id" id="merkintaId" value="0" />
+      <input type="hidden" name="kayttajaId" id="kayttajaId" th:value="${kayttajaId}" />
       <input type="hidden" name="projektiId" id="projektiId" th:value="${projekti.id}" />
           <div class="modal-content">
             <div class="modal-header modaaliotsikko">

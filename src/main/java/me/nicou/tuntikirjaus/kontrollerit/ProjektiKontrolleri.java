@@ -113,6 +113,7 @@ public class ProjektiKontrolleri {
 		model.addAttribute("kayttaja", kayttaja);
 		model.addAttribute("projekti", projekti);
 		model.addAttribute("yhteistunnit", yhteistunnit);
+		model.addAttribute("kayttajaId", kayttajaId);
 		
 		// @TODO: Keksitään fiksumpi tapa, mutta nyt pitää includee nää joka hakuun
 		// jotta saadaan sidebariin projektit näkyviin
@@ -160,6 +161,7 @@ public class ProjektiKontrolleri {
 			Model model,
 			@RequestParam(value = "id", required = true) Integer merkintaId,
 			@RequestParam(value = "projektiId", required = true) Integer projektiId,
+			@RequestParam(value = "kayttajaId", required = true) Integer kayttajaId,
 			@RequestParam(value = "tunnit", required = true) String tunnit,
 			@RequestParam(value = "minuutit", required = true) String minuutit,
 			@RequestParam(value = "kuvaus", required = false) String kuvaus,
@@ -217,7 +219,7 @@ public class ProjektiKontrolleri {
 				logger.error("Merkintää muokatessa tapahtui virhe " + ex);
 			}
 		
-		return "redirect:/projekti/" + projektiId;
+		return "redirect:/projekti/" + projektiId + "/jasen/" + kayttajaId;
 	}
 	
 	@RequestMapping(value = "projekti/{projektiId}/lisaajasen", method = RequestMethod.POST)
