@@ -314,6 +314,7 @@ body {
 	width: 36px;
 	height: 36px;
 	border-radius: 50px;
+	margin-right: 8px;
 }
 .profiilikuva-iso {
 	width: 100px;
@@ -569,13 +570,6 @@ a, a:active, a:focus, button, button:active, button:focus  {
 	outline: 0;
 }
 
-/* Projekti-sivulla tiimin jäsenissä yhteistuntien tagi */
-.tagi-yhteistunnit {
-	font-size: 1em;
-	vertical-align: middle;
-	margin: auto;
-}
-
 /* Yleinen kiva varjo jonka voi antaa bokseille */
 .boksivarjo {
 	box-shadow: 2px 2px 8px 3px rgba(0, 0, 0, 0.1);
@@ -594,4 +588,9 @@ a, a:active, a:focus, button, button:active, button:focus  {
 /* Valkonen tausta containerille */
 .valkotausta {
 	background-color: #fff;
+}
+
+/* Vihreä väri yhteistuntien tekstille */
+.vihrea {
+	color: #2a752f;
 }

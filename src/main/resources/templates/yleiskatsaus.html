@@ -32,7 +32,10 @@
 		</div>
 		</div>
 		<div class="col-xs-12 col-md-2 media-right etusivu-kokonaistunnit text-xs-center">
-			<h1 th:text="${yhteistunnit + 'h'}"></h1>
+			<h1>
+			<span th:if="${T(Math).floor(yhteistunnit) > 0}"><span th:text="${#numbers.formatDecimal(T(Math).floor(yhteistunnit), 0, 0)}"></span><small>h</small></span>
+			<span th:if="${yhteistunnit - T(Math).floor(yhteistunnit) > 0}"><span th:text="${#numbers.formatDecimal((yhteistunnit - T(Math).floor(yhteistunnit)) * 60, 0, 0)}"></span><small>min</small></span>
+			</h1>
 			<p class="text-muted"><small th:text="#{kayt.yleiskatsaus.paivat}"></small></p>
 		</div>
 		</div>

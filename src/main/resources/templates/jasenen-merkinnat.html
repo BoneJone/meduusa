@@ -41,9 +41,14 @@
               <li class="list-group-item active"><span th:text="#{proj.projekti.jasenet}"></span></li>
               <span th:each="merkinta : ${yhteistunnit}">
 	              <a th:href="${merkinta.tunnit > 0} ? @{'/projekti/' + ${projekti.id} + '/jasen/' + ${merkinta.kayttaja.id}} : '#!'" class="list-group-item list-group-item-action" th:classappend="${merkinta.tunnit == 0} ? 'disabled'">
-	              	<img src="/img/placeholder.jpg" th:src="@{/img/placeholder.jpg}" class="profiilikuva" alt="Profiilikuva" />
-	              	<span class="tag tag-pill pull-xs-right tagi-yhteistunnit" th:text="${merkinta.tunnit + 'h'}" th:classappend="${merkinta.tunnit > 0} ? 'tag-success' : 'tag-default'"></span>
-	              	<span th:text="${merkinta.kayttaja.etunimi + ' ' + merkinta.kayttaja.sukunimi}"></span>
+	              	<img src="/img/placeholder.jpg" th:src="@{/img/placeholder.jpg}" class="profiilikuva pull-xs-left" alt="Profiilikuva" />
+	              	<strong th:text="${merkinta.kayttaja.etunimi + ' ' + merkinta.kayttaja.sukunimi}"></strong><br />
+	              	<span th:class="${merkinta.tunnit > 0 ? 'vihrea' : ''}">
+   						<span th:if="${T(Math).floor(merkinta.tunnit) > 0}"><span th:text="${#numbers.formatDecimal(T(Math).floor(merkinta.tunnit), 0, 0)}"></span>h</span>
+    					<span th:if="${merkinta.tunnit - T(Math).floor(merkinta.tunnit) > 0}"><span th:text="${#numbers.formatDecimal((merkinta.tunnit - T(Math).floor(merkinta.tunnit)) * 60, 0, 0)}"></span>min</span>
+	              		<span th:if="${merkinta.tunnit > 0}" th:text="#{proj.aika.yhteensa}"></span>
+	              		<span th:if="${merkinta.tunnit == 0}" th:text="#{proj.projekti.eimerkintoja}"></span>
+	              	</span>
 	              </a>
               </span>
             </div>
@@ -78,7 +83,7 @@
               	<span th:if="${merkinta.tunnit >= 1}" th:text="${#numbers.formatDecimal(T(Math).floor(merkinta.tunnit), 0, 0) + 'h'}"></span>
               	<span th:if="${merkinta.tunnit - T(Math).floor(merkinta.tunnit) > 0}" th:text="${#numbers.formatDecimal((merkinta.tunnit - T(Math).floor(merkinta.tunnit)) * 60, 0, 0) + 'min'}"></span>
               </td>
-              <td class="col-md-2" th:text="${merkinta.kayttaja.etunimi + ' ' + merkinta.kayttaja.sukunimi}"></td>
+              <td class="col-md-2"><small th:text="${merkinta.kayttaja.etunimi + ' ' + merkinta.kayttaja.sukunimi}"></small></td>
               <td class="col-md-1"><small class="text-muted" th:text="${#dates.format(merkinta.paivamaara, 'dd.MM.yyy')}"></small></td>
               <td class="col-md-6"><small class="text-muted" th:text="${merkinta.kuvaus}"></small></td>
               <td class="col-md-1"><button th:if="${merkinta.kayttaja.id == kayttaja.id}" type="button" class="btn btn-primary btn-sm muokkaabtn" data-toggle="modal" data-target="#myModal" th:onclick="'poisto(\'' + ${merkinta.kayttaja.id} + '/poista/' + ${merkinta.id} + '\', ' + ${merkinta.id} + ')'"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></td>
