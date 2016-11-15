@@ -357,8 +357,6 @@ public class ProjektiKontrolleri {
 	@RequestMapping(value = "/lisaa-projekti", method = RequestMethod.POST)
 	public String lisaaProjektiPost(
 			Model model,
-			@RequestParam(value = "nimi", required = true) String nimi,
-			@RequestParam(value = "kuvaus", required = true) String kuvaus,
 			Principal principal, @Valid ProjektiImpl projekti, BindingResult result
 			) {
 		
@@ -367,9 +365,6 @@ public class ProjektiKontrolleri {
 			return lisaaProjektiGet(model, principal, projekti);
 		} else {
 			int projektiId = 0;
-			Projekti projektilisays = new ProjektiImpl();
-			projektilisays.setNimi(nimi);
-			projektilisays.setKuvaus(kuvaus);
 			projektiId = projektiDao.lisaaProjekti(projekti, principal.getName());
 			
 			if (projektiId > 0) {
@@ -387,7 +382,7 @@ public class ProjektiKontrolleri {
 			@RequestParam(value = "sukunimi", required = true) String sukunimi,
 			@RequestParam(value = "sahkoposti", required = true) String sahkoposti,
 			@RequestParam(value = "salasana", required = true) String salasana,
-			 @Valid KayttajaImpl kayttaja, BindingResult result ) {
+			@Valid KayttajaImpl kayttaja, BindingResult result ) {
 		
 		if (result.hasErrors()) {
 			return "redirect:/kirjaudu?regfail";
