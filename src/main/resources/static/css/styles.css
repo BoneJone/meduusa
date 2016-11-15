@@ -70,14 +70,14 @@ body {
 
 .sivupalkki ul {
 	padding-top: 10px;
+	
 }
-
 
 .sivupalkki ul li a {
 	padding-left: 10px;
 	font-weight: bold;
 	color: #adbcc4 !important;
-	line-height: 2;
+	line-height: 3;
 	font-size: 16px;
 	cursor: pointer;
 	display: block;
@@ -93,9 +93,11 @@ body {
 	text-decoration: none;
 	color: #d9eef9 !important;
 	background: #151b1e;
+	
 }
 .sivupalkki .active {
 	background:#151b1e;
+	border-left: 5px solid #2ebcfc;
 }
 .sivupalkki .active a {
 	color: #adbcc4 !important;
@@ -155,30 +157,31 @@ body {
 	margin-left: -20px;
 	margin-top: -15px;
 }
+
 .projektisisalto .active {
 	background:none;
 	font-weight: bold !important;
 	color: red;
+	border-left: none !important;
 }
 .projektisisalto .active:before {
-	font-family: "FontAwesome";
-	content:"\f105";
+	content:"|";
 	float:left;
-	color: #d9eef9;
-	line-height: 1.8em;
+	color: #2ebcfc !important;
+	line-height: 2.4em;
 }
 
 .projektisisalto ul li a {
 	list-style-type: none;
 	font-size: 16px;
 	font-weight: normal;
+	line-height: 2.5;
 }
 .projektisisalto ul li a:hover {
 	background: none;
 }
 .projektisisalto span {
-	font-weight: bold;
-	
+	font-weight: bold;	
 }
 /* Content etusivulla  */
 .etusivu-sisalto {
