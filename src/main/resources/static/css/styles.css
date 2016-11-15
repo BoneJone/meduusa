@@ -14,32 +14,40 @@ body {
 }
 
 .ylapalkki button {
-	background-color: #2ebcfc;
-	border: 1px solid white;
-	color: white;
+	background-color: #222c31;
+	border: none;
+	color: #fff;
+	box-shadow: 0 1px 4px rgba(0,0,0,0.2);
 	margin: 7px;
 	outline: none;
-	-o-transition: backgr	ound-color 0.2s linear;
+	-o-transition: background-color 0.2s linear;
 	-moz-transition: background-color 0.2s linear;
 	-khtml-transition: background-color 0.2s linear;
 	-webkit-transition: background-color 0.2s linear;
 	-ms-transition: background-color 0.2s linear;
 	transition: background-color 0.2s linear;
 }
-.lisaamerkintabtn {
-	width: 170px;
+.ylapalkki button:active {
+	outline: none !important;
+	border: none !important;
+	background-color: #222c31 !important;
+	color: #fff !important;
+	transform: scale(0.97);
 }
 .ylapalkki button:focus {
 	outline: none !important;
-	border: 1px solid #fff !important;
-	background-color: #5ac7f8 !important;
-	color: #fff;
-}
-
+	border: none !important;
+	background-color: #222c31 !important;
+	color: #fff !important;
+	}
 .ylapalkki button:hover {
-	border: 1px solid white;
-	background-color: #5ac7f8;
+	background: #222c31;
+	font-weight:bold;
 	color: #fff;
+	box-shadow: 0 5px 6px rgba(0,0,0,0.3);
+}
+.lisaamerkintabtn {
+	width: 170px;
 }
 
 .nav-logo {
