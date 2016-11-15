@@ -4,17 +4,21 @@ import java.util.Date;
 
 //Validaattorit
 import javax.validation.constraints.Size;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 public class ProjektiImpl implements Projekti {
 
 	int id;
 	
-	@Pattern(regexp = "[\\sA-ZÅÄÖa-zåäö-]{2,254}")
-	// Hyväksyy välilyönnit, A-Z, a-z, skandit ja merkkimäärä 2-254.
+	@NotNull
+	@Size (min = 2, max = 255, message = "Nimen on oltava 2-255 merkkiä pitkä")
+	@Pattern(regexp = "[\\s\\dA-ZÅÄÖa-zåäö-]{2,255}", message = "Nimessä oli virheellisiä merkkejä")
+	// Hyväksyy välilyönnit, A-Z, a-z, numerot, skandit ja merkkimäärä 2-255.
 	private String nimi;
 	
-	@Size (min = 2, max = 2000)
+	@NotNull
+	@Size (min = 2, max = 2000, message = "Kuvauksen on oltava 2-255 merkkiä pitkä")
 	private String kuvaus;
 	
 	Date luontipaiva;

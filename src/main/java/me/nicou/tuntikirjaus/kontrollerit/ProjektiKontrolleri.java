@@ -344,7 +344,7 @@ public class ProjektiKontrolleri {
 	}
 	
 	@RequestMapping(value = "/lisaa-projekti", method = RequestMethod.GET)
-	public String lisaaProjektiGet(Model model, Principal principal) {
+	public String lisaaProjektiGet(Model model, Principal principal, ProjektiImpl projekti) {
 		Kayttaja kayttaja = kayttajaDao.haeKayttajaSahkopostilla(principal.getName());
 		List<Projekti> projektit = projektiDao.haeKayttajanProjektit(principal.getName());
 		List<EtusivunMerkinta> merkinnat = kayttajaDao.haeEtusivunMerkinnat(principal.getName());
@@ -364,7 +364,7 @@ public class ProjektiKontrolleri {
 		
 		if (result.hasErrors()) {
 			logger.info("Projektin validointi epäonnistui, projektia ei lisätty tietokantaan!");
-			return "redirect:/lisaa-projekti";
+			return lisaaProjektiGet(model, principal, projekti);
 		} else {
 			int projektiId = 0;
 			Projekti projektilisays = new ProjektiImpl();
@@ -376,7 +376,7 @@ public class ProjektiKontrolleri {
 				return "redirect:/projekti/" + projektiId;
 			}
 			logger.info("Projektin lisäys onnistui!");
-			return lisaaProjektiGet(model, principal);
+			return lisaaProjektiGet(model, principal, projekti);
 			}
 		}		
 			
