@@ -21,18 +21,13 @@
   <h1 th:text="#{proj.common.luoprojekti}"></h1><br />
 <form method="post" th:action="@{'/lisaa-projekti'}" th:object="${projektiImpl}">
   <div class="form-group" th:classappend="${#fields.hasErrors('nimi')} ? 'has-danger'">
-    <label class="form-control-label" for="nimi" th:text="#{proj.common.projektinimi}"></label>
+    <label for="nimi" th:text="#{proj.common.projektinimi}"></label>
     <input type="text" class="form-control" id="nimi" name="nimi" th:field="*{nimi}" th:classappend="${#fields.hasErrors('nimi')} ? 'form-control-danger'"/>
     <div class="form-control-feedback" th:errors="*{nimi}" th:text="#{error.projekti.nimi}">Nimi errori</div>
   </div>
   
-  <!-- th:text="#{proj.projekti.tiimimerk}">
-      <div class="form-control-feedback" th:errors="*{nimi}" th:text="#{projekti.nimi}">Nimi errori</div>
-  
-  -->
-  
   <div class="form-group" th:classappend="${#fields.hasErrors('kuvaus')} ? 'has-danger'">
-    <label class="form-control-label" for="projektinkuvaus" th:text="#{proj.common.projektinkuvaus}">Projektin kuvaus</label>
+    <label for="projektinkuvaus" th:text="#{proj.common.projektinkuvaus}">Projektin kuvaus</label>
     <textarea class="form-control noresize" id="projektinkuvaus" name="kuvaus" th:field="*{kuvaus}" th:classappend="${#fields.hasErrors('kuvaus')} ? 'form-control-danger'"></textarea>
     <div class="form-control-feedback" th:errors="*{kuvaus}" th:text="#{error.projekti.kuvaus}">Kuvaus errori</div>
   </div>
