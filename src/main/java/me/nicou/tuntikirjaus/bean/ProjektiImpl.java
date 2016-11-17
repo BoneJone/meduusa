@@ -12,13 +12,13 @@ public class ProjektiImpl implements Projekti {
 	int id;
 	
 	@NotNull
-	@Size (min = 2, max = 255, message = "Nimen on oltava 2-255 merkkiä pitkä")
-	@Pattern(regexp = "[\\s\\dA-ZÅÄÖa-zåäö-]{2,255}", message = "Nimessä oli virheellisiä merkkejä")
+	@Size (min = 2, max = 255)
+	@Pattern(regexp = "[\\s\\dA-ZÅÄÖa-zåäö-]{2,255}")
 	// Hyväksyy välilyönnit, A-Z, a-z, numerot, skandit ja merkkimäärä 2-255.
 	private String nimi;
 	
 	@NotNull
-	@Size (min = 2, max = 2000, message = "Kuvauksen on oltava 2-255 merkkiä pitkä")
+	@Size (min = 2, max = 2000)
 	private String kuvaus;
 	
 	Date luontipaiva;
