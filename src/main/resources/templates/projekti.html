@@ -141,7 +141,9 @@
     	    }, 8000);
     }
     </script>
-
+    <script th:if="${viesti == 'Tuntivirhe'}">
+		$('#merkintaModal').modal('show');
+	</script>
 
   </body>
 </html>

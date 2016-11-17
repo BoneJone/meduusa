@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import me.nicou.tuntikirjaus.bean.EtusivunMerkinta;
 import me.nicou.tuntikirjaus.bean.Kayttaja;
@@ -66,6 +67,7 @@ public class ProjektiKontrolleri {
 	public String haeProjektinTiedot(
 			@PathVariable Integer id,
 			@RequestParam(value = "p", required = false) Integer sivunumero,
+			@ModelAttribute("viesti") String viesti,
 			Model model,
 			Principal principal) {
 		
@@ -88,6 +90,7 @@ public class ProjektiKontrolleri {
 		// jotta saadaan sidebariin projektit näkyviin
 		List<Projekti> projektit = projektiDao.haeKayttajanProjektit(principal.getName());
 		model.addAttribute("projektit", projektit);
+		model.addAttribute("viesti", viesti);
 		
 		return "projekti";
 	}
@@ -253,12 +256,13 @@ public class ProjektiKontrolleri {
 			@RequestParam(value = "kuvaus", required = false) String kuvaus,
 			@RequestParam(value = "paivamaara", required = false) String paivamaara,
 			@RequestParam(value = "slack", required = false) String slack[],
-			Principal principal) {
+			RedirectAttributes redirectAttributes,
+			Principal principal, @Valid MerkintaImpl merkintavalidointi, BindingResult result) {
 		
 		logger.info("Tultiin kirjaamaan tuntimerkintää");
 		
 		String viesti = null;
-
+		
 		try {
 			// Parsitaan integereiksi, voisi vetästä myös suoraan doubleksi
 			int tunnitInt = Integer.parseInt(tunnit);
@@ -328,7 +332,8 @@ public class ProjektiKontrolleri {
 					viesti = "Merkintää tallentaessa tapahtui ODOTTAMATON virhe!";
 				}
 			} else {
-				viesti = "Virhe! Tuntien määrä oltava 1-12h";
+				logger.info("Virheellinen tuntimäärä");
+				viesti = "Tuntivirhe";
 			}
 
 		} catch (Exception ex) {
@@ -336,7 +341,7 @@ public class ProjektiKontrolleri {
 		}
 			
 		if (viesti != null) {
-			model.addAttribute("viesti", viesti);
+			redirectAttributes.addFlashAttribute("viesti", viesti);
 		}	
 		
 		return "redirect:/projekti/" + projektiId;

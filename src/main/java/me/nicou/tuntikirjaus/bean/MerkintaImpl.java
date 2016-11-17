@@ -2,12 +2,24 @@ package me.nicou.tuntikirjaus.bean;
 
 import java.util.Date;
 
+
+//Validaattorit
+import javax.validation.constraints.Size;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.DecimalMin;
+
 public class MerkintaImpl implements Merkinta {
 
 	int id;
 	Date paivamaara;
+	
+	@DecimalMin ("0.25")
 	double tunnit;
+	
+	@Size (max = 5000)
 	String kuvaus;
+	
+	@NotNull
 	Kayttaja kayttaja;
 
 	public MerkintaImpl() {
