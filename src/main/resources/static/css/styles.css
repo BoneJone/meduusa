@@ -605,3 +605,8 @@ a, a:active, a:focus, button, button:active, button:focus  {
 .vihrea {
 	color: #2a752f;
 }
+
+/* Pienempi fontti form validation erroreille */
+.form-control-feedback {
+	font-size: 0.8em;
+}

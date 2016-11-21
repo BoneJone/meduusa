@@ -328,7 +328,7 @@
               <div class="form-group row">
                 <div class="col-xs-6">
                   <label><strong><span th:text="#{proj.projekti.tunnit}"></span></strong></label>
-                  <select class="form-control merkintaformi" name="tunnit">
+                  <select class="form-control merkintaformi" name="tunnit" id="lisays-tunnit">
                     <option value="0">0 h</option>
                     <option value="1" selected="selected">1 h</option>
                     <option value="2">2 h</option>
@@ -346,7 +346,7 @@
                 </div>
                 <div class="col-xs-6">
                   <label><strong><span th:text="#{proj.projekti.minuutit}"></span></strong></label>
-                  <select class="form-control merkintaformi" name="minuutit">
+                  <select class="form-control merkintaformi" name="minuutit" id="lisays-minuutit">
                     <option value="0" selected="selected">0 min</option>
                     <option value="15">15 min</option>
                     <option value="30">30 min</option>
@@ -383,6 +383,16 @@
           </form>
         </div><!-- /.modal-dialog -->
       </div><!-- /.modal -->
+      	<script type="text/javascript">
+		$("#lisays-tunnit").change(function() {
+			if (this.value == 0) {
+				$("#lisays-minuutit option[value='15']").prop("selected", true);
+				$("#lisays-minuutit option[value='0']").remove();
+			} else if ($("#lisays-minuutit option[value='0']") != null) {
+				$("#lisays-minuutit option:first").before('<option value="0">0 min</option>');
+			}
+		});
+		</script>
      </div>
      
      <!-- Projektin nimi ja kuvaus -->
