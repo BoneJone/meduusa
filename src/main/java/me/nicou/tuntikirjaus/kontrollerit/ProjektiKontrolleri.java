@@ -92,6 +92,10 @@ public class ProjektiKontrolleri {
 		model.addAttribute("projektit", projektit);
 		model.addAttribute("viesti", viesti);
 		
+		if (kayttaja == null) {
+			return "redirect:/";
+		}
+		
 		return "projekti";
 	}
 	
