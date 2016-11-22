@@ -467,9 +467,8 @@
               </button>
               <h4 class="modal-title"><span th:text="#{proj.projekti.poistumisvarmistus}"></span></h4>
               <input type="hidden" name="kayttajaId" id="kayttajaId" th:value="${kayttajaId}" />
-      		  <input type="hidden" name="projektiId" id="projektiId" th:value="${projekti.id}" />
-            </div>
-                        
+      		  <input type="hidden" name="projektiId" id="projektiId" th:value="${projekti.id}" />      		  
+      		  </div>                        
             <div class="modal-footer">
     		  <button type="button" class="btn btn-warning" data-dismiss="modal" aria-label="Close"><span th:text="#{common.peruuta}"></span></button>
               <button type="submit" class="btn btn-danger nappi-oikea">
