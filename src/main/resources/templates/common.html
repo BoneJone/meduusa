@@ -456,7 +456,9 @@
     <div th:fragment="poistuprojektista">
       <div class="modal fade" id="poistuProjektistaModal" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
-        <form method="post" th:action="@{'/projekti/' + ${projekti.id} + '/jasenen-merkinnat'}">
+        <form method="post" th:action="@{'/projekti/poistu-projektista'}">
+       	<!--  <form th:action="@{/projekti/muokkaa-merkintaa}" method="post">
+        	 -->
         	<!-- Muistiinpanona jemmassa t:Pasi <form method="post" th:action="@{'/projekti/' + ${projekti.id} + '/lisaajasen'}"> -->
           <div class="modal-content modaalisisalto">
             <div class="modal-header modaaliotsikko">
@@ -464,8 +466,10 @@
                  <span class="fa fa-times" aria-hidden="true"></span>
               </button>
               <h4 class="modal-title"><span th:text="#{proj.projekti.poistumisvarmistus}"></span></h4>
+              <input type="hidden" name="kayttajaId" id="kayttajaId" th:value="${kayttajaId}" />
+      		  <input type="hidden" name="projektiId" id="projektiId" th:value="${projekti.id}" />
             </div>
-
+                        
             <div class="modal-footer">
     		  <button type="button" class="btn btn-warning" data-dismiss="modal" aria-label="Close"><span th:text="#{common.peruuta}"></span></button>
               <button type="submit" class="btn btn-danger nappi-oikea">

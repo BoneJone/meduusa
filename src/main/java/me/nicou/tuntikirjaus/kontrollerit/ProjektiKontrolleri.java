@@ -159,6 +159,29 @@ public class ProjektiKontrolleri {
 		return "redirect:/projekti/" + projektiId + "/jasen/" + kayttajaId;
 	}
 	
+	@RequestMapping(value = "/projekti/poistu-projektista", method = RequestMethod.POST)
+	public String poistuProjektista (
+			Model model,
+			@RequestParam(value = "projektiId", required = true) Integer projektiId,
+			@RequestParam(value = "kayttajaId", required = true) Integer kayttajaId,
+			Principal principal) {
+		
+		try {			
+			Kayttaja kayttaja = new KayttajaImpl();
+			kayttaja.setSahkoposti(principal.getName());
+						
+			if (projektiDao.poistuProjektista(projektiId, kayttajaId)) {
+				logger.info("Projektista " + projektiId + " poistuminen onnistui!");
+			} else {
+				logger.info("Projektista " + projektiId + " poistuminen ei onnistunut!");
+			}	
+			
+		} catch (Exception ex) {
+			logger.error("Projektista poistuessa tapahtui virhe " + ex);
+		}		
+			return "redirect:/";	
+	}
+	
 	@RequestMapping(value = "/projekti/muokkaa-merkintaa", method = RequestMethod.POST)
 	public String muokkaaMerkintaa(
 			Model model,

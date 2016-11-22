@@ -41,7 +41,7 @@ public class ProjektiDaoImpl implements ProjektiDao {
 	
 	public List<Projekti> haeKayttajanProjektit(String sahkoposti) {
 		List<Projekti> projektit = new ArrayList<Projekti>();
-		String sql = "SELECT id, nimi, kuvaus, luontipaiva, (SELECT 0) AS yhteistunnit FROM Projektit p JOIN ProjektinJasenet pj ON p.id = pj.projekti_id WHERE pj.kayttaja_id = (SELECT id FROM Kayttajat WHERE sahkoposti = ?) ORDER BY id ASC";
+		String sql = "SELECT id, nimi, kuvaus, luontipaiva, (SELECT 0) AS yhteistunnit FROM Projektit p JOIN ProjektinJasenet pj ON p.id = pj.projekti_id WHERE pj.kayttaja_id = (SELECT id FROM Kayttajat WHERE sahkoposti = ? AND status_id=2) ORDER BY id ASC";
 		try {
 			RowMapper<Projekti> mapper = new ProjektiListaRowMapper();
 			projektit = jdbcTemplate.query(sql, new Object[] { sahkoposti }, mapper);
@@ -245,6 +245,17 @@ public class ProjektiDaoImpl implements ProjektiDao {
 			logger.error("Error merkintää päivittäessä " + ex);
 		}
 		return false;
+	}
+	
+	public boolean poistuProjektista (int projektiId, int kayttajaId) {
+		String sql = "UPDATE ProjektinJasenet SET status_id=3 WHERE projekti_id = ? AND kayttaja_id = ?";
+		try {			
+			return jdbcTemplate.update(sql, new Object[] { projektiId, kayttajaId}) == 1;
+		} catch (Exception ex) {
+			logger.error("Virhe poistuessa projektista " +ex);
+		}
+		return false;
+			
 	}
 
 }
