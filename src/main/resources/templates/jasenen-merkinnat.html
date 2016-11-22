@@ -48,12 +48,13 @@
     					<span th:if="${merkinta.tunnit - T(Math).floor(merkinta.tunnit) > 0}"><span th:text="${#numbers.formatDecimal((merkinta.tunnit - T(Math).floor(merkinta.tunnit)) * 60, 0, 0)}"></span>min</span>
 	              		<span th:if="${merkinta.tunnit > 0}" th:text="#{proj.aika.yhteensa}"></span>
 	              		<span th:if="${merkinta.tunnit == 0}" th:text="#{proj.projekti.eimerkintoja}"></span>
-	              	</span>
+	              			              	</span>
 	              </a>
-              </span>
-            </div>
+             </span>
+            </div>   
             <button type="button" class="btn btn-secondary btn-lg lisaysbtn" data-toggle="modal" data-target="#lisaaJasenModal"><span th:text="#{proj.projekti.lisaajasen}"></span></button>
-            <button type="button" class="btn btn-secondary btn-lg lisaysbtn" data-toggle="modal" data-target="#poistuProjektistaModal"><span th:text="#{proj.projekti.poistuprojektista}"></span></button>
+            <button type="button" th:if="${projekti.merkintaLista.merkinnat[0].kayttaja.id == kayttaja.id}" class="btn btn-secondary btn-lg lisaysbtn" data-toggle="modal" data-target="#poistuProjektistaModal"><span th:text="#{proj.projekti.poistuprojektista}"></span></button>          
+         
             <a th:href="@{'/projekti/' + ${projekti.id}}" class="btn btn-secondary btn-lg lisaysbtn"><span th:text="#{proj.projekti.naytakaikki}"></span></a>
           </div>
           </div>
@@ -130,8 +131,8 @@
     <div th:include="common :: lisaajasen"></div>
 
  	<!-- Poistu projektista modali -->
- 	<!-- Tähän pitää tehdä IF-lauseke, näytetään vain jos omat merkinnät valittu -->
     <div th:include="common :: poistuprojektista"></div>
+
 
 	</div>
 	</div>
