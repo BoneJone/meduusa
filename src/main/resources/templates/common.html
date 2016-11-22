@@ -452,5 +452,32 @@
       </div><!-- /.modal -->
      </div>
      
+        <!-- Poistu projektista modali -->
+    <div th:fragment="poistuprojektista">
+      <div class="modal fade" id="poistuProjektistaModal" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <form method="post" th:action="@{'/projekti/' + ${projekti.id} + '/jasenen-merkinnat'}">
+        	<!-- Muistiinpanona jemmassa t:Pasi <form method="post" th:action="@{'/projekti/' + ${projekti.id} + '/lisaajasen'}"> -->
+          <div class="modal-content modaalisisalto">
+            <div class="modal-header modaaliotsikko">
+              <button type="button" class="close modaaliotsikko" data-dismiss="modal" aria-label="Close">
+                 <span class="fa fa-times" aria-hidden="true"></span>
+              </button>
+              <h4 class="modal-title"><span th:text="#{proj.projekti.poistumisvarmistus}"></span></h4>
+            </div>
+
+            <div class="modal-footer">
+    		  <button type="button" class="btn btn-warning" data-dismiss="modal" aria-label="Close"><span th:text="#{common.peruuta}"></span></button>
+              <button type="submit" class="btn btn-danger nappi-oikea">
+	              <i class="fa fa-trash" aria-hidden="true"></i>
+	              <span th:text="#{proj.projekti.poistumisvarmistusnappula}"></span>
+              </button>
+            </div>
+          </div><!-- /.modal-content -->
+          </form>
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+     </div>
+     
 </body>
 </html>

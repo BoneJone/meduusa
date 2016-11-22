@@ -53,6 +53,7 @@
               </span>
             </div>
             <button type="button" class="btn btn-secondary btn-lg lisaysbtn" data-toggle="modal" data-target="#lisaaJasenModal"><span th:text="#{proj.projekti.lisaajasen}"></span></button>
+            <button type="button" class="btn btn-secondary btn-lg lisaysbtn" data-toggle="modal" data-target="#poistuProjektistaModal"><span th:text="#{proj.projekti.poistuprojektista}"></span></button>
             <a th:href="@{'/projekti/' + ${projekti.id}}" class="btn btn-secondary btn-lg lisaysbtn"><span th:text="#{proj.projekti.naytakaikki}"></span></a>
           </div>
           </div>
@@ -127,6 +128,9 @@
 
     <!-- Lisää jäsen modali -->
     <div th:include="common :: lisaajasen"></div>
+
+ 	<!-- Poistu projektista modali -->
+    <div th:include="common :: poistuprojektista"></div>
 
 	</div>
 	</div>
