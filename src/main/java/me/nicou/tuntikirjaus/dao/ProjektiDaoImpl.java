@@ -57,10 +57,10 @@ public class ProjektiDaoImpl implements ProjektiDao {
 		merkintaLista.setMerkinnat(new ArrayList<Merkinta>());
 		projekti.setMerkintaLista(new MerkintaListaImpl());
 		projekti.getMerkintaLista().setMerkinnat(new ArrayList<Merkinta>());
-		String sql = "SELECT p.id, p.nimi, p.kuvaus, p.luontipaiva, SUM(m.tunnit) AS yhteistunnit FROM Projektit p LEFT JOIN ProjektinJasenet pj ON p.id = pj.projekti_id LEFT JOIN Merkinnat m ON p.id = m.projekti_id WHERE (SELECT 1 FROM ProjektinJasenet WHERE kayttaja_id = (SELECT id FROM Kayttajat WHERE sahkoposti = ?) AND projekti_id = ?) = 1 AND p.id = ? AND pj.status_id = 2 ORDER BY id DESC;";
+		String sql = "SELECT p.id, p.nimi, p.kuvaus, p.luontipaiva, (SELECT SUM(tunnit) FROM Merkinnat WHERE projekti_id = ?) AS yhteistunnit FROM Projektit p LEFT JOIN ProjektinJasenet pj ON p.id = pj.projekti_id LEFT JOIN Merkinnat m ON p.id = m.projekti_id WHERE (SELECT 1 FROM ProjektinJasenet WHERE kayttaja_id = (SELECT id FROM Kayttajat WHERE sahkoposti = ?) AND projekti_id = ?) = 1 AND p.id = ? AND pj.status_id = 2 GROUP BY p.id ORDER BY id DESC";
 		try {
 			RowMapper<Projekti> mapper = new ProjektiListaRowMapper();
-			projekti = jdbcTemplate.queryForObject(sql, new Object[] { sahkoposti, projektiId, projektiId }, mapper);
+			projekti = jdbcTemplate.queryForObject(sql, new Object[] { projektiId, sahkoposti, projektiId, projektiId }, mapper);
 		} catch (EmptyResultDataAccessException ex) {
 			logger.debug("Käyttäjä yritti hakea projektia jota ei löytynyt tai johon ei kuulu");
 			return projekti;
@@ -100,10 +100,10 @@ public class ProjektiDaoImpl implements ProjektiDao {
 		Projekti projekti = new ProjektiImpl();
 		MerkintaLista merkintaLista = new MerkintaListaImpl();
 		merkintaLista.setMerkinnat(new ArrayList<Merkinta>());
-		String sql = "SELECT p.id, p.nimi, p.kuvaus, p.luontipaiva, SUM(m.tunnit) AS yhteistunnit FROM Projektit p LEFT JOIN ProjektinJasenet pj ON p.id = pj.projekti_id LEFT JOIN Merkinnat m ON p.id = m.projekti_id WHERE (SELECT 1 FROM ProjektinJasenet WHERE kayttaja_id = (SELECT id FROM Kayttajat WHERE sahkoposti = ?) AND projekti_id = ?) = 1 AND p.id = ? AND pj.status_id = 2 ORDER BY id DESC;";
+		String sql = "SELECT p.id, p.nimi, p.kuvaus, p.luontipaiva, (SELECT SUM(tunnit) FROM Merkinnat WHERE projekti_id = ?) AS yhteistunnit FROM Projektit p LEFT JOIN ProjektinJasenet pj ON p.id = pj.projekti_id LEFT JOIN Merkinnat m ON p.id = m.projekti_id WHERE (SELECT 1 FROM ProjektinJasenet WHERE kayttaja_id = (SELECT id FROM Kayttajat WHERE sahkoposti = ?) AND projekti_id = ?) = 1 AND p.id = ? AND pj.status_id = 2 GROUP BY p.id ORDER BY id DESC";
 		try {
 			RowMapper<Projekti> mapper = new ProjektiListaRowMapper();
-			projekti = jdbcTemplate.queryForObject(sql, new Object[] { sahkoposti, projektiId, projektiId }, mapper);
+			projekti = jdbcTemplate.queryForObject(sql, new Object[] { projektiId, sahkoposti, projektiId, projektiId }, mapper);
 		} catch (EmptyResultDataAccessException ex) {
 			logger.debug("Käyttäjä yritti hakea projekti jota ei löytynyt tai johon ei kuulu");
 			return projekti;
