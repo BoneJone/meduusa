@@ -30,6 +30,8 @@ import me.nicou.tuntikirjaus.bean.Merkinta;
 import me.nicou.tuntikirjaus.bean.MerkintaImpl;
 import me.nicou.tuntikirjaus.bean.Projekti;
 import me.nicou.tuntikirjaus.bean.ProjektiImpl;
+import me.nicou.tuntikirjaus.bean.Viesti;
+import me.nicou.tuntikirjaus.bean.ViestiImpl;
 import me.nicou.tuntikirjaus.dao.KayttajaDaoImpl;
 import me.nicou.tuntikirjaus.dao.ProjektiDaoImpl;
 import me.nicou.tuntikirjaus.utility.Slack;
@@ -255,8 +257,11 @@ public class ProjektiKontrolleri {
 			Model model,
 			@PathVariable Integer projektiId,
 			@RequestParam(value = "sahkoposti", required = true) String sahkoposti,
-			Principal principal, @Valid Kayttaja kayttaja, BindingResult result
+			Principal principal, @Valid Kayttaja kayttaja, BindingResult result,
+			RedirectAttributes ra
 			) {
+		
+		Viesti viesti = new ViestiImpl();
 				
 		if (result.hasErrors()) {
 			logger.info("Käyttäjän " + sahkoposti + " lisäys projektiin " + projektiId + " ei onnistunut");
@@ -265,10 +270,13 @@ public class ProjektiKontrolleri {
 			
 			if (success) {
 				logger.info("Käyttäjä " + sahkoposti + " lisätty projektiin " + projektiId);
+				//viesti = new ViestiImpl("Onnistui!", "Käyttäjä lisätty projektiin", "success");
 			} else {
 				logger.info("Käyttäjän " + sahkoposti + " lisäys projektiin " + projektiId + " ei onnistunut");
+				//viesti = new ViestiImpl("Virhe!", "Käyttäjän lisäyksessä tapahtui virhe!", "error");
 			}
 		}
+		//ra.addFlashAttribute(viesti);
 		return "redirect:/projekti/" + projektiId;
 	}
 	
