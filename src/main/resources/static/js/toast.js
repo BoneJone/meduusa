@@ -12,3 +12,17 @@
 	});
 	
 	
+// Toast funktio
+
+var naytaToast = function(otsikko, viesti, tyyppi) {
+	$.toast({
+		heading: otsikko,
+		text: viesti,
+		icon: tyyppi,
+		loader: false,
+		position: {
+			top: 60,
+			right: 5,
+		}
+	});
+}
