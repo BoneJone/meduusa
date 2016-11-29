@@ -4,6 +4,7 @@
     <title th:text="${'Meduusa | ' + projekti.nimi}"></title>
     <th:block th:include="common :: header"></th:block>
     <th:block th:include="common :: skriptit"></th:block>
+
   </head>
   <body>
 
@@ -20,7 +21,6 @@
       	<!-- Wrapperi joka antaa sidebarin verran marginia -->
       	<div class="main-contentti">
       	<div class="row">
-      	
       	<!-- Mobiilin lisää merkintä -nappi -->
         <div class="col-sm-12 hidden-lg-up">
           <div class="row">
@@ -144,6 +144,6 @@
     <script th:if="${viesti == 'Tuntivirhe'}">
 		$('#merkintaModal').modal('show');
 	</script>
-
+	<script th:src="@{/js/toast.js}"></script>
   </body>
 </html>

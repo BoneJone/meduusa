@@ -3,8 +3,7 @@ body {
 	padding-top: 45px;
 	background-color: #ecf0f2;
 }
-
-/* Yl√§palkki ja sen komponentit */
+/* Yl‰palkki ja sen komponentit */
 .ylapalkki {
 	background: #4FC3F7 !important;
 	box-shadow: 0 2px 10px 3px rgba(0, 0, 0, 0.2);
@@ -12,7 +11,7 @@ body {
 	padding: 0px;
 	margin: 0px;
 }
-
+/*  Yl‰navigoinnin lis‰‰ merkint‰ nappi   */
 .ylapalkki button {
 	background-color: #222c31;
 	border: none;
@@ -20,18 +19,21 @@ body {
 	box-shadow: 0 1px 4px rgba(0,0,0,0.2);
 	margin: 7px;
 	outline: none;
-	-o-transition: background-color 0.2s linear;
-	-moz-transition: background-color 0.2s linear;
-	-khtml-transition: background-color 0.2s linear;
-	-webkit-transition: background-color 0.2s linear;
-	-ms-transition: background-color 0.2s linear;
-	transition: background-color 0.2s linear;
+	-o-transition: all 50ms linear;
+	-moz-transition: all 50ms linear;
+	-khtml-transition: all 50ms linear;
+	-webkit-transition: all 50ms linear;
+	-ms-transition: all 50ms linear;
+	transition: all 50ms linear;
+}
+.ylapalkki button:hover {
+	background: #222c31;
+	color: #fff;
+	transform: scale(0.99);
+	box-shadow: 0 3px 4px rgba(0,0,0,0.3);
 }
 .ylapalkki button:active {
-	outline: none !important;
-	border: none !important;
-	background-color: #222c31 !important;
-	color: #fff !important;
+	background-color: inherit;
 	transform: scale(0.97);
 }
 .ylapalkki button:focus {
@@ -40,16 +42,11 @@ body {
 	background-color: #222c31 !important;
 	color: #fff !important;
 	}
-.ylapalkki button:hover {
-	background: #222c31;
-	font-weight:bold;
-	color: #fff;
-	box-shadow: 0 5px 6px rgba(0,0,0,0.3);
-}
+/* Mobiilin‰kym‰n lis‰‰ merkint‰ nappi */
 .lisaamerkintabtn {
 	width: 170px;
 }
-
+/* Navigointipalkin meduusa logo */
 .nav-logo {
 	margin-left: 15px;
 	padding: 0px;
@@ -67,12 +64,10 @@ body {
 	z-index: 100;
 	padding:0px;
 }
-
+/*Sivupalkin linkit*/
 .sivupalkki ul {
 	padding-top: 10px;
-	
 }
-
 .sivupalkki ul li a {
 	padding-left: 10px;
 	font-weight: bold;
@@ -88,12 +83,10 @@ body {
 	-ms-transition: color 0.2s linear;
 	transition: color 0.2s linear;
 }
-
 .sivupalkki ul li a:hover {
 	text-decoration: none;
 	color: #d9eef9 !important;
 	background: #151b1e;
-	
 }
 .sivupalkki .active {
 	background:#151b1e;
@@ -102,14 +95,12 @@ body {
 .sivupalkki .active a {
 	color: #adbcc4 !important;
 }
-
 .sivupalkki .fa-chevron-down {
 	float: right;
 	margin-top: 9px;
 	margin-right: 15px;
 }
-
-/* Sivupalkki - K√§ytt√§j√§n nimi ja profiilikuva */
+/* Sivupalkki - K‰ytt‰j‰n nimi ja profiilikuva */
 .kayttaja {
 	margin-top: 30px;
 	margin-left: 10px;
@@ -123,41 +114,34 @@ body {
 	margin-right: 7px;
 	border-radius: 50%;
 }
-
 .kayttaja span {
 	font-size: 20px;
 	margin-top: 50px;
 	display:table-cell;
 	vertical-align: middle;
 }
-
 .kayttaja p {
 	color: white;
 	font-size: 20px;
 }
-
 /* Sivupalkki - Projektilistan nappi ja sis√§lt√∂ */
 .projekti-btn-collapse {
 	color: #4c626d;
 	font-size: 18px;
 	margin-left: -12px;
 }
-
 .projekti-btn-collapse:focus {
 	outline: 0;
 }
-
 .projektisisalto {
 	margin-top: 5px;
 	margin-left: 5px;
 }
-
 .projektisisalto ul {
 	list-style-type: none;
 	margin-left: -20px;
 	margin-top: -15px;
 }
-
 .projektisisalto .active {
 	background:none;
 	font-weight: bold !important;
@@ -170,7 +154,6 @@ body {
 	color: #2ebcfc !important;
 	line-height: 2.4em;
 }
-
 .projektisisalto ul li a {
 	list-style-type: none;
 	font-size: 16px;
@@ -185,10 +168,8 @@ body {
 }
 /* Content etusivulla  */
 .etusivu-sisalto {
-	
 	float: none;
 	margin: 40px auto;
-	
 }
 .etusivu-content {
 	margin-right: 0;
@@ -221,7 +202,6 @@ body {
 .etusivu-projektilista {
 	margin-top: 20px;
 }
-
 /* ETUSIVU PROJEKTIT */
 
 
@@ -265,19 +245,16 @@ body {
 	margin: 0px;
 	padding: 0px;
 }
-
 /* Main content */
 .main-contentti {
 	margin-right: 15px;
 	margin-bottom: 15px;
 }
-
 /* Main-content wrapperille left marginia kun sivupalkki esill√§ */
 @media ( min-width :992px) {
 	.main-contentti {
 		margin-left: 250px;
 	}
-	
 }
 @media (max-width: 992px){
 	.main-contentti {
@@ -296,31 +273,23 @@ body {
 	padding: 0px;
 	}
 }
-
-
-
 /* Projektin p√§√§sivulla wrapper projektin nimelle, kuvaukselle ja yhteistunneille */
 .projekti-yhteenveto {
 	margin: 30px 0px 30px 0px;
-	
 }
-
 /* Projektin j√§senten ja merkint√∂jen tyylit */
 .profiili {
 	margin-bottom: 20px;
 	font-size: 13px;
 }
-
 .profiili .list-group, .taulukko .list-group {
 	box-shadow: 0px 0px 15px 4px rgba(0, 0, 0, 0.1);
 }
-
 .profiili li, .taulukko li {
 	background: #222c31 !important;
 	border: #222c31 !important;
 	font-size: 11pt;
 }
-
 .profiilikuva {
 	width: 36px;
 	height: 36px;
@@ -332,13 +301,11 @@ body {
 	height: 100px;
 	border-radius: 50%;
 }
-
 .lisaysbtn {
 	margin-top: 10px;
 	width: 100%;
 	box-shadow: 0px 0px 15px 2px rgba(0, 0, 0, 0.1);
 }
-
 /* Projektin tuntien listaus */
 .taulukko {
 	background: #fff;
@@ -346,41 +313,30 @@ body {
 	box-shadow: 2px 2px 8px 3px rgba(0, 0, 0, 0.1);
 	padding: 0px;
 }
-
 .taulukko .tuntilista {
 	width: 100%;
 	max-width: auto;
 }
-
 .tuntilista-wrapper {
 	padding: 10px 10px 0px 10px;
 }
-
 .muokkaabtn {
 	background: #2ebcfc !important;
 	border: #2ebcfc !important;
 	margin-left: 13px;
 }
-
 .paginaatio {
 	text-align: center;
 	margin-top: 0;
 	padding-top: 0;
 }
-
-.paginaatio ul li a {
-	
-}
-
 .paginaatio ul li a:hover {
 	text-decoration: none;
 }
-
 .nappi {
 	padding-top: 20px;
 	text-align: center;
 }
-
 .nappi button {
 	height: 80px;
 	width: 100%;
@@ -389,33 +345,27 @@ body {
 	background: #2ebcfc !important;
 	border: #2ebcfc !important;
 }
-
 .kirjaudu {
 	position: fixed;
 	bottom: 0;
 	display: block;
 	margin-bottom: 30px;
 }
-
 .kirjaudu li {
 	list-style-type: none;
 }
-
 .kirjaudu li a {
 	color: #4c626d;
 	font-size: 18px;
 }
-
 .slackbox {
 	margin-top: 10px;
 }
-
 /*loginsivu.html css */
 .logini {
 	margin: 0 auto;
 	float: none;
 }
-
 .logini img {
 	max-width: 100%;
 	margin: 0 auto;
@@ -426,19 +376,15 @@ body {
 	top: 0px;
 	right: 0px;
 }
-
 .sposti {
 	margin-top: 20px;
 }
-
 .salasana {
 	margin-top: 10px;
 }
-
 .muistaminut {
 	margin-top: 10px;
 }
-
 .loginbtn {
 	width: 100%;
 	background: #2ebcfc !important;
@@ -469,7 +415,6 @@ body {
 .projektiCollapse {
 	float:right;
 }
-
 /* TESTIII */
 
 .navbar-nav hr{
@@ -554,7 +499,6 @@ body {
 	background: #4FC3F7;
 	color: #fff;
 }
-
 .modaaliotsikko > .close {
 	color: #cef0ff;
 	opacity: 1 !important;
@@ -569,7 +513,6 @@ body {
 .modaaliotsikko > .close:hover {
 	color: #fff;
 }
-
 .modaalijalka {
 	border-top: none;
 }
@@ -580,32 +523,26 @@ body {
 a, a:active, a:focus, button, button:active, button:focus  {
 	outline: 0;
 }
-
 /* Yleinen kiva varjo jonka voi antaa bokseille */
 .boksivarjo {
 	box-shadow: 2px 2px 8px 3px rgba(0, 0, 0, 0.1);
 }
-
 /* Voidaan antaa textareoille jos ei haluta ett√§ on resizable */
 .noresize {
 	resize: none;
 }
-
 /* Vasemmanpuoleisille modalin napeille right margin */
 .nappi-oikea {
 	margin-left: 10px;
 }
-
 /* Valkonen tausta containerille */
 .valkotausta {
 	background-color: #fff;
 }
-
 /* Vihre√§ v√§ri yhteistuntien tekstille */
 .vihrea {
 	color: #2a752f;
 }
-
 /* Pienempi fontti form validation erroreille */
 .form-control-feedback {
 	font-size: 0.8em;
