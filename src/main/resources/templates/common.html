@@ -30,6 +30,9 @@
 		});
     });
     </script>
+    <script th:if="${null != null}" type="text/javascript" th:inline="javascript">
+		naytaToast([[${viesti.otsikko}]], [[${viesti.viesti}]], [[${viesti.tyyppi}]]);
+	</script>
 </th:block>
 
 <body>
